@@ -167,10 +167,14 @@ function createCartRow(item) {
     const row = document.createElement('div');
     row.className = 'cart-item-row';
 
+    // Generate proper image path (item.img is just the filename now)
+    const imgSrc = `assets/img/products/${item.img}-600.jpg`;
+
     row.innerHTML = `
-        <img src="${item.img}"
+        <img src="${imgSrc}"
              alt="${item.name}"
              class="cart-img"
+             loading="lazy"
              onerror="this.src='assets/img/placeholder.jpg'">
 
         <div class="cart-info">
