@@ -5,7 +5,9 @@
       "Bash(dir:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(node -e:*)"
+      "Bash(node -e:*)",
+      "Bash(current-password)",
+      "Bash(new-password\"\n- assets/js/products.js: removed inline flex/font-size styles\n- assets/css/components.css: added .btn-specs, .btn-add-cart classes\n- assets/img/og-image.png: optimized with Sharp (PNG compression)\n\n## Performance Impact\n- Image size: -156KB (71% reduction on og-image)\n- Autocomplete: Better UX for password managers\n- CSS cleanup: Improved maintainability\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n)\")"
     ]
   }
 }
