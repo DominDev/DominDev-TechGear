@@ -52,7 +52,7 @@ export function initScrollReveal(selector = '.reveal', options = {}) {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('active');
+                entry.target.classList.add('visible'); // ZMIENIONO: active -> visible
                 // Optionally unobserve after reveal (performance optimization)
                 // observer.unobserve(entry.target);
             }

@@ -101,6 +101,7 @@
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: var(--spacing-md);
     perspective: 1000px;
+    align-items: start; /* KLUCZOWE: Zapobiega rozciąganiu sąsiednich kart */
 }
 
 .card {
@@ -699,12 +700,6 @@
 /* User display utilities */
 .user-hidden {
     display: none;
-}
-
-/* Hero description spacing */
-.hero-description {
-    margin-top: 1rem;
-    max-width: 300px;
 }
 
 /* Product action buttons */

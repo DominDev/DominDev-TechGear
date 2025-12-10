@@ -215,7 +215,7 @@ export function renderProducts(productsToRender = products) {
     // Trigger scroll reveal animations
     setTimeout(() => {
         document.querySelectorAll('.card.reveal').forEach(el => {
-            el.classList.add('active');
+            el.classList.add('visible'); // ZMIENIONO: active -> visible
         });
     }, 100);
 }
