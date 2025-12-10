@@ -26,13 +26,15 @@ W wyniku przeprowadzonego audytu zidentyfikowano **3 krytyczne problemy** związ
 - Treść zajmowała zbyt mało miejsca na szerokich ekranach
 - Wizualnie niezgodne z zamierzonym designem
 
-**Przyczyna Źródłowa:**
+**Przyczyna Źródłowa (Wielopoziomowa):**
 1. Kontener `.container` nie miał `width: 100%`, co powodowało kurczenie się wewnątrz Flexboxa
 2. Element `.hero-content` miał zbyt wąski `max-width: 800px`
+3. **KLUCZOWE:** Element `.hero-description` miał sztywny `max-width: 700px`
+4. **HTML SABOTAŻ:** Hardcoded `<br>` w opisie wymuszał łamanie linii
 
 **Analiza Techniczna:**
 ```css
-/* PROBLEM: */
+/* PROBLEM CSS: */
 .container {
     max-width: var(--container-width);
     margin: 0 auto;
@@ -42,11 +44,28 @@ W wyniku przeprowadzonego audytu zidentyfikowano **3 krytyczne problemy** związ
 .hero-content {
     max-width: 800px; /* Za wąsko na dużych ekranach */
 }
+
+.hero-description {
+    max-width: 700px; /* ❌ GŁÓWNY WINOWAJCA - tekst w wąskim słupku */
+}
+```
+
+```html
+<!-- PROBLEM HTML: -->
+<p class="hero-description">
+    Elite gaming hardware engineered for total domination.<br>
+    <!-- ❌ Hardcoded <br> wymusza łamanie linii -->
+    Precision tools for the digital battlefield.
+</p>
 ```
 
 W CSS Flexbox, element-dziecko (tutaj `.container`) **domyślnie kurczy się do szerokości swojej zawartości** (shrink-to-fit), chyba że ma jawnie nadaną szerokość. `margin: 0 auto` centrował ten skurczony blok na środku ekranu.
 
-### Rozwiązanie
+**KRYTYCZNA OBSERWACJA:** Dopóki znaczniki `<br>` były w HTML, możesz ustawić `width: 2000px` w CSS, a tekst i tak będzie wyglądał jak wąski słupek, bo przeglądarka ma nakaz złamania linii w konkretnym miejscu.
+
+### Rozwiązanie (Trzy Poziomy Poprawek)
+
+#### Poziom 1: CSS Base Container
 
 **Plik: `assets/css/base.css` (linia 214-220)**
 ```css
@@ -59,22 +78,56 @@ W CSS Flexbox, element-dziecko (tutaj `.container`) **domyślnie kurczy się do 
 }
 ```
 
+#### Poziom 2: CSS Hero Content
+
 **Plik: `assets/css/layout.css` (linia 282-289)**
 ```css
 .hero-content {
     position: relative;
     z-index: 2;
     width: 100%; /* ✅ DODANO: Wykorzystuje dostępne miejsce */
-    max-width: 1100px; /* ✅ ZWIĘKSZONO z 800px */
+    max-width: 1200px; /* ✅ ZWIĘKSZONO z 800px -> 1100px -> 1200px */
     padding-left: 2rem;
     border-left: 4px solid var(--color-tactical-orange);
 }
+```
+
+#### Poziom 3: CSS Hero Description
+
+**Plik: `assets/css/layout.css` (linia 296-303)**
+```css
+.hero-description {
+    font-family: var(--font-body);
+    color: var(--color-text-secondary);
+    max-width: 900px; /* ✅ ZWIĘKSZONO z 700px dla szerszego tekstu */
+    margin-bottom: var(--spacing-lg);
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+```
+
+#### Poziom 4: HTML - Usunięcie Hardcoded Breaks
+
+**Plik: `index.html` (linia 202-204)**
+```html
+<!-- ✅ PRZED: -->
+<p class="hero-description">
+    Elite gaming hardware engineered for total domination.<br>
+    Precision tools for the digital battlefield.
+</p>
+
+<!-- ✅ PO: -->
+<p class="hero-description">
+    Elite gaming hardware engineered for total domination. Precision tools for the digital battlefield.
+</p>
 ```
 
 **Efekt:**
 - Kontener rozciąga się do pełnej szerokości (max 1440px)
 - Hero zajmuje więcej miejsca, lepszy wygląd na dużych ekranach
 - Treść nie jest już "ściśnięta" na środku
+- Tekst opisu może "rozlać się" swobodnie na większą szerokość bez wymuszonych łamań linii
+- Wizualnie masywna i szeroka sekcja z zachowaniem lewostronnego wyrównania
 
 ---
 
@@ -239,24 +292,26 @@ document.querySelectorAll('.card.reveal').forEach(el => {
 
 ## 📊 PODSUMOWANIE ZMIAN
 
-### Zmienione Pliki (6)
+### Zmienione Pliki (7)
 
 | Plik | Linie | Typ Zmiany | Priorytet |
 |------|-------|------------|-----------|
 | `assets/css/base.css` | 215 | Dodano `width: 100%` | 🔴 Krytyczny |
-| `assets/css/layout.css` | 285-286 | Dodano `width: 100%`, zwiększono `max-width` | 🔴 Krytyczny |
+| `assets/css/layout.css` | 286 | Dodano `width: 100%`, zwiększono `max-width` do 1200px | 🔴 Krytyczny |
+| `assets/css/layout.css` | 299 | Zwiększono `max-width` do 900px w `.hero-description` | 🔴 Krytyczny |
 | `assets/css/components.css` | 104 | Dodano `align-items: start` | 🟠 Wysoki |
 | `assets/css/animations.css` | 316, 330, 344, 358 | Zmieniono `.active` → `.visible` | 🔴 Krytyczny |
 | `assets/js/utils.js` | 55 | Zmieniono `classList.add('active')` → `'visible'` | 🔴 Krytyczny |
 | `assets/js/products.js` | 218 | Zmieniono `classList.add('active')` → `'visible'` | 🔴 Krytyczny |
+| `index.html` | 203 | Usunięto hardcoded `<br>` z hero-description | 🔴 Krytyczny |
 
 ### Statystyki
 
-- **Liczba problemów:** 3
-- **Liczba naprawionych:** 3 ✅
-- **Plików zmienionych:** 6
-- **Linii kodu zmienionych:** ~12
-- **Czas realizacji:** ~45 minut
+- **Liczba problemów:** 3 (z 4 pod-problemami w Hero Section)
+- **Liczba naprawionych:** 3 ✅ (wszystkie pod-problemy rozwiązane)
+- **Plików zmienionych:** 7
+- **Linii kodu zmienionych:** ~15
+- **Czas realizacji:** ~60 minut
 
 ---
 
@@ -283,6 +338,18 @@ document.querySelectorAll('.card.reveal').forEach(el => {
    - Animacje scroll reveal → osobna klasa (`.visible`)
    - Stany komponentów → osobna klasa (`.active`)
    - Nie mieszaj logiki!
+
+5. **HTML vs CSS - Hierarchia Kontroli:**
+   - **KRYTYCZNA LEKCJA:** Hardcoded `<br>` w HTML > CSS `max-width`
+   - Przeglądarka **zawsze** respektuje wymuszenia HTML (jak `<br>`)
+   - Możesz ustawić `width: 10000px` w CSS, ale `<br>` złamie linię niezależnie od tego
+   - **Zasada:** Jeśli CSS nie działa, sprawdź HTML - może być "sabotaż"
+
+6. **Debugowanie Layoutu - Wielopoziomowe Podejście:**
+   - Problem layoutu może mieć **wiele warstw przyczyn** jednocześnie
+   - Nie poprzestaj na pierwszej znalezionej przyczynie
+   - Sprawdź: kontener → dziecko → wnuki → HTML markup
+   - W przypadku Hero: container → hero-content → hero-description → `<br>` w HTML
 
 ### Rekomendacje na Przyszłość
 
