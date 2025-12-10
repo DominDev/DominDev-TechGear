@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,14 +11,14 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="TechGear | Elite Gaming Hardware - Upgrade Reality">
     <meta property="og:description" content="Premium gaming peripherals engineered for total domination. Precision tools for the digital battlefield.">
-    <meta property="og:image" content="https://domindev.github.io/DominDev-TechGear/assets/img/og-image.jpg">
+    <meta property="og:image" content="https://domindev.github.io/DominDev-TechGear/assets/img/og-image.png">
     <meta property="og:url" content="https://domindev.github.io/DominDev-TechGear/">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="TechGear | Elite Gaming Hardware">
     <meta name="twitter:description" content="Premium gaming peripherals with cyberpunk aesthetic.">
-    <meta name="twitter:image" content="https://domindev.github.io/DominDev-TechGear/assets/img/og-image.jpg">
+    <meta name="twitter:image" content="https://domindev.github.io/DominDev-TechGear/assets/img/og-image.png">
 
     <title>TechGear | Elite Gaming Hardware - Upgrade Reality</title>
 
@@ -26,8 +26,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Michroma&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <!-- Fonts - Optimized with font-display:swap and preload -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Rajdhani:wght@600;700&family=Share+Tech+Mono&display=swap" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Rajdhani:wght@600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Rajdhani:wght@600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"></noscript>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="assets/css/base.css">
@@ -73,7 +75,7 @@
             <button class="modal-close" id="authClose" aria-label="Close authentication modal">✕</button>
 
             <div class="auth-header">
-                <h2 class="text-h2" style="font-size: 1.5rem;">ACCESS CONTROL</h2>
+                <h2 class="text-h2">ACCESS CONTROL</h2>
                 <p class="text-code text-dim">/// SECURE_LOGIN_PROTOCOL</p>
             </div>
 
@@ -87,7 +89,7 @@
                     <label for="loginPassword" class="text-code">ACCESS_KEY:</label>
                     <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" required>
                 </div>
-                <button type="submit" class="btn btn-glitch" style="width: 100%;">GRANT ACCESS</button>
+                <button type="submit" class="btn btn-glitch btn-full-width">GRANT ACCESS</button>
             </form>
 
             <div class="auth-divider">
@@ -104,7 +106,7 @@
                     <label for="registerPassword" class="text-code">CREATE_PASSWORD:</label>
                     <input type="password" id="registerPassword" class="form-input" placeholder="••••••••" required>
                 </div>
-                <button type="submit" class="btn" style="width: 100%; border-color: var(--color-system-cyan); color: var(--color-system-cyan);">CREATE ACCOUNT</button>
+                <button type="submit" class="btn btn-full-width btn-cyan">CREATE ACCOUNT</button>
             </form>
         </div>
     </div>
@@ -113,8 +115,8 @@
     <aside class="cart-sidebar" id="cartSidebar" role="complementary">
         <div class="cart-header">
             <div>
-                <h2 class="text-h3" style="font-size: 1.2rem;">INVENTORY</h2>
-                <span class="text-code text-dim" style="font-size: 0.8rem;">/// SYSTEM_STATUS: ONLINE</span>
+                <h2 class="text-h3">INVENTORY</h2>
+                <span class="text-code text-dim">/// SYSTEM_STATUS: ONLINE</span>
             </div>
             <button class="cart-close" id="cartClose" aria-label="Close cart">✕</button>
         </div>
@@ -130,7 +132,7 @@
                 <span class="text-code">TOTAL_VALUE:</span>
                 <span class="text-h3 text-accent" id="cartTotalValue">0.00 PLN</span>
             </div>
-            <button class="btn btn-glitch" id="checkoutBtn" style="width: 100%;">INITIATE CHECKOUT</button>
+            <button class="btn btn-glitch btn-full-width" id="checkoutBtn">INITIATE CHECKOUT</button>
         </div>
     </aside>
 
@@ -153,11 +155,17 @@
                 <!-- User Actions -->
                 <div class="nav-actions">
                     <button class="nav-icon-btn" id="searchToggle" aria-label="Toggle search" title="Search">
-                        <span class="icon-search">🔍</span>
+                        <svg class="icon-search" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
                     </button>
                     <button class="nav-icon-btn" id="authToggle" aria-label="Login or register" title="Account">
-                        <span class="icon-user">🔐</span>
-                        <span class="user-name" id="userName" style="display: none;"></span>
+                        <svg class="icon-user" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        <span class="user-name user-hidden" id="userName"></span>
                     </button>
                     <button class="nav-icon-btn cart-btn-wrap" id="cartToggle" aria-label="View cart" title="Cart">
                         <span class="text-code">CART</span>
@@ -175,7 +183,7 @@
 
             <!-- Search Bar (hidden by default) -->
             <div class="search-bar" id="searchBar">
-                <input type="text" id="searchInput" class="search-input" placeholder="🔍 SEARCH GEAR..." aria-label="Search products">
+                <input type="text" id="searchInput" class="search-input" placeholder="SEARCH GEAR..." aria-label="Search products">
                 <button class="search-close" id="searchClose" aria-label="Close search">✕</button>
             </div>
         </div>
@@ -297,7 +305,7 @@
                         <div class="logo-icon"></div>
                         <span>TECH<span class="text-accent">GEAR</span>_</span>
                     </div>
-                    <p class="text-dim" style="margin-top: 1rem; max-width: 300px;">
+                    <p class="text-dim hero-description">
                         Elite gaming hardware for the digital battlefield. Engineered for champions.
                     </p>
                 </div>

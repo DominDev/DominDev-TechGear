@@ -6,6 +6,55 @@ const AUTH_STORAGE_KEY = 'techgear_auth';
 const USERS_STORAGE_KEY = 'techgear_users';
 
 let currentUser = loadAuthFromStorage();
+let focusTrapHandler = null;
+
+/**
+ * Enable focus trap inside modal for accessibility
+ * @param {HTMLElement} modal - Modal element
+ */
+function enableFocusTrap(modal) {
+    // Get all focusable elements
+    const focusableElements = modal.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    const focusableArray = Array.from(focusableElements);
+    const firstElement = focusableArray[0];
+    const lastElement = focusableArray[focusableArray.length - 1];
+
+    // Create handler for tab key
+    focusTrapHandler = (e) => {
+        if (e.key !== 'Tab') return;
+
+        if (e.shiftKey) {
+            // Shift + Tab: moving backwards
+            if (document.activeElement === firstElement) {
+                e.preventDefault();
+                lastElement.focus();
+            }
+        } else {
+            // Tab: moving forwards
+            if (document.activeElement === lastElement) {
+                e.preventDefault();
+                firstElement.focus();
+            }
+        }
+    };
+
+    modal.addEventListener('keydown', focusTrapHandler);
+}
+
+/**
+ * Disable focus trap
+ */
+function disableFocusTrap() {
+    if (focusTrapHandler) {
+        const modal = document.getElementById('authModal');
+        if (modal) {
+            modal.removeEventListener('keydown', focusTrapHandler);
+        }
+        focusTrapHandler = null;
+    }
+}
 
 /**
  * Hash password using Web Crypto API (SHA-256)
@@ -28,8 +77,27 @@ export function toggleAuthModal() {
     const modal = document.getElementById('authModal');
     const overlay = document.getElementById('overlayBg');
 
+    const isOpening = !modal.classList.contains('active');
+
     modal.classList.toggle('active');
     overlay.classList.toggle('active');
+
+    // Focus management for accessibility
+    if (isOpening) {
+        // Focus first input when modal opens
+        setTimeout(() => {
+            const firstInput = modal.querySelector('input:not([type="hidden"])');
+            if (firstInput) {
+                firstInput.focus();
+            }
+        }, 100); // Small delay to ensure modal is visible
+
+        // Add focus trap
+        enableFocusTrap(modal);
+    } else {
+        // Disable focus trap when closing
+        disableFocusTrap();
+    }
 }
 
 /**
@@ -163,19 +231,27 @@ export function updateAuthUI() {
         // User logged in
         const username = currentUser.email.split('@')[0].toUpperCase();
         userNameEl.textContent = `USER_${username}`;
-        userNameEl.style.display = 'inline';
+        userNameEl.classList.remove('user-hidden');
 
         // Change auth button to logout
         authToggle.innerHTML = `
-            <span class="icon-user">👤</span>
+            <svg class="icon-user" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
             <span class="user-name text-cyan">${username}</span>
         `;
         authToggle.onclick = logout;
         authToggle.title = 'Logout';
     } else {
         // User not logged in
-        userNameEl.style.display = 'none';
-        authToggle.innerHTML = `<span class="icon-user">🔐</span>`;
+        userNameEl.classList.add('user-hidden');
+        authToggle.innerHTML = `
+            <svg class="icon-user" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+        `;
         authToggle.onclick = toggleAuthModal;
         authToggle.title = 'Login or Register';
     }

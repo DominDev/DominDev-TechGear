@@ -90,22 +90,22 @@ function initProductFilters() {
 }
 
 /* ----------------------------------------------------------------------------
-   GLOBAL WINDOW FUNCTIONS (for inline onclick handlers)
+   GLOBAL WINDOW FUNCTIONS (Dev Mode Only - for console debugging)
    ---------------------------------------------------------------------------- */
 
-// Expose necessary functions to global window object for inline onclick
-window.addToCart = addToCart;
-window.changeQty = changeQty;
-window.removeItem = removeItem;
-window.toggleProductSpecs = toggleProductSpecs;
+// Expose functions in dev mode only for debugging
+if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    window.addToCart = addToCart;
+    window.changeQty = changeQty;
+    window.removeItem = removeItem;
+    window.toggleProductSpecs = toggleProductSpecs;
+}
 
 /* ----------------------------------------------------------------------------
    APP INITIALIZATION
    ---------------------------------------------------------------------------- */
 
 function initApp() {
-    console.log('%c🎮 TECHGEAR v4.0 INITIALIZED', 'color: #ff7700; font-size: 16px; font-weight: bold;');
-
     // 1. Start preloader animation
     initPreloader();
 
@@ -175,8 +175,8 @@ if (document.readyState === 'loading') {
    ---------------------------------------------------------------------------- */
 
 window.addEventListener('load', () => {
-    // Measure performance
-    if (window.performance && window.performance.timing) {
+    // Measure performance (dev mode only)
+    if ((window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && window.performance && window.performance.timing) {
         const timing = window.performance.timing;
         const loadTime = timing.loadEventEnd - timing.navigationStart;
         const domReadyTime = timing.domContentLoadedEventEnd - timing.navigationStart;

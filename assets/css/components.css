@@ -662,3 +662,47 @@
         height: 200px;
     }
 }
+
+/* --------------------------------------------------------------------------
+   [9] UTILITY CLASSES (to replace inline styles)
+   -------------------------------------------------------------------------- */
+
+/* Button variants */
+.btn-full-width {
+    width: 100%;
+}
+
+.btn-cyan {
+    border-color: var(--color-system-cyan);
+    color: var(--color-system-cyan);
+}
+
+.btn-cyan:hover {
+    background: var(--color-system-cyan);
+    color: var(--color-void-black);
+}
+
+/* Modal title sizing */
+.auth-modal .text-h2 {
+    font-size: 1.5rem;
+}
+
+/* Cart title sizing */
+.cart-sidebar .text-h3 {
+    font-size: 1.2rem;
+}
+
+.cart-sidebar .text-code.text-dim {
+    font-size: 0.8rem;
+}
+
+/* User display utilities */
+.user-hidden {
+    display: none;
+}
+
+/* Hero description spacing */
+.hero-description {
+    margin-top: 1rem;
+    max-width: 300px;
+}
