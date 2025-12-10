@@ -1,0 +1,57 @@
+# ============================================================================
+# .gitignore - TechGear Project
+# ============================================================================
+
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Development
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
+*.tmp
+
+# Build & Cache
+dist/
+build/
+.cache/
+.parcel-cache/
+
+# Environment
+.env
+.env.local
+.env.production
+
+# Image Originals (don't commit unoptimized images)
+**/originals/
+*.psd
+*.ai
+*.sketch
+
+# Temporary Files
+*.swp
+*.swo
+*~
+.tmp/
+
+# OS Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini
+
+# Testing
+coverage/
+.nyc_output/
+
+# Misc
+.sass-cache/
+*.css.map
+*.js.map

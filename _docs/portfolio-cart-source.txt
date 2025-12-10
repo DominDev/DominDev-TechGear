@@ -1,0 +1,60 @@
+Oto kompleksowy opis słowny projektu **TechGear** w jego ostatecznej wersji (v3.0 - Cyberpunk Interface).
+
+Ten dokument służy jako **karta produktu** dla Twojego projektu, którą możesz przedstawić interesariuszom lub wykorzystać w portfolio.
+
+---
+
+# 📄 Raport Projektowy: TechGear (Cyberpunk Edition)
+
+### 1. Wizja i Tożsamość (Concept)
+Strona **TechGear** nie jest typowym sklepem e-commerce. To **immersyjne doświadczenie cyfrowe**, stylizowane na interfejs HUD (Heads-Up Display) z gry wideo lub terminal wojskowy z przyszłości.
+Strona zaciera granicę między zakupami a gamingiem. Użytkownik nie "dodaje produktów do koszyka", lecz "konfiguruje swój ekwipunek (Inventory)". Całość nawiązuje do estetyki **Cyberpunk / Sci-Fi Industrial**.
+
+### 2. Główne Cele (Goals)
+* **Sprzedaż przez immersję:** Przekonanie klienta, że kupując sprzęt TechGear, staje się częścią elitarnej, futurystycznej społeczności.
+* **Prezentacja Premium:** Pokazanie produktów (myszy, klawiatury, audio) nie jako plastikowych gadżetów, ale jako zaawansowanej technologii wojskowej/kosmicznej.
+* **Szybkość i Responsywność:** Mimo bogatej warstwy wizualnej, strona ma działać błyskawicznie (High-Performance), bez przeładowań.
+
+### 3. Stylistyka i Design System (Visuals)
+Projekt opiera się na konwencji **"Game Intro Interface"**.
+
+* **Paleta Kolorów:**
+    * **Deep Void Black (`#020202`):** Głęboka czerń tła, symulująca wyłączony ekran lub przestrzeń kosmiczną.
+    * **Tactical Orange (`#ff7700`):** Główny kolor akcentowy. Energetyczny, ostrzegawczy, kojarzący się z systemami celowniczymi.
+    * **System Cyan (`#00f0ff`):** Kolor drugoplanowy dla danych technicznych i statusów systemu.
+* **Typografia:**
+    * Zastosowano mieszankę fontów: szerokiego, futurystycznego **Michroma** (nagłówki) oraz technicznego **Rajdhani** i **Share Tech Mono** (interfejs, dane liczbowe).
+* **Elementy Graficzne:**
+    * Siatka taktyczna w tle.
+    * Ścięte rogi przycisków i kart (Clip-path styling).
+    * Dekoratory HUD (celowniki w rogach ekranu, linie prowadzące).
+    * Efekty "Glitch" i aberracji chromatycznej przy interakcjach.
+
+### 4. Funkcjonalność i UX (Features)
+Strona posiada zaawansowaną logikę napisaną w Vanilla JS, która imituje działanie aplikacji typu SPA (Single Page Application):
+
+* **Inteligentny Koszyk (Inventory System):**
+    * **Grupowanie:** Dodanie tego samego produktu wielokrotnie nie tworzy nowych wierszy, lecz zwiększa licznik (np. `x3`).
+    * **Edycja w czasie rzeczywistym:** Możliwość zmiany ilości (`+` / `-`) oraz całkowitego usunięcia pozycji.
+    * **Live Calc:** Wartość koszyka przelicza się natychmiastowo na oczach użytkownika.
+* **Boczny Panel (Sidebar):** Koszyk nie jest osobną podstroną, lecz wysuwanym panelem bocznym, co pozwala na zakupy bez opuszczania widoku produktów.
+* **Mikro-interakcje:**
+    * Przyciski reagują na najechanie animacją "rozjeżdżania się" (glitch).
+    * Karty produktów lewitują i reagują cieniem.
+    * Licznik w koszyku aktualizuje się dynamicznie.
+
+### 5. Wartości Marki (Brand Values)
+Projekt komunikuje trzy główne wartości:
+1.  **Precyzja:** Matematyczny układ, techniczne fonty i siatki sugerują, że sprzęt jest wykonany z chirurgiczną dokładnością.
+2.  **Moc:** Agresywna, ciemna stylistyka obiecuje przewagę w grach i wysoką wydajność.
+3.  **Futuryzm:** Marka nie podąża za trendami, ona je wyprzedza. To sprzęt dla "early adopters".
+
+### 6. Mocne Strony Projektu (Key Strengths)
+* **Unikalność:** Wyróżnia się na tle standardowych, białych sklepów elektronicznych. Zapada w pamięć.
+* **Lekkość Kodu:** Brak ciężkich frameworków (React/Angular) czy bibliotek (Bootstrap/Tailwind). Czysty HTML/CSS/JS gwarantuje maksymalną wydajność i łatwość edycji.
+* **Skalowalność:** Logika JS jest modułowa – łatwo dodać nowe produkty do tablicy `products` bez ingerencji w kod HTML.
+* **Responsywność (RWD):** Interfejs "składa się" poprawnie na urządzeniach mobilnych, zachowując czytelność i futurystyczny charakter (ukryte menu, pełnoekranowy koszyk).
+
+---
+
+To projekt gotowy do wdrożenia jako **landing page sprzedażowy** lub **wizytówka marki high-tech**.

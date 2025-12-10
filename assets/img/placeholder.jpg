@@ -1,0 +1,7 @@
+<svg width="600" height="600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="600" fill="#0a0a0a"/>
+  <text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="#666" font-family="monospace" font-size="24">
+    IMAGE_NOT_FOUND
+  </text>
+  <polygon points="300,200 400,250 400,350 300,400 200,350 200,250" fill="none" stroke="#ff7700" stroke-width="2"/>
+</svg>

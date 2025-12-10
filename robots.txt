@@ -1,0 +1,11 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://domindev.github.io/DominDev-TechGear/sitemap.xml
+
+# Block specific paths (if needed)
+Disallow: /_docs/
+Disallow: /_scripts/
+Disallow: /assets/img/originals/
