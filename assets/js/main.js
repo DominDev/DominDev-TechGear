@@ -1,0 +1,199 @@
+/* ============================================================================
+   MAIN.JS - Application Entry Point & Initialization
+   ============================================================================ */
+
+import { renderProducts, filterProducts, searchProducts, toggleProductSpecs } from './products.js';
+import { initCart, addToCart, changeQty, removeItem } from './cart.js';
+import { initAuth } from './auth.js';
+import { initParticles } from './particles.js';
+import {
+    initScrollReveal,
+    initSmoothScrollLinks,
+    initScrollHeader,
+    initScrollSpy,
+    initFAQ,
+    initMobileMenu,
+    initSearch
+} from './utils.js';
+
+/* ----------------------------------------------------------------------------
+   PRELOADER
+   ---------------------------------------------------------------------------- */
+
+function initPreloader() {
+    const preloader = document.getElementById('preloader');
+    const progressFill = document.getElementById('progressFill');
+    const statusPercent = document.getElementById('statusPercent');
+    const statusText = document.getElementById('statusText');
+
+    if (!preloader || !progressFill || !statusPercent) return;
+
+    const messages = [
+        '/// INITIALIZING COMBAT SYSTEMS...',
+        '/// LOADING TACTICAL ASSETS...',
+        '/// CALIBRATING WEAPONS GRID...',
+        '/// SYNCING INVENTORY DATABASE...',
+        '/// ESTABLISHING SECURE CONNECTION...',
+        '/// SYSTEM READY. WELCOME.'
+    ];
+
+    let progress = 0;
+    let messageIndex = 0;
+
+    const interval = setInterval(() => {
+        progress += Math.random() * 15 + 10;
+
+        if (progress >= 100) {
+            progress = 100;
+            clearInterval(interval);
+
+            // Hide preloader after complete
+            setTimeout(() => {
+                preloader.classList.add('hidden');
+            }, 500);
+        }
+
+        // Update UI
+        progressFill.style.width = `${progress}%`;
+        statusPercent.textContent = `${Math.floor(progress)}%`;
+
+        // Update message
+        if (messageIndex < messages.length - 1 && progress > (messageIndex + 1) * (100 / messages.length)) {
+            messageIndex++;
+            if (statusText) {
+                statusText.textContent = messages[messageIndex];
+            }
+        }
+    }, 300);
+}
+
+/* ----------------------------------------------------------------------------
+   PRODUCT FILTERS
+   ---------------------------------------------------------------------------- */
+
+function initProductFilters() {
+    const filterTabs = document.querySelectorAll('.filter-tab');
+
+    filterTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Remove active class from all tabs
+            filterTabs.forEach(t => t.classList.remove('active'));
+
+            // Add active class to clicked tab
+            tab.classList.add('active');
+
+            // Filter products
+            const category = tab.dataset.filter;
+            filterProducts(category);
+        });
+    });
+}
+
+/* ----------------------------------------------------------------------------
+   GLOBAL WINDOW FUNCTIONS (for inline onclick handlers)
+   ---------------------------------------------------------------------------- */
+
+// Expose necessary functions to global window object for inline onclick
+window.addToCart = addToCart;
+window.changeQty = changeQty;
+window.removeItem = removeItem;
+window.toggleProductSpecs = toggleProductSpecs;
+
+/* ----------------------------------------------------------------------------
+   APP INITIALIZATION
+   ---------------------------------------------------------------------------- */
+
+function initApp() {
+    console.log('%c🎮 TECHGEAR v4.0 INITIALIZED', 'color: #ff7700; font-size: 16px; font-weight: bold;');
+
+    // 1. Start preloader animation
+    initPreloader();
+
+    // 2. Initialize core systems
+    initAuth();
+    initCart();
+
+    // 3. Render products
+    renderProducts();
+    initProductFilters();
+
+    // 4. Initialize UI utilities
+    initScrollReveal();
+    initSmoothScrollLinks();
+    initScrollHeader();
+    initScrollSpy();
+    initFAQ();
+    initMobileMenu();
+    initSearch(searchProducts);
+
+    // 5. Initialize particle background (after page load for performance)
+    window.addEventListener('load', () => {
+        initParticles();
+    });
+
+    // 6. Log system info (dev mode)
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        console.log('%cDEV MODE ACTIVE', 'color: #00f0ff; font-size: 12px;');
+        console.log('Use these commands:');
+        console.log('  - window.addToCart(id)');
+        console.log('  - window.changeQty(id, change)');
+        console.log('  - window.removeItem(id)');
+    }
+}
+
+/* ----------------------------------------------------------------------------
+   DOM CONTENT LOADED
+   ---------------------------------------------------------------------------- */
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+} else {
+    // DOM already loaded
+    initApp();
+}
+
+/* ----------------------------------------------------------------------------
+   SERVICE WORKER REGISTRATION (for PWA - optional future enhancement)
+   ---------------------------------------------------------------------------- */
+
+if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+            .then(registration => {
+                console.log('ServiceWorker registered:', registration);
+            })
+            .catch(error => {
+                console.log('ServiceWorker registration failed:', error);
+            });
+    });
+}
+
+/* ----------------------------------------------------------------------------
+   PERFORMANCE MONITORING (Optional)
+   ---------------------------------------------------------------------------- */
+
+window.addEventListener('load', () => {
+    // Measure performance
+    if (window.performance && window.performance.timing) {
+        const timing = window.performance.timing;
+        const loadTime = timing.loadEventEnd - timing.navigationStart;
+        const domReadyTime = timing.domContentLoadedEventEnd - timing.navigationStart;
+
+        console.log(`%c⚡ Performance Metrics`, 'color: #00f0ff; font-weight: bold;');
+        console.log(`  DOM Ready: ${domReadyTime}ms`);
+        console.log(`  Page Load: ${loadTime}ms`);
+    }
+});
+
+/* ----------------------------------------------------------------------------
+   ERROR HANDLING
+   ---------------------------------------------------------------------------- */
+
+window.addEventListener('error', (event) => {
+    console.error('Global error caught:', event.error);
+    // In production, you might want to send this to an error tracking service
+});
+
+window.addEventListener('unhandledrejection', (event) => {
+    console.error('Unhandled promise rejection:', event.reason);
+});
