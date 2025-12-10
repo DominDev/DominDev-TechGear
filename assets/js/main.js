@@ -156,17 +156,19 @@ if (document.readyState === 'loading') {
    SERVICE WORKER REGISTRATION (for PWA - optional future enhancement)
    ---------------------------------------------------------------------------- */
 
-if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js')
-            .then(registration => {
-                console.log('ServiceWorker registered:', registration);
-            })
-            .catch(error => {
-                console.log('ServiceWorker registration failed:', error);
-            });
-    });
-}
+// Disabled until service-worker.js is implemented
+// TODO: Create service-worker.js for PWA functionality
+// if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
+//     window.addEventListener('load', () => {
+//         navigator.serviceWorker.register('/service-worker.js')
+//             .then(registration => {
+//                 console.log('ServiceWorker registered:', registration);
+//             })
+//             .catch(error => {
+//                 console.log('ServiceWorker registration failed:', error);
+//             });
+//     });
+// }
 
 /* ----------------------------------------------------------------------------
    PERFORMANCE MONITORING (Optional)
