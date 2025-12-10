@@ -380,15 +380,4 @@ export function initAuth() {
             }
         }
     });
-
-    // Close modal when clicking overlay (only if auth modal is open)
-    const overlay = document.getElementById('overlayBg');
-    if (overlay) {
-        overlay.addEventListener('click', () => {
-            const authModal = document.getElementById('authModal');
-            if (authModal && authModal.classList.contains('active')) {
-                toggleAuthModal();
-            }
-        });
-    }
 }
