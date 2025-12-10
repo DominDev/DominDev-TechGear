@@ -3,8 +3,8 @@
    ============================================================================ */
 
 import { renderProducts, filterProducts, searchProducts, toggleProductSpecs } from './products.js';
-import { initCart, addToCart, changeQty, removeItem } from './cart.js';
-import { initAuth } from './auth.js';
+import { initCart, addToCart, changeQty, removeItem, toggleCart } from './cart.js';
+import { initAuth, toggleAuthModal } from './auth.js';
 import { initParticles } from './particles.js';
 import {
     initScrollReveal,
@@ -102,6 +102,31 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
 }
 
 /* ----------------------------------------------------------------------------
+   OVERLAY HANDLER
+   ---------------------------------------------------------------------------- */
+
+/**
+ * Initialize universal overlay click handler
+ * Closes auth modal or cart sidebar when clicking overlay
+ */
+function initOverlay() {
+    const overlay = document.getElementById('overlayBg');
+    if (!overlay) return;
+
+    overlay.addEventListener('click', () => {
+        const authModal = document.getElementById('authModal');
+        const cartSidebar = document.getElementById('cartSidebar');
+
+        // Check which element is currently active and close it
+        if (authModal && authModal.classList.contains('active')) {
+            toggleAuthModal();
+        } else if (cartSidebar && cartSidebar.classList.contains('active')) {
+            toggleCart();
+        }
+    });
+}
+
+/* ----------------------------------------------------------------------------
    APP INITIALIZATION
    ---------------------------------------------------------------------------- */
 
@@ -112,6 +137,7 @@ function initApp() {
     // 2. Initialize core systems
     initAuth();
     initCart();
+    initOverlay();
 
     // 3. Render products
     renderProducts();
