@@ -706,3 +706,13 @@
     margin-top: 1rem;
     max-width: 300px;
 }
+
+/* Product action buttons */
+.btn-specs {
+    flex: 0.8;
+    font-size: 0.75rem;
+}
+
+.btn-add-cart {
+    flex: 1.2;
+}

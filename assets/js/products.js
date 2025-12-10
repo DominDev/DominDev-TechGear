@@ -215,10 +215,10 @@ function createProductCard(product, index) {
         <h3 class="product-name">${product.name}</h3>
 
         <div class="product-actions">
-            <button class="btn" onclick="window.toggleProductSpecs(${product.id})" style="flex: 0.8; font-size: 0.75rem;">
+            <button class="btn btn-specs" onclick="window.toggleProductSpecs(${product.id})">
                 SPECS
             </button>
-            <button class="btn btn-glitch" onclick="window.addToCart(${product.id})" style="flex: 1.2;">
+            <button class="btn btn-glitch btn-add-cart" onclick="window.addToCart(${product.id})">
                 + INVENTORY
             </button>
         </div>
