@@ -1,0 +1,4853 @@
+﻿================================================================================
+  BUNDLE KODU PROJEKTU: DominDev-TechGear
+  Data wygenerowania: 2025-12-10 12:29:44
+  Liczba plikow: 15
+================================================================================
+
+SPIS PLIKOW:
+--------------------------------------------------------------------------------
+  1. ./assets/css/animations.css
+  2. ./assets/css/base.css
+  3. ./assets/css/components.css
+  4. ./assets/css/layout.css
+  5. ./assets/js/auth.js
+  6. ./assets/js/cart.js
+  7. ./assets/js/main.js
+  8. ./assets/js/particles.js
+  9. ./assets/js/products.js
+  10. ./assets/js/utils.js
+  11. ./index.html
+  12. ./package.json
+  13. ./README.md
+  14. ./robots.txt
+  15. ./sitemap.xml
+--------------------------------------------------------------------------------
+
+
+### FILE PATH: ./assets/css/animations.css
+/* ============================================================================
+   ANIMATIONS.CSS - Keyframes, Preloader, Transitions, Effects
+   ============================================================================ */
+
+/* --------------------------------------------------------------------------
+   [1] PRELOADER
+   -------------------------------------------------------------------------- */
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: var(--color-void-black);
+    z-index: var(--z-preloader);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.preloader.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.preloader-content {
+    text-align: center;
+}
+
+.preloader-logo {
+    margin-bottom: var(--spacing-lg);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.logo-icon-large {
+    width: 80px;
+    height: 80px;
+    background: var(--color-tactical-orange);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    margin: 0 auto var(--spacing-sm);
+    animation: rotate 3s linear infinite;
+}
+
+.preloader-title {
+    font-family: var(--font-header);
+    font-size: 2.5rem;
+    color: var(--color-white);
+    letter-spacing: 3px;
+    animation: glitch-text 3s ease-in-out infinite;
+}
+
+.preloader-status {
+    margin-top: var(--spacing-lg);
+}
+
+.status-text {
+    font-family: var(--font-code);
+    color: var(--color-system-cyan);
+    font-size: 0.9rem;
+    margin-bottom: var(--spacing-sm);
+    animation: typing 2s steps(30) infinite;
+}
+
+.progress-bar {
+    width: 300px;
+    height: 4px;
+    background: var(--color-border-active);
+    margin: 0 auto var(--spacing-xs);
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-tactical-orange), var(--color-system-cyan));
+    width: 0;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 10px var(--color-orange-glow);
+}
+
+.status-percent {
+    font-family: var(--font-code);
+    color: var(--color-tactical-orange);
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   [2] KEYFRAME ANIMATIONS
+   -------------------------------------------------------------------------- */
+
+/* Rotation */
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Pulse */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.8;
+    }
+}
+
+/* Glitch Skew */
+@keyframes glitch-skew {
+    0% {
+        transform: skew(0deg);
+    }
+    20% {
+        transform: skew(-8deg);
+    }
+    40% {
+        transform: skew(8deg);
+    }
+    60% {
+        transform: skew(-5deg);
+    }
+    80% {
+        transform: skew(5deg);
+    }
+    100% {
+        transform: skew(0deg);
+    }
+}
+
+/* Glitch Text */
+@keyframes glitch-text {
+    0%, 90%, 100% {
+        text-shadow: none;
+    }
+    92% {
+        text-shadow:
+            2px 0 var(--color-system-cyan),
+            -2px 0 var(--color-tactical-orange);
+    }
+    94% {
+        text-shadow:
+            -2px 0 var(--color-system-cyan),
+            2px 0 var(--color-tactical-orange);
+    }
+    96% {
+        text-shadow: none;
+    }
+}
+
+/* Typing Effect */
+@keyframes typing {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
+    }
+}
+
+/* Bounce In */
+@keyframes bounceIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Fade In Up */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Fade In */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Slide In Right */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Slide In Left */
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Glow Pulse */
+@keyframes glowPulse {
+    0%, 100% {
+        box-shadow: 0 0 10px var(--color-orange-glow);
+    }
+    50% {
+        box-shadow: 0 0 25px var(--color-orange-glow);
+    }
+}
+
+/* Shimmer */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+/* Flicker */
+@keyframes flicker {
+    0%, 100% {
+        opacity: 1;
+    }
+    41% {
+        opacity: 1;
+    }
+    42% {
+        opacity: 0.8;
+    }
+    43% {
+        opacity: 1;
+    }
+    45% {
+        opacity: 0.9;
+    }
+    46% {
+        opacity: 1;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   [3] HOVER & INTERACTION EFFECTS
+   -------------------------------------------------------------------------- */
+
+/* Hover Lift */
+.hover-lift {
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Hover Glow */
+.hover-glow {
+    transition: box-shadow var(--transition-base);
+}
+
+.hover-glow:hover {
+    box-shadow: var(--shadow-glow-orange);
+}
+
+/* Hover Scale */
+.hover-scale {
+    transition: transform var(--transition-base);
+}
+
+.hover-scale:hover {
+    transform: scale(1.05);
+}
+
+/* --------------------------------------------------------------------------
+   [4] SCROLL REVEAL ANIMATIONS
+   -------------------------------------------------------------------------- */
+
+/* Base Reveal */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition:
+        opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Reveal from Left */
+.reveal-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition:
+        opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Reveal from Right */
+.reveal-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition:
+        opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Reveal Scale */
+.reveal-scale {
+    opacity: 0;
+    transform: scale(0.8);
+    transition:
+        opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-scale.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Stagger Delays for Grid Items */
+.reveal:nth-child(1) { transition-delay: 0.1s; }
+.reveal:nth-child(2) { transition-delay: 0.2s; }
+.reveal:nth-child(3) { transition-delay: 0.3s; }
+.reveal:nth-child(4) { transition-delay: 0.4s; }
+.reveal:nth-child(5) { transition-delay: 0.5s; }
+.reveal:nth-child(6) { transition-delay: 0.6s; }
+.reveal:nth-child(7) { transition-delay: 0.7s; }
+.reveal:nth-child(8) { transition-delay: 0.8s; }
+.reveal:nth-child(9) { transition-delay: 0.9s; }
+
+/* --------------------------------------------------------------------------
+   [5] LOADING & SKELETON STATES
+   -------------------------------------------------------------------------- */
+
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        var(--color-panel-dark) 0%,
+        var(--color-panel-light) 50%,
+        var(--color-panel-dark) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--color-border-active);
+    border-top-color: var(--color-tactical-orange);
+    border-radius: 50%;
+    animation: rotate 0.8s linear infinite;
+}
+
+/* --------------------------------------------------------------------------
+   [6] PARTICLE EFFECTS (Enhanced via Canvas)
+   -------------------------------------------------------------------------- */
+
+/* Background Particle Glow */
+@keyframes particleFloat {
+    0%, 100% {
+        transform: translateY(0) translateX(0);
+        opacity: 0.3;
+    }
+    50% {
+        transform: translateY(-20px) translateX(10px);
+        opacity: 0.7;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   [7] SPECIAL EFFECTS
+   -------------------------------------------------------------------------- */
+
+/* Scanline Effect */
+.scanline-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.1),
+        rgba(0, 0, 0, 0.1) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* CRT Screen Curve (Subtle) */
+.crt-effect {
+    filter: contrast(1.1) brightness(1.05);
+}
+
+/* Chromatic Aberration on Hover */
+.chromatic-hover {
+    transition: var(--transition-base);
+}
+
+.chromatic-hover:hover {
+    text-shadow:
+        2px 0 var(--color-system-cyan),
+        -2px 0 var(--color-tactical-orange);
+}
+
+/* --------------------------------------------------------------------------
+   [8] RESPONSIVE ANIMATIONS
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+    .preloader-title {
+        font-size: 1.8rem;
+    }
+
+    .logo-icon-large {
+        width: 60px;
+        height: 60px;
+    }
+
+    .progress-bar {
+        width: 250px;
+    }
+
+    /* Reduce animation complexity on mobile */
+    .reveal {
+        transform: translateY(20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .preloader-title {
+        font-size: 1.5rem;
+    }
+
+    .progress-bar {
+        width: 200px;
+    }
+
+    /* Minimal animations for low-end devices */
+    .reveal:nth-child(n) {
+        transition-delay: 0s;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   [9] ACCESSIBILITY - Respect User Preferences
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .preloader-logo,
+    .logo-icon-large,
+    .status-text {
+        animation: none !important;
+    }
+}
+
+
+### FILE PATH: ./assets/css/base.css
+/* ============================================================================
+   BASE.CSS - CSS Variables, Reset, Typography, Utilities
+   ============================================================================ */
+
+/* --------------------------------------------------------------------------
+   [1] CSS VARIABLES
+   -------------------------------------------------------------------------- */
+:root {
+    /* Colors - Background */
+    --color-void-black: #020202;
+    --color-panel-dark: #0a0a0a;
+    --color-panel-light: #111111;
+
+    /* Colors - Borders */
+    --color-border-base: #1a1a1a;
+    --color-border-active: #333333;
+
+    /* Colors - Accent Primary (Orange) */
+    --color-tactical-orange: #ff7700;
+    --color-orange-glow: rgba(255, 119, 0, 0.6);
+    --color-orange-dim: rgba(255, 119, 0, 0.1);
+    --color-orange-subtle: rgba(255, 119, 0, 0.03);
+
+    /* Colors - Accent Secondary (Cyan) */
+    --color-system-cyan: #00f0ff;
+    --color-cyan-dim: rgba(0, 240, 255, 0.2);
+    --color-cyan-glow: rgba(0, 240, 255, 0.5);
+
+    /* Colors - Text */
+    --color-text-primary: #e0e0e0;
+    --color-text-secondary: #999999;
+    --color-text-dim: #666666;
+    --color-white: #ffffff;
+
+    /* Typography */
+    --font-header: 'Michroma', sans-serif;
+    --font-ui: 'Rajdhani', sans-serif;
+    --font-code: 'Share Tech Mono', monospace;
+    --font-body: 'Inter', sans-serif;
+
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 4rem;
+    --spacing-xl: 8rem;
+
+    /* Layout */
+    --container-width: 1440px;
+    --nav-height: 90px;
+    --border-radius: 0;
+
+    /* Component Sizes */
+    --cart-width: 450px;
+    --product-img-height: 250px;
+    --product-img-height-mobile: 200px;
+    --reveal-distance: 40px;
+    --reveal-distance-small: 30px;
+
+    /* Clip Paths (Cyberpunk Corners) */
+    --clip-corner: polygon(
+        10px 0, 100% 0,
+        100% calc(100% - 10px), calc(100% - 10px) 100%,
+        0 100%, 0 10px
+    );
+    --clip-corner-small: polygon(
+        6px 0, 100% 0,
+        100% calc(100% - 6px), calc(100% - 6px) 100%,
+        0 100%, 0 6px
+    );
+
+    /* Shadows */
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 5px 20px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.7);
+    --shadow-glow-orange: 0 0 30px var(--color-orange-glow);
+    --shadow-glow-cyan: 0 0 20px var(--color-cyan-glow);
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 0.6s ease;
+
+    /* Z-index */
+    --z-preloader: 10000;
+    --z-modal: 9000;
+    --z-sidebar: 8900;
+    --z-overlay: 8000;
+    --z-header: 1000;
+    --z-dropdown: 500;
+}
+
+/* --------------------------------------------------------------------------
+   [2] RESET & BASE
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    background-color: var(--color-void-black);
+    color: var(--color-text-primary);
+    font-family: var(--font-ui);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    padding-top: var(--nav-height);
+
+    /* Tactical Grid Background */
+    background-image:
+        linear-gradient(var(--color-orange-subtle) 1px, transparent 1px),
+        linear-gradient(90deg, var(--color-orange-subtle) 1px, transparent 1px);
+    background-size: 50px 50px;
+    background-attachment: fixed;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-void-black);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-border-active);
+    border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-tactical-orange);
+}
+
+/* Selection */
+::selection {
+    background: var(--color-tactical-orange);
+    color: var(--color-void-black);
+}
+
+::-moz-selection {
+    background: var(--color-tactical-orange);
+    color: var(--color-void-black);
+}
+
+/* --------------------------------------------------------------------------
+   [3] TYPOGRAPHY
+   -------------------------------------------------------------------------- */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-header);
+    font-weight: 400;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-white);
+}
+
+.text-display {
+    font-size: clamp(3rem, 7vw, 6rem);
+    line-height: 1;
+    margin-bottom: var(--spacing-md);
+}
+
+.text-h2 {
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    margin-bottom: var(--spacing-sm);
+}
+
+.text-h3 {
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+    font-weight: 700;
+}
+
+.text-code {
+    font-family: var(--font-code);
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.text-body {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+/* Text Utilities */
+.text-accent { color: var(--color-tactical-orange); }
+.text-cyan { color: var(--color-system-cyan); }
+.text-dim { color: var(--color-text-dim); }
+.text-white { color: var(--color-white); }
+.text-primary { color: var(--color-text-primary); }
+.text-secondary { color: var(--color-text-secondary); }
+
+.text-outline {
+    -webkit-text-stroke: 1px var(--color-white);
+    color: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   [4] LAYOUT UTILITIES
+   -------------------------------------------------------------------------- */
+.container {
+    width: 100%; /* Zapobiega kurczeniu się wewnątrz Flexboxa */
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+    position: relative;
+}
+
+.section-padding {
+    padding: var(--spacing-xl) 0;
+    position: relative;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: var(--spacing-lg);
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+}
+
+.section-header-centered {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+/* --------------------------------------------------------------------------
+   [5] COMMON ELEMENTS
+   -------------------------------------------------------------------------- */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition-fast);
+}
+
+a:hover {
+    color: var(--color-tactical-orange);
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: inherit;
+    font-family: inherit;
+    transition: var(--transition-base);
+}
+
+input,
+textarea,
+select {
+    font-family: inherit;
+    color: inherit;
+    background: transparent;
+    border: 1px solid var(--color-border-active);
+    outline: none;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--color-system-cyan);
+    box-shadow: 0 0 10px var(--color-cyan-dim);
+}
+
+/* --------------------------------------------------------------------------
+   [6] HUD DECORATORS
+   -------------------------------------------------------------------------- */
+.hud-corner {
+    position: fixed;
+    width: 30px;
+    height: 30px;
+    border: 2px solid var(--color-tactical-orange);
+    opacity: 0.3;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hud-corner.top-left {
+    top: 20px;
+    left: 20px;
+    border-bottom: none;
+    border-right: none;
+}
+
+.hud-corner.bottom-right {
+    bottom: 20px;
+    right: 20px;
+    border-top: none;
+    border-left: none;
+}
+
+/* --------------------------------------------------------------------------
+   [7] OVERLAY
+   -------------------------------------------------------------------------- */
+.overlay-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+    z-index: var(--z-overlay);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-base);
+}
+
+.overlay-bg.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* --------------------------------------------------------------------------
+   [8] UTILITIES
+   -------------------------------------------------------------------------- */
+/* NOTE: .reveal class is defined in animations.css */
+
+.hidden {
+    display: none !important;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Accessibility - Focus Outline */
+*:focus-visible {
+    outline: 2px solid var(--color-system-cyan);
+    outline-offset: 2px;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   [9] RESPONSIVE TYPOGRAPHY
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    :root {
+        --spacing-lg: 3rem;
+        --spacing-xl: 5rem;
+    }
+
+    body {
+        font-size: 14px;
+    }
+
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --spacing-lg: 2rem;
+        --spacing-xl: 4rem;
+    }
+}
+
+
+### FILE PATH: ./assets/css/components.css
+/* ============================================================================
+   COMPONENTS.CSS - Buttons, Cards, Modals, Forms, Cart, FAQ
+   ============================================================================ */
+
+/* --------------------------------------------------------------------------
+   [1] BUTTONS
+   -------------------------------------------------------------------------- */
+.btn {
+    position: relative;
+    padding: 1rem 2.5rem;
+    font-family: var(--font-code);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--color-tactical-orange);
+    background: transparent;
+    border: 2px solid var(--color-tactical-orange);
+    clip-path: var(--clip-corner-small);
+    overflow: hidden;
+    cursor: pointer;
+    transition: var(--transition-base);
+    display: inline-block;
+    text-align: center;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-tactical-orange);
+    transform: translateY(100%);
+    transition: transform var(--transition-base);
+    z-index: -1;
+}
+
+.btn:hover {
+    color: var(--color-void-black);
+    box-shadow: var(--shadow-glow-orange);
+}
+
+.btn:hover::before {
+    transform: translateY(0);
+}
+
+.btn-secondary {
+    border-color: var(--color-border-active);
+    color: var(--color-text-primary);
+}
+
+.btn-secondary::before {
+    background: var(--color-panel-light);
+}
+
+.btn-secondary:hover {
+    color: var(--color-white);
+    border-color: var(--color-text-primary);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-glitch:hover {
+    animation: glitch-skew 0.3s ease both infinite;
+}
+
+/* --------------------------------------------------------------------------
+   [2] PRODUCT FILTERS
+   -------------------------------------------------------------------------- */
+.filters {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.filter-tab {
+    font-family: var(--font-code);
+    text-transform: uppercase;
+    padding: 0.6rem 1.5rem;
+    font-size: 0.85rem;
+    color: var(--color-text-dim);
+    background: transparent;
+    border: 1px solid var(--color-border-active);
+    cursor: pointer;
+    transition: var(--transition-base);
+}
+
+.filter-tab:hover,
+.filter-tab.active {
+    color: var(--color-tactical-orange);
+    border-color: var(--color-tactical-orange);
+    background: var(--color-orange-dim);
+}
+
+/* --------------------------------------------------------------------------
+   [3] PRODUCT CARDS
+   -------------------------------------------------------------------------- */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--spacing-md);
+    perspective: 1000px;
+    align-items: start; /* KLUCZOWE: Zapobiega rozciąganiu sąsiednich kart */
+}
+
+.card {
+    background: var(--color-panel-dark);
+    border: 1px solid var(--color-border-base);
+    padding: var(--spacing-md);
+    position: relative;
+    transition: all var(--transition-base);
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        100% calc(100% - 20px),
+        calc(100% - 20px) 100%,
+        0 100%
+    );
+    backdrop-filter: blur(5px);
+    transform-style: preserve-3d;
+    cursor: pointer;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(135deg, transparent 50%, var(--color-tactical-orange) 50%);
+    opacity: 0.5;
+    transition: opacity var(--transition-base);
+}
+
+.card:hover {
+    border-color: var(--color-tactical-orange);
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+.product-img-wrap {
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--spacing-md);
+    position: relative;
+    overflow: hidden;
+}
+
+.product-img-wrap::after {
+    content: '';
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border: 1px dashed var(--color-border-active);
+    border-radius: 50%;
+    animation: rotate 20s linear infinite;
+    z-index: 0;
+}
+
+.product-img {
+    max-height: 90%;
+    max-width: 90%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.6));
+    transition: transform var(--transition-base);
+    position: relative;
+    z-index: 1;
+}
+
+.card:hover .product-img {
+    transform: scale(1.08);
+}
+
+.product-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.product-id {
+    font-family: var(--font-code);
+    font-size: 0.75rem;
+    color: var(--color-text-dim);
+}
+
+.product-price {
+    font-family: var(--font-code);
+    font-size: 1.1rem;
+    color: var(--color-tactical-orange);
+    font-weight: 700;
+}
+
+.product-name {
+    font-family: var(--font-ui);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.product-actions {
+    display: flex;
+    gap: var(--spacing-xs);
+    margin-top: var(--spacing-sm);
+}
+
+.product-actions .btn {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    font-size: 0.8rem;
+}
+
+/* Product Specs (Expandable) */
+.product-specs {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height var(--transition-base), opacity var(--transition-base), margin var(--transition-base);
+}
+
+.product-specs.active {
+    max-height: 500px;
+    opacity: 1;
+    margin-top: var(--spacing-sm);
+}
+
+.specs-title {
+    font-family: var(--font-code);
+    font-size: 0.85rem;
+    color: var(--color-system-cyan);
+    margin-bottom: var(--spacing-xs);
+    padding-bottom: var(--spacing-xs);
+    border-bottom: 1px solid var(--color-border-active);
+}
+
+.specs-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.specs-list li {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--color-border-base);
+}
+
+.specs-list li:last-child {
+    border-bottom: none;
+}
+
+.specs-list li strong {
+    color: var(--color-text-primary);
+    font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   [4] CART SIDEBAR
+   -------------------------------------------------------------------------- */
+.cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 450px;
+    height: 100vh;
+    background: rgba(5, 5, 5, 0.98);
+    backdrop-filter: blur(20px);
+    border-left: 2px solid var(--color-tactical-orange);
+    transform: translateX(100%);
+    transition: transform var(--transition-base);
+    z-index: var(--z-sidebar);
+    display: flex;
+    flex-direction: column;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.8);
+}
+
+.cart-sidebar.active {
+    transform: translateX(0);
+}
+
+.cart-header {
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--color-border-active);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(90deg, var(--color-orange-dim), transparent);
+}
+
+.cart-close {
+    color: var(--color-text-secondary);
+    font-size: 1.8rem;
+    padding: 0.5rem;
+    transition: var(--transition-fast);
+}
+
+.cart-close:hover {
+    color: var(--color-tactical-orange);
+    transform: rotate(90deg);
+}
+
+.cart-items {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spacing-md);
+}
+
+.cart-empty {
+    text-align: center;
+    margin-top: var(--spacing-lg);
+    color: var(--color-text-dim);
+}
+
+.cart-item-row {
+    display: flex;
+    align-items: center;
+    background: var(--color-panel-dark);
+    margin-bottom: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    border: 1px solid var(--color-border-base);
+    position: relative;
+    transition: var(--transition-base);
+}
+
+.cart-item-row::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--color-tactical-orange);
+}
+
+.cart-item-row:hover {
+    border-color: var(--color-border-active);
+}
+
+.cart-img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    margin-right: var(--spacing-sm);
+    background: var(--color-void-black);
+    padding: 0.5rem;
+}
+
+.cart-info {
+    flex: 1;
+}
+
+.cart-name {
+    font-family: var(--font-code);
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+}
+
+.cart-price {
+    color: var(--color-tactical-orange);
+    font-size: 0.9rem;
+}
+
+.cart-qty {
+    color: var(--color-text-dim);
+    font-size: 0.8rem;
+    margin-left: 0.5rem;
+}
+
+.cart-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: var(--spacing-sm);
+}
+
+.qty-btn {
+    width: 28px;
+    height: 28px;
+    background: var(--color-panel-light);
+    color: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-code);
+    font-size: 1rem;
+    transition: var(--transition-fast);
+    border: 1px solid var(--color-border-base);
+}
+
+.qty-btn:hover {
+    background: var(--color-tactical-orange);
+    color: var(--color-void-black);
+    border-color: var(--color-tactical-orange);
+}
+
+.qty-btn.remove {
+    color: #ff3333;
+}
+
+.qty-btn.remove:hover {
+    background: #ff3333;
+    color: var(--color-white);
+}
+
+.cart-qty-value {
+    font-family: var(--font-code);
+    color: var(--color-tactical-orange);
+    font-weight: 700;
+    min-width: 30px;
+    text-align: center;
+}
+
+.cart-footer {
+    padding: var(--spacing-md);
+    background: var(--color-panel-light);
+    border-top: 1px solid var(--color-border-active);
+}
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-sm);
+}
+
+/* --------------------------------------------------------------------------
+   [5] AUTH MODAL
+   -------------------------------------------------------------------------- */
+.auth-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    width: 90%;
+    max-width: 500px;
+    background: var(--color-panel-dark);
+    border: 2px solid var(--color-tactical-orange);
+    clip-path: var(--clip-corner);
+    padding: var(--spacing-lg);
+    z-index: var(--z-modal);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-base), transform var(--transition-base);
+}
+
+.auth-modal.active {
+    opacity: 1;
+    pointer-events: all;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.auth-container {
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+    top: -1rem;
+    right: -1rem;
+    color: var(--color-text-secondary);
+    font-size: 2rem;
+    padding: 0.5rem;
+    transition: var(--transition-fast);
+}
+
+.modal-close:hover {
+    color: var(--color-tactical-orange);
+    transform: rotate(90deg);
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.auth-form {
+    margin-bottom: var(--spacing-md);
+}
+
+.form-group {
+    margin-bottom: var(--spacing-sm);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--color-text-secondary);
+    font-size: 0.85rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.75rem var(--spacing-sm);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    background: var(--color-void-black);
+    border: 1px solid var(--color-border-active);
+    color: var(--color-text-primary);
+    clip-path: var(--clip-corner-small);
+    transition: var(--transition-fast);
+}
+
+.form-input:focus {
+    border-color: var(--color-system-cyan);
+    box-shadow: 0 0 15px var(--color-cyan-dim);
+}
+
+.auth-divider {
+    text-align: center;
+    margin: var(--spacing-md) 0;
+    position: relative;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: var(--color-border-active);
+}
+
+.auth-divider::before {
+    left: 0;
+}
+
+.auth-divider::after {
+    right: 0;
+}
+
+/* --------------------------------------------------------------------------
+   [6] FAQ ACCORDION
+   -------------------------------------------------------------------------- */
+.faq-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    background: var(--color-panel-dark);
+    border: 1px solid var(--color-border-base);
+    margin-bottom: var(--spacing-sm);
+    overflow: hidden;
+    transition: var(--transition-base);
+}
+
+.faq-item:hover {
+    border-color: var(--color-border-active);
+}
+
+.faq-question {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-family: var(--font-ui);
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: left;
+    color: var(--color-text-primary);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.faq-question:hover {
+    color: var(--color-tactical-orange);
+}
+
+.faq-icon {
+    font-family: var(--font-code);
+    font-size: 1.5rem;
+    color: var(--color-tactical-orange);
+    transition: transform var(--transition-base);
+    min-width: 30px;
+    text-align: center;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(45deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height var(--transition-base), opacity var(--transition-base), padding var(--transition-base);
+}
+
+.faq-item.active .faq-answer {
+    max-height: 500px;
+    opacity: 1;
+    padding: 0 var(--spacing-md) var(--spacing-sm);
+}
+
+.faq-answer p {
+    font-family: var(--font-body);
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+    padding-left: calc(30px + var(--spacing-sm));
+}
+
+/* --------------------------------------------------------------------------
+   [7] RESPONSIVE COMPONENTS
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: var(--spacing-sm);
+    }
+
+    .cart-sidebar {
+        width: 100%;
+    }
+
+    .auth-modal {
+        width: 95%;
+    }
+
+    .filters {
+        width: 100%;
+    }
+
+    .filter-tab {
+        flex: 1;
+        text-align: center;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.8rem;
+    }
+
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: var(--spacing-sm);
+    }
+
+    .product-img-wrap {
+        height: 200px;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   [9] UTILITY CLASSES (to replace inline styles)
+   -------------------------------------------------------------------------- */
+
+/* Button variants */
+.btn-full-width {
+    width: 100%;
+}
+
+.btn-cyan {
+    border-color: var(--color-system-cyan);
+    color: var(--color-system-cyan);
+}
+
+.btn-cyan:hover {
+    background: var(--color-system-cyan);
+    color: var(--color-void-black);
+}
+
+/* Modal title sizing */
+.auth-modal .text-h2 {
+    font-size: 1.5rem;
+}
+
+/* Cart title sizing */
+.cart-sidebar .text-h3 {
+    font-size: 1.2rem;
+}
+
+.cart-sidebar .text-code.text-dim {
+    font-size: 0.8rem;
+}
+
+/* User display utilities */
+.user-hidden {
+    display: none;
+}
+
+/* Product action buttons */
+.btn-specs {
+    flex: 0.8;
+    font-size: 0.75rem;
+}
+
+.btn-add-cart {
+    flex: 1.2;
+}
+
+
+### FILE PATH: ./assets/css/layout.css
+/* ============================================================================
+   LAYOUT.CSS - Header, Hero, Sections, Footer
+   ============================================================================ */
+
+/* --------------------------------------------------------------------------
+   [1] HEADER & NAVIGATION
+   -------------------------------------------------------------------------- */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--nav-height);
+    background: rgba(2, 2, 2, 0.7);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--color-border-base);
+    z-index: var(--z-header);
+    transition: background var(--transition-base), border-color var(--transition-base);
+}
+
+.header.scrolled {
+    background: rgba(2, 2, 2, 0.95);
+    border-bottom-color: var(--color-border-active);
+}
+
+.nav-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: var(--nav-height);
+    gap: var(--spacing-md);
+}
+
+/* Logo */
+.logo {
+    font-family: var(--font-header);
+    font-size: 1.5rem;
+    color: var(--color-white);
+    letter-spacing: -1px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: var(--transition-base);
+}
+
+.logo:hover {
+    transform: scale(1.02);
+    color: var(--color-white);
+}
+
+.logo-icon {
+    width: 28px;
+    height: 28px;
+    background: var(--color-tactical-orange);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    transition: var(--transition-base);
+}
+
+.logo:hover .logo-icon {
+    transform: rotate(60deg);
+}
+
+/* Navigation Menu */
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.nav-link {
+    font-family: var(--font-code);
+    font-size: 0.85rem;
+    color: var(--color-text-dim);
+    text-transform: uppercase;
+    position: relative;
+    padding: 0.5rem 0;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-tactical-orange);
+    transition: width var(--transition-base);
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--color-tactical-orange);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+.nav-link.active::before {
+    content: '[';
+    margin-right: 5px;
+    color: var(--color-system-cyan);
+}
+
+.nav-link.active::after {
+    content: ']';
+    margin-left: 5px;
+    color: var(--color-system-cyan);
+    position: static;
+    width: auto;
+    height: auto;
+    background: none;
+}
+
+/* User Actions */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.nav-icon-btn {
+    padding: 0.5rem;
+    color: var(--color-text-secondary);
+    background: transparent;
+    border: 1px solid transparent;
+    transition: var(--transition-base);
+    position: relative;
+    font-family: var(--font-code);
+    font-size: 0.85rem;
+}
+
+.nav-icon-btn:hover {
+    color: var(--color-tactical-orange);
+    border-color: var(--color-tactical-orange);
+    background: var(--color-orange-dim);
+}
+
+.cart-btn-wrap {
+    position: relative;
+}
+
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: var(--color-tactical-orange);
+    color: var(--color-void-black);
+    font-family: var(--font-code);
+    font-weight: 700;
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    clip-path: polygon(100% 0, 100% 100%, 0 100%, 20% 0);
+    min-width: 20px;
+    text-align: center;
+    display: none;
+}
+
+.cart-count.active {
+    display: block;
+    animation: bounceIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.user-name {
+    margin-left: 0.5rem;
+    color: var(--color-system-cyan);
+}
+
+/* Search Bar */
+.search-bar {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--color-panel-dark);
+    border-bottom: 1px solid var(--color-border-active);
+    padding: var(--spacing-sm) 0;
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform var(--transition-base), opacity var(--transition-base);
+}
+
+.search-bar.active {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
+}
+
+.search-input {
+    width: 100%;
+    padding: 0.75rem var(--spacing-sm);
+    font-family: var(--font-code);
+    font-size: 1rem;
+    background: var(--color-void-black);
+    border: 1px solid var(--color-border-active);
+    color: var(--color-text-primary);
+    clip-path: var(--clip-corner-small);
+}
+
+.search-close {
+    position: absolute;
+    right: var(--spacing-md);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-dim);
+    font-size: 1.5rem;
+}
+
+.search-close:hover {
+    color: var(--color-tactical-orange);
+}
+
+/* Hamburger (Mobile) */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    padding: 0.5rem;
+    background: transparent;
+    border: 1px solid var(--color-border-active);
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background: var(--color-text-primary);
+    transition: var(--transition-base);
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* --------------------------------------------------------------------------
+   [2] HERO SECTION
+   -------------------------------------------------------------------------- */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    margin-top: -var(--nav-height);
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 70% 50%, var(--color-orange-dim) 0%, transparent 60%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.hero-glitch-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&q=80') center/cover;
+    opacity: 0.1;
+    mix-blend-mode: screen;
+    filter: grayscale(100%) contrast(1.3);
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%; /* Wykorzystuje dostępne miejsce */
+    max-width: 1100px; /* Zwiększono z 800px dla lepszego efektu wizualnego */
+    padding-left: 2rem;
+    border-left: 4px solid var(--color-tactical-orange);
+}
+
+.hero-tag {
+    margin-bottom: var(--spacing-sm);
+    display: inline-block;
+}
+
+.hero-description {
+    font-family: var(--font-body);
+    color: var(--color-text-secondary);
+    max-width: 700px;
+    margin-bottom: var(--spacing-lg);
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.hero-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+/* Particle Canvas */
+.particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+/* --------------------------------------------------------------------------
+   [3] FOOTER
+   -------------------------------------------------------------------------- */
+.footer {
+    background: var(--color-panel-dark);
+    border-top: 1px solid var(--color-border-active);
+    padding: var(--spacing-lg) 0 var(--spacing-md);
+    margin-top: var(--spacing-xl);
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.footer-brand .logo {
+    margin-bottom: var(--spacing-sm);
+}
+
+.footer-title {
+    color: var(--color-tactical-orange);
+    margin-bottom: var(--spacing-sm);
+    font-size: 0.85rem;
+}
+
+.footer-links ul {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+    transition: var(--transition-fast);
+}
+
+.footer-links a:hover {
+    color: var(--color-tactical-orange);
+    padding-left: 5px;
+}
+
+.social-icons {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--color-border-active);
+    color: var(--color-text-secondary);
+    transition: var(--transition-base);
+}
+
+.social-icons a:hover {
+    border-color: var(--color-tactical-orange);
+    color: var(--color-tactical-orange);
+    background: var(--color-orange-dim);
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--color-border-base);
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.footer-legal {
+    display: flex;
+    gap: var(--spacing-sm);
+    align-items: center;
+}
+
+.footer-legal a {
+    color: var(--color-text-dim);
+    font-size: 0.85rem;
+}
+
+.footer-legal a:hover {
+    color: var(--color-tactical-orange);
+}
+
+/* --------------------------------------------------------------------------
+   [4] RESPONSIVE LAYOUT
+   -------------------------------------------------------------------------- */
+
+/* Tablet (768px) */
+@media (max-width: 768px) {
+    .nav-menu {
+        position: fixed;
+        top: var(--nav-height);
+        left: 0;
+        right: 0;
+        background: var(--color-panel-dark);
+        border-bottom: 1px solid var(--color-border-active);
+        flex-direction: column;
+        padding: var(--spacing-md);
+        gap: var(--spacing-sm);
+        transform: translateY(-100%);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform var(--transition-base), opacity var(--transition-base);
+    }
+
+    .nav-menu.active {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .hero-content {
+        padding-left: var(--spacing-sm);
+        border-left-width: 3px;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-md);
+    }
+
+    .footer-brand {
+        grid-column: 1 / -1;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* Mobile (480px) */
+@media (max-width: 480px) {
+    :root {
+        --nav-height: 70px;
+    }
+
+    .logo {
+        font-size: 1.2rem;
+    }
+
+    .logo-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .nav-icon-btn {
+        padding: 0.4rem;
+        font-size: 0.75rem;
+    }
+
+    .hero {
+        min-height: 80vh;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+### FILE PATH: ./assets/js/auth.js
+/* ============================================================================
+   AUTH.JS - Authentication Logic (Mock with localStorage)
+   ============================================================================ */
+
+const AUTH_STORAGE_KEY = 'techgear_auth';
+const USERS_STORAGE_KEY = 'techgear_users';
+
+let currentUser = loadAuthFromStorage();
+let focusTrapHandler = null;
+
+/**
+ * Enable focus trap inside modal for accessibility
+ * @param {HTMLElement} modal - Modal element
+ */
+function enableFocusTrap(modal) {
+    // Get all focusable elements
+    const focusableElements = modal.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    const focusableArray = Array.from(focusableElements);
+    const firstElement = focusableArray[0];
+    const lastElement = focusableArray[focusableArray.length - 1];
+
+    // Create handler for tab key
+    focusTrapHandler = (e) => {
+        if (e.key !== 'Tab') return;
+
+        if (e.shiftKey) {
+            // Shift + Tab: moving backwards
+            if (document.activeElement === firstElement) {
+                e.preventDefault();
+                lastElement.focus();
+            }
+        } else {
+            // Tab: moving forwards
+            if (document.activeElement === lastElement) {
+                e.preventDefault();
+                firstElement.focus();
+            }
+        }
+    };
+
+    modal.addEventListener('keydown', focusTrapHandler);
+}
+
+/**
+ * Disable focus trap
+ */
+function disableFocusTrap() {
+    if (focusTrapHandler) {
+        const modal = document.getElementById('authModal');
+        if (modal) {
+            modal.removeEventListener('keydown', focusTrapHandler);
+        }
+        focusTrapHandler = null;
+    }
+}
+
+/**
+ * Hash password using Web Crypto API (SHA-256)
+ * @param {String} password - Plain text password
+ * @returns {Promise<String>} - Hex-encoded hash
+ */
+async function hashPassword(password) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    return hashHex;
+}
+
+/**
+ * Toggle authentication modal visibility
+ */
+export function toggleAuthModal() {
+    const modal = document.getElementById('authModal');
+    const overlay = document.getElementById('overlayBg');
+
+    const isOpening = !modal.classList.contains('active');
+
+    modal.classList.toggle('active');
+    overlay.classList.toggle('active');
+
+    // Focus management for accessibility
+    if (isOpening) {
+        // Focus first input when modal opens
+        setTimeout(() => {
+            const firstInput = modal.querySelector('input:not([type="hidden"])');
+            if (firstInput) {
+                firstInput.focus();
+            }
+        }, 100); // Small delay to ensure modal is visible
+
+        // Add focus trap
+        enableFocusTrap(modal);
+    } else {
+        // Disable focus trap when closing
+        disableFocusTrap();
+    }
+}
+
+/**
+ * Handle login form submission
+ * @param {Event} e - Form submit event
+ */
+export async function handleLogin(e) {
+    e.preventDefault();
+
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+
+    // Validate inputs
+    if (!email || !password) {
+        alert('Please enter both email and password');
+        return;
+    }
+
+    // Get stored users
+    const users = getStoredUsers();
+    const user = users.find(u => u.email === email);
+
+    if (!user) {
+        alert('User not found. Please create an account.');
+        return;
+    }
+
+    // Hash the entered password and compare with stored hash
+    const passwordHash = await hashPassword(password);
+    if (user.passwordHash !== passwordHash) {
+        alert('Incorrect password');
+        return;
+    }
+
+    // Login successful
+    loginUser(user);
+    toggleAuthModal();
+
+    // Clear form
+    e.target.reset();
+}
+
+/**
+ * Handle registration form submission
+ * @param {Event} e - Form submit event
+ */
+export async function handleRegister(e) {
+    e.preventDefault();
+
+    const email = document.getElementById('registerEmail').value;
+    const password = document.getElementById('registerPassword').value;
+
+    // Validate inputs
+    if (!email || !password) {
+        alert('Please enter both email and password');
+        return;
+    }
+
+    if (password.length < 6) {
+        alert('Password must be at least 6 characters long');
+        return;
+    }
+
+    // Check if user already exists
+    const users = getStoredUsers();
+    if (users.find(u => u.email === email)) {
+        alert('User with this email already exists. Please login.');
+        return;
+    }
+
+    // Hash password before storing
+    const passwordHash = await hashPassword(password);
+
+    // Create new user
+    const newUser = {
+        id: Date.now(),
+        email: email,
+        passwordHash: passwordHash, // Stored as SHA-256 hash
+        createdAt: new Date().toISOString()
+    };
+
+    users.push(newUser);
+    saveUsers(users);
+
+    // Auto-login after registration
+    loginUser(newUser);
+    toggleAuthModal();
+
+    // Clear form
+    e.target.reset();
+
+    alert('Account created successfully! Welcome to TechGear.');
+}
+
+/**
+ * Login user (set current user and update UI)
+ * @param {Object} user - User object
+ */
+function loginUser(user) {
+    currentUser = {
+        id: user.id,
+        email: user.email
+    };
+
+    saveAuthToStorage();
+    updateAuthUI();
+}
+
+/**
+ * Logout current user
+ */
+export function logout() {
+    const confirmed = confirm('Logout from your account?');
+    if (!confirmed) return;
+
+    currentUser = null;
+    saveAuthToStorage();
+    updateAuthUI();
+}
+
+/**
+ * Update authentication UI (show/hide user info)
+ */
+export function updateAuthUI() {
+    const userNameEl = document.getElementById('userName');
+    const authToggle = document.getElementById('authToggle');
+
+    if (!userNameEl || !authToggle) return;
+
+    if (currentUser) {
+        // User logged in
+        const username = currentUser.email.split('@')[0].toUpperCase();
+        userNameEl.textContent = `USER_${username}`;
+        userNameEl.classList.remove('user-hidden');
+
+        // Change auth button to logout
+        authToggle.innerHTML = `
+            <svg class="icon-user" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span class="user-name text-cyan">${username}</span>
+        `;
+        authToggle.onclick = logout;
+        authToggle.title = 'Logout';
+    } else {
+        // User not logged in
+        userNameEl.classList.add('user-hidden');
+        authToggle.innerHTML = `
+            <svg class="icon-user" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+        `;
+        authToggle.onclick = toggleAuthModal;
+        authToggle.title = 'Login or Register';
+    }
+}
+
+/**
+ * Get current logged-in user
+ * @returns {Object|null} - Current user or null
+ */
+export function getCurrentUser() {
+    return currentUser;
+}
+
+/**
+ * Check if user is authenticated
+ * @returns {Boolean}
+ */
+export function isAuthenticated() {
+    return currentUser !== null;
+}
+
+/**
+ * Get all stored users
+ * @returns {Array} - Array of user objects
+ */
+function getStoredUsers() {
+    try {
+        const stored = localStorage.getItem(USERS_STORAGE_KEY);
+        return stored ? JSON.parse(stored) : [];
+    } catch (error) {
+        console.error('Failed to load users from localStorage:', error);
+        return [];
+    }
+}
+
+/**
+ * Save users to localStorage
+ * @param {Array} users - Users array
+ */
+function saveUsers(users) {
+    try {
+        localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
+    } catch (error) {
+        console.error('Failed to save users to localStorage:', error);
+    }
+}
+
+/**
+ * Save auth state to localStorage
+ */
+function saveAuthToStorage() {
+    try {
+        localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(currentUser));
+    } catch (error) {
+        console.error('Failed to save auth to localStorage:', error);
+    }
+}
+
+/**
+ * Load auth state from localStorage
+ * @returns {Object|null} - Current user or null
+ */
+function loadAuthFromStorage() {
+    try {
+        const stored = localStorage.getItem(AUTH_STORAGE_KEY);
+        return stored ? JSON.parse(stored) : null;
+    } catch (error) {
+        console.error('Failed to load auth from localStorage:', error);
+        return null;
+    }
+}
+
+/**
+ * Initialize authentication system
+ */
+export function initAuth() {
+    updateAuthUI();
+
+    // Auth toggle button
+    const authToggle = document.getElementById('authToggle');
+    const authFooterLink = document.getElementById('authFooterLink');
+
+    if (authToggle) {
+        authToggle.addEventListener('click', () => {
+            if (!isAuthenticated()) {
+                toggleAuthModal();
+            } else {
+                logout();
+            }
+        });
+    }
+
+    if (authFooterLink) {
+        authFooterLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (!isAuthenticated()) {
+                toggleAuthModal();
+            }
+        });
+    }
+
+    // Modal close button
+    const authClose = document.getElementById('authClose');
+    if (authClose) {
+        authClose.addEventListener('click', toggleAuthModal);
+    }
+
+    // Form submissions
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleLogin);
+    }
+
+    if (registerForm) {
+        registerForm.addEventListener('submit', handleRegister);
+    }
+
+    // Close modal on Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            const modal = document.getElementById('authModal');
+            if (modal && modal.classList.contains('active')) {
+                toggleAuthModal();
+            }
+        }
+    });
+}
+
+
+### FILE PATH: ./assets/js/cart.js
+/* ============================================================================
+   CART.JS - Shopping Cart Logic with localStorage Persistence
+   ============================================================================ */
+
+import { getProductById } from './products.js';
+
+const CART_STORAGE_KEY = 'techgear_cart';
+
+// Cart state: Array of { id, qty, ...productData }
+let cart = loadCartFromStorage();
+
+/**
+ * Toggle cart sidebar visibility
+ */
+export function toggleCart() {
+    const sidebar = document.getElementById('cartSidebar');
+    const overlay = document.getElementById('overlayBg');
+
+    sidebar.classList.toggle('active');
+    overlay.classList.toggle('active');
+}
+
+/**
+ * Add product to cart
+ * @param {Number} productId - Product ID
+ */
+export function addToCart(productId) {
+    // Validate product ID
+    const id = Number(productId);
+    if (!Number.isInteger(id) || id <= 0) {
+        console.error(`Invalid product ID: ${productId}. Must be a positive integer.`);
+        return;
+    }
+
+    const product = getProductById(id);
+    if (!product) {
+        console.error(`Product with ID ${id} not found`);
+        return;
+    }
+
+    // Check if product already exists in cart
+    const existingItem = cart.find(item => item.id === id);
+
+    if (existingItem) {
+        existingItem.qty++;
+    } else {
+        cart.push({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            img: product.img,
+            qty: 1
+        });
+    }
+
+    saveCartToStorage();
+    updateCartUI();
+    toggleCart(); // Open cart to show feedback
+
+    // Visual feedback on cart button
+    const cartCount = document.getElementById('cartCount');
+    if (cartCount) {
+        cartCount.classList.remove('active');
+        // Trigger reflow to restart animation
+        void cartCount.offsetWidth;
+        cartCount.classList.add('active');
+    }
+}
+
+/**
+ * Update quantity of cart item
+ * @param {Number} productId - Product ID
+ * @param {Number} change - Quantity change (+1 or -1)
+ */
+export function changeQty(productId, change) {
+    const itemIndex = cart.findIndex(item => item.id === productId);
+
+    if (itemIndex === -1) return;
+
+    cart[itemIndex].qty += change;
+
+    // Remove item if quantity drops to 0 or below
+    if (cart[itemIndex].qty <= 0) {
+        cart.splice(itemIndex, 1);
+    }
+
+    saveCartToStorage();
+    updateCartUI();
+}
+
+/**
+ * Remove item completely from cart
+ * @param {Number} productId - Product ID
+ */
+export function removeItem(productId) {
+    cart = cart.filter(item => item.id !== productId);
+    saveCartToStorage();
+    updateCartUI();
+}
+
+/**
+ * Clear entire cart
+ */
+export function clearCart() {
+    if (cart.length === 0) return;
+
+    const confirmed = confirm('Clear entire inventory?');
+    if (confirmed) {
+        cart = [];
+        saveCartToStorage();
+        updateCartUI();
+    }
+}
+
+/**
+ * Update cart UI (sidebar content, counter, total)
+ */
+export function updateCartUI() {
+    const container = document.getElementById('cartItemsContainer');
+    const totalEl = document.getElementById('cartTotalValue');
+    const countEl = document.getElementById('cartCount');
+
+    if (!container || !totalEl || !countEl) return;
+
+    // Clear container
+    container.innerHTML = '';
+
+    let grandTotal = 0;
+    let totalCount = 0;
+
+    if (cart.length === 0) {
+        // Empty state
+        container.innerHTML = `
+            <div class="cart-empty">
+                <p class="text-code text-dim">[ INVENTORY_EMPTY ]</p>
+            </div>
+        `;
+    } else {
+        // Render cart items
+        cart.forEach(item => {
+            grandTotal += item.price * item.qty;
+            totalCount += item.qty;
+
+            const row = createCartRow(item);
+            container.appendChild(row);
+        });
+    }
+
+    // Update total
+    totalEl.textContent = `${grandTotal.toFixed(2)} PLN`;
+
+    // Update counter badge
+    countEl.textContent = totalCount;
+    if (totalCount > 0) {
+        countEl.classList.add('active');
+    } else {
+        countEl.classList.remove('active');
+    }
+}
+
+/**
+ * Create a cart item row element
+ * @param {Object} item - Cart item
+ * @returns {HTMLElement} - Cart row element
+ */
+function createCartRow(item) {
+    const row = document.createElement('div');
+    row.className = 'cart-item-row';
+
+    // Generate proper image path (item.img is just the filename now)
+    const imgSrc = `assets/img/products/${item.img}-600.jpg`;
+
+    row.innerHTML = `
+        <img src="${imgSrc}"
+             alt="${item.name}"
+             class="cart-img"
+             loading="lazy"
+             onerror="this.src='assets/img/placeholder.jpg'">
+
+        <div class="cart-info">
+            <div class="cart-name">${item.name}</div>
+            <div class="cart-price">
+                ${item.price} PLN
+                <span class="cart-qty">x ${item.qty}</span>
+            </div>
+        </div>
+
+        <div class="cart-controls">
+            <button class="qty-btn" onclick="window.changeQty(${item.id}, -1)" aria-label="Decrease quantity">
+                −
+            </button>
+            <span class="cart-qty-value">${item.qty}</span>
+            <button class="qty-btn" onclick="window.changeQty(${item.id}, 1)" aria-label="Increase quantity">
+                +
+            </button>
+            <button class="qty-btn remove" onclick="window.removeItem(${item.id})" aria-label="Remove item">
+                ✕
+            </button>
+        </div>
+    `;
+
+    return row;
+}
+
+/**
+ * Handle checkout (placeholder for future integration)
+ */
+export function handleCheckout() {
+    if (cart.length === 0) {
+        alert('Your inventory is empty!');
+        return;
+    }
+
+    const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+    // Placeholder - replace with actual payment integration
+    alert(`Checkout initiated!\n\nTotal: ${total.toFixed(2)} PLN\n\nThis is a demo. Payment integration coming soon.`);
+
+    // Optional: Clear cart after successful checkout
+    // cart = [];
+    // saveCartToStorage();
+    // updateCartUI();
+}
+
+/**
+ * Save cart to localStorage
+ */
+function saveCartToStorage() {
+    try {
+        localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+    } catch (error) {
+        console.error('Failed to save cart to localStorage:', error);
+    }
+}
+
+/**
+ * Load cart from localStorage
+ * @returns {Array} - Cart items
+ */
+function loadCartFromStorage() {
+    try {
+        const stored = localStorage.getItem(CART_STORAGE_KEY);
+        return stored ? JSON.parse(stored) : [];
+    } catch (error) {
+        console.error('Failed to load cart from localStorage:', error);
+        return [];
+    }
+}
+
+/**
+ * Get current cart state
+ * @returns {Array} - Current cart items
+ */
+export function getCart() {
+    return cart;
+}
+
+/**
+ * Initialize cart on page load
+ */
+export function initCart() {
+    updateCartUI();
+
+    // Close cart when clicking overlay
+    const overlay = document.getElementById('overlayBg');
+    if (overlay) {
+        overlay.addEventListener('click', toggleCart);
+    }
+
+    // Close cart button
+    const cartClose = document.getElementById('cartClose');
+    if (cartClose) {
+        cartClose.addEventListener('click', toggleCart);
+    }
+
+    // Cart toggle button
+    const cartToggle = document.getElementById('cartToggle');
+    if (cartToggle) {
+        cartToggle.addEventListener('click', toggleCart);
+    }
+
+    // Checkout button
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', handleCheckout);
+    }
+
+    // Close cart on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            const sidebar = document.getElementById('cartSidebar');
+            if (sidebar && sidebar.classList.contains('active')) {
+                toggleCart();
+            }
+        }
+    });
+}
+
+
+### FILE PATH: ./assets/js/main.js
+/* ============================================================================
+   MAIN.JS - Application Entry Point & Initialization
+   ============================================================================ */
+
+import { renderProducts, filterProducts, searchProducts, toggleProductSpecs } from './products.js';
+import { initCart, addToCart, changeQty, removeItem, toggleCart } from './cart.js';
+import { initAuth, toggleAuthModal } from './auth.js';
+import { initParticles } from './particles.js';
+import {
+    initScrollReveal,
+    initSmoothScrollLinks,
+    initScrollHeader,
+    initScrollSpy,
+    initFAQ,
+    initMobileMenu,
+    initSearch
+} from './utils.js';
+
+/* ----------------------------------------------------------------------------
+   PRELOADER
+   ---------------------------------------------------------------------------- */
+
+function initPreloader() {
+    const preloader = document.getElementById('preloader');
+    const progressFill = document.getElementById('progressFill');
+    const statusPercent = document.getElementById('statusPercent');
+    const statusText = document.getElementById('statusText');
+
+    if (!preloader || !progressFill || !statusPercent) return;
+
+    const messages = [
+        '/// INITIALIZING COMBAT SYSTEMS...',
+        '/// LOADING TACTICAL ASSETS...',
+        '/// CALIBRATING WEAPONS GRID...',
+        '/// SYNCING INVENTORY DATABASE...',
+        '/// ESTABLISHING SECURE CONNECTION...',
+        '/// SYSTEM READY. WELCOME.'
+    ];
+
+    let progress = 0;
+    let messageIndex = 0;
+
+    const interval = setInterval(() => {
+        progress += Math.random() * 15 + 10;
+
+        if (progress >= 100) {
+            progress = 100;
+            clearInterval(interval);
+
+            // Hide preloader after complete
+            setTimeout(() => {
+                preloader.classList.add('hidden');
+            }, 500);
+        }
+
+        // Update UI
+        progressFill.style.width = `${progress}%`;
+        statusPercent.textContent = `${Math.floor(progress)}%`;
+
+        // Update message
+        if (messageIndex < messages.length - 1 && progress > (messageIndex + 1) * (100 / messages.length)) {
+            messageIndex++;
+            if (statusText) {
+                statusText.textContent = messages[messageIndex];
+            }
+        }
+    }, 300);
+}
+
+/* ----------------------------------------------------------------------------
+   PRODUCT FILTERS
+   ---------------------------------------------------------------------------- */
+
+function initProductFilters() {
+    const filterTabs = document.querySelectorAll('.filter-tab');
+
+    filterTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Remove active class from all tabs
+            filterTabs.forEach(t => t.classList.remove('active'));
+
+            // Add active class to clicked tab
+            tab.classList.add('active');
+
+            // Filter products
+            const category = tab.dataset.filter;
+            filterProducts(category);
+        });
+    });
+}
+
+/* ----------------------------------------------------------------------------
+   GLOBAL WINDOW FUNCTIONS (Dev Mode Only - for console debugging)
+   ---------------------------------------------------------------------------- */
+
+// Expose functions in dev mode only for debugging
+if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    window.addToCart = addToCart;
+    window.changeQty = changeQty;
+    window.removeItem = removeItem;
+    window.toggleProductSpecs = toggleProductSpecs;
+}
+
+/* ----------------------------------------------------------------------------
+   OVERLAY HANDLER
+   ---------------------------------------------------------------------------- */
+
+/**
+ * Initialize universal overlay click handler
+ * Closes auth modal or cart sidebar when clicking overlay
+ */
+function initOverlay() {
+    const overlay = document.getElementById('overlayBg');
+    if (!overlay) return;
+
+    overlay.addEventListener('click', () => {
+        const authModal = document.getElementById('authModal');
+        const cartSidebar = document.getElementById('cartSidebar');
+
+        // Check which element is currently active and close it
+        if (authModal && authModal.classList.contains('active')) {
+            toggleAuthModal();
+        } else if (cartSidebar && cartSidebar.classList.contains('active')) {
+            toggleCart();
+        }
+    });
+}
+
+/* ----------------------------------------------------------------------------
+   APP INITIALIZATION
+   ---------------------------------------------------------------------------- */
+
+function initApp() {
+    // 1. Start preloader animation
+    initPreloader();
+
+    // 2. Initialize core systems
+    initAuth();
+    initCart();
+    initOverlay();
+
+    // 3. Render products
+    renderProducts();
+    initProductFilters();
+
+    // 4. Initialize UI utilities
+    initScrollReveal();
+    initSmoothScrollLinks();
+    initScrollHeader();
+    initScrollSpy();
+    initFAQ();
+    initMobileMenu();
+    initSearch(searchProducts);
+
+    // 5. Initialize particle background (after page load for performance)
+    window.addEventListener('load', () => {
+        initParticles();
+    });
+
+    // 6. Log system info (dev mode)
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        console.log('%cDEV MODE ACTIVE', 'color: #00f0ff; font-size: 12px;');
+        console.log('Use these commands:');
+        console.log('  - window.addToCart(id)');
+        console.log('  - window.changeQty(id, change)');
+        console.log('  - window.removeItem(id)');
+    }
+}
+
+/* ----------------------------------------------------------------------------
+   DOM CONTENT LOADED
+   ---------------------------------------------------------------------------- */
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+} else {
+    // DOM already loaded
+    initApp();
+}
+
+/* ----------------------------------------------------------------------------
+   SERVICE WORKER REGISTRATION (for PWA - optional future enhancement)
+   ---------------------------------------------------------------------------- */
+
+// Disabled until service-worker.js is implemented
+// TODO: Create service-worker.js for PWA functionality
+// if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
+//     window.addEventListener('load', () => {
+//         navigator.serviceWorker.register('/service-worker.js')
+//             .then(registration => {
+//                 console.log('ServiceWorker registered:', registration);
+//             })
+//             .catch(error => {
+//                 console.log('ServiceWorker registration failed:', error);
+//             });
+//     });
+// }
+
+/* ----------------------------------------------------------------------------
+   PERFORMANCE MONITORING (Optional)
+   ---------------------------------------------------------------------------- */
+
+window.addEventListener('load', () => {
+    // Measure performance (dev mode only)
+    if ((window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && window.performance && window.performance.timing) {
+        const timing = window.performance.timing;
+        const loadTime = timing.loadEventEnd - timing.navigationStart;
+        const domReadyTime = timing.domContentLoadedEventEnd - timing.navigationStart;
+
+        console.log(`%c⚡ Performance Metrics`, 'color: #00f0ff; font-weight: bold;');
+        console.log(`  DOM Ready: ${domReadyTime}ms`);
+        console.log(`  Page Load: ${loadTime}ms`);
+    }
+});
+
+/* ----------------------------------------------------------------------------
+   ERROR HANDLING
+   ---------------------------------------------------------------------------- */
+
+window.addEventListener('error', (event) => {
+    console.error('Global error caught:', event.error);
+    // In production, you might want to send this to an error tracking service
+});
+
+window.addEventListener('unhandledrejection', (event) => {
+    console.error('Unhandled promise rejection:', event.reason);
+});
+
+
+### FILE PATH: ./assets/js/particles.js
+/* ============================================================================
+   PARTICLES.JS - Canvas Particle Background System
+   ============================================================================ */
+
+export class ParticleSystem {
+    constructor(canvasId) {
+        this.canvas = document.getElementById(canvasId);
+        if (!this.canvas) {
+            console.warn(`Canvas with id "${canvasId}" not found`);
+            return;
+        }
+
+        this.ctx = this.canvas.getContext('2d');
+        this.particles = [];
+        this.particleCount = 80;
+        this.mouse = { x: null, y: null };
+        this.animationId = null;
+        this.isVisible = true; // Track canvas visibility
+
+        this.init();
+    }
+
+    init() {
+        this.resizeCanvas();
+        this.createParticles();
+        this.setupEventListeners();
+        this.animate();
+    }
+
+    resizeCanvas() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+    }
+
+    createParticles() {
+        this.particles = [];
+
+        for (let i = 0; i < this.particleCount; i++) {
+            this.particles.push({
+                x: Math.random() * this.canvas.width,
+                y: Math.random() * this.canvas.height,
+                size: Math.random() * 2 + 0.5,
+                speedX: (Math.random() - 0.5) * 0.5,
+                speedY: (Math.random() - 0.5) * 0.5,
+                color: Math.random() > 0.5 ? '#ff7700' : '#00f0ff', // Orange or Cyan
+                opacity: Math.random() * 0.5 + 0.2
+            });
+        }
+    }
+
+    setupEventListeners() {
+        window.addEventListener('resize', () => {
+            this.resizeCanvas();
+            this.createParticles();
+        });
+
+        // Track mouse position for interactive particles
+        window.addEventListener('mousemove', (e) => {
+            this.mouse.x = e.clientX;
+            this.mouse.y = e.clientY;
+        });
+
+        // Reset mouse position when cursor leaves window
+        window.addEventListener('mouseleave', () => {
+            this.mouse.x = null;
+            this.mouse.y = null;
+        });
+
+        // Pause animation when canvas is not visible (Performance optimization)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                this.isVisible = entry.isIntersecting;
+
+                if (entry.isIntersecting && !this.animationId) {
+                    // Resume animation
+                    this.animate();
+                } else if (!entry.isIntersecting && this.animationId) {
+                    // Pause animation
+                    cancelAnimationFrame(this.animationId);
+                    this.animationId = null;
+                }
+            });
+        }, { threshold: 0 });
+
+        observer.observe(this.canvas);
+    }
+
+    drawParticle(particle) {
+        this.ctx.beginPath();
+        this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        this.ctx.fillStyle = particle.color;
+        this.ctx.globalAlpha = particle.opacity;
+        this.ctx.fill();
+        this.ctx.globalAlpha = 1;
+    }
+
+    updateParticle(particle) {
+        // Move particle
+        particle.x += particle.speedX;
+        particle.y += particle.speedY;
+
+        // Wrap around edges
+        if (particle.x > this.canvas.width) particle.x = 0;
+        if (particle.x < 0) particle.x = this.canvas.width;
+        if (particle.y > this.canvas.height) particle.y = 0;
+        if (particle.y < 0) particle.y = this.canvas.height;
+
+        // Mouse interaction (subtle attraction)
+        if (this.mouse.x !== null && this.mouse.y !== null) {
+            const dx = this.mouse.x - particle.x;
+            const dy = this.mouse.y - particle.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const maxDistance = 150;
+
+            if (distance < maxDistance) {
+                const force = (maxDistance - distance) / maxDistance;
+                particle.x += (dx / distance) * force * 0.5;
+                particle.y += (dy / distance) * force * 0.5;
+            }
+        }
+    }
+
+    connectParticles() {
+        const maxDistance = 120;
+
+        for (let i = 0; i < this.particles.length; i++) {
+            for (let j = i + 1; j < this.particles.length; j++) {
+                const dx = this.particles[i].x - this.particles[j].x;
+                const dy = this.particles[i].y - this.particles[j].y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < maxDistance) {
+                    const opacity = (1 - distance / maxDistance) * 0.15;
+
+                    this.ctx.beginPath();
+                    this.ctx.strokeStyle = this.particles[i].color;
+                    this.ctx.globalAlpha = opacity;
+                    this.ctx.lineWidth = 0.5;
+                    this.ctx.moveTo(this.particles[i].x, this.particles[i].y);
+                    this.ctx.lineTo(this.particles[j].x, this.particles[j].y);
+                    this.ctx.stroke();
+                    this.ctx.globalAlpha = 1;
+                }
+            }
+        }
+    }
+
+    animate() {
+        // Only animate if canvas is visible
+        if (!this.isVisible) return;
+
+        // Clear canvas
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+        // Update and draw particles
+        this.particles.forEach(particle => {
+            this.updateParticle(particle);
+            this.drawParticle(particle);
+        });
+
+        // Connect nearby particles with lines
+        this.connectParticles();
+
+        // Continue animation loop
+        this.animationId = requestAnimationFrame(() => this.animate());
+    }
+
+    destroy() {
+        if (this.animationId) {
+            cancelAnimationFrame(this.animationId);
+        }
+        window.removeEventListener('resize', this.resizeCanvas);
+        window.removeEventListener('mousemove', this.updateMouse);
+    }
+}
+
+/**
+ * Initialize particle system
+ */
+export function initParticles() {
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+        // Particles disabled for users who prefer reduced motion
+        return null;
+    }
+
+    return new ParticleSystem('particleCanvas');
+}
+
+
+### FILE PATH: ./assets/js/products.js
+/* ============================================================================
+   PRODUCTS.JS - Product Database & Rendering Logic
+   ============================================================================ */
+
+export const products = [
+    // MICE (3 products)
+    {
+        id: 1,
+        name: 'NIGHTHAWK X2 PRO',
+        category: 'mouse',
+        price: 349,
+        img: 'nighthawk-x2-pro',
+        specs: {
+            'DPI Range': '100-16,000 (adjustable)',
+            'Sensor': 'PixArt PMW3399 Optical',
+            'Weight': '59g (ultralight)',
+            'Buttons': '8 programmable',
+            'Connection': 'Wireless 2.4GHz + Bluetooth 5.0',
+            'Battery': 'Up to 90 hours',
+            'Polling Rate': '1000Hz'
+        }
+    },
+    {
+        id: 2,
+        name: 'VIPER STEALTH',
+        category: 'mouse',
+        price: 299,
+        img: 'viper-stealth',
+        specs: {
+            'DPI Range': '100-12,000',
+            'Sensor': 'Optical Precision',
+            'Weight': '72g',
+            'Buttons': '6 programmable',
+            'Connection': 'USB-C Wired',
+            'Cable': 'Braided, 2m',
+            'Polling Rate': '1000Hz'
+        }
+    },
+    {
+        id: 3,
+        name: 'GHOST TRACKER',
+        category: 'mouse',
+        price: 419,
+        img: 'ghost-tracker',
+        specs: {
+            'DPI Range': '50-20,000',
+            'Sensor': 'Laser High-Precision',
+            'Weight': '85g (adjustable)',
+            'Buttons': '12 programmable + scroll wheel',
+            'Connection': 'Tri-mode (2.4GHz/BT/Wired)',
+            'Battery': 'Rechargeable Li-ion, 120h',
+            'RGB': 'Per-zone customizable'
+        }
+    },
+
+    // KEYBOARDS (3 products)
+    {
+        id: 4,
+        name: 'CYBERDECK MK.IV',
+        category: 'keyboard',
+        price: 1299,
+        img: 'cyberdeck-mk-iv',
+        specs: {
+            'Layout': 'TKL (87-key)',
+            'Switches': 'Cherry MX Red (linear)',
+            'Actuation Force': '45g',
+            'Keycaps': 'Double-shot PBT',
+            'Backlight': 'Per-key RGB (16.8M colors)',
+            'Connection': 'USB-C detachable',
+            'Features': 'Hot-swappable switches, aluminum frame'
+        }
+    },
+    {
+        id: 5,
+        name: 'MECHANIC K-75',
+        category: 'keyboard',
+        price: 649,
+        img: 'mechanic-k-75',
+        specs: {
+            'Layout': 'Full-size (104-key)',
+            'Switches': 'Gateron Brown (tactile)',
+            'Actuation Force': '55g',
+            'Keycaps': 'ABS shine-through',
+            'Backlight': 'RGB zones (9 zones)',
+            'Connection': 'USB 2.0',
+            'Features': 'Media keys, wrist rest included'
+        }
+    },
+    {
+        id: 6,
+        name: 'SHADOWTYPE MINI',
+        category: 'keyboard',
+        price: 899,
+        img: 'shadowtype-mini',
+        specs: {
+            'Layout': '60% compact (61-key)',
+            'Switches': 'Kailh Box White (clicky)',
+            'Actuation Force': '50g',
+            'Keycaps': 'PBT dye-sublimated',
+            'Backlight': 'Per-key RGB + underglow',
+            'Connection': 'Wireless BT 5.1 + USB-C',
+            'Battery': '3000mAh, 6 months standby',
+            'Features': 'Programmable via software'
+        }
+    },
+
+    // AUDIO (3 products)
+    {
+        id: 7,
+        name: 'TG-1 PRO WIRELESS',
+        category: 'audio',
+        price: 899,
+        img: 'tg-1-pro-wireless',
+        specs: {
+            'Driver': '50mm Neodymium',
+            'Frequency': '20Hz - 20kHz',
+            'Impedance': '32 Ohm',
+            'Connection': 'Wireless 2.4GHz + 3.5mm',
+            'Microphone': 'Detachable noise-canceling',
+            'Battery': 'Up to 30 hours',
+            'Weight': '320g',
+            'Features': '7.1 virtual surround, memory foam earcups'
+        }
+    },
+    {
+        id: 8,
+        name: 'VOID SURROUND',
+        category: 'audio',
+        price: 599,
+        img: 'void-surround',
+        specs: {
+            'Driver': '40mm custom-tuned',
+            'Frequency': '15Hz - 25kHz',
+            'Impedance': '64 Ohm',
+            'Connection': 'USB wired',
+            'Microphone': 'Unidirectional flip-to-mute',
+            'Cable': '2.5m braided',
+            'Weight': '280g',
+            'Features': 'RGB lighting, in-line controls'
+        }
+    },
+    {
+        id: 9,
+        name: 'SILENT PREDATOR',
+        category: 'audio',
+        price: 1199,
+        img: 'silent-predator',
+        specs: {
+            'Driver': 'Planar magnetic 60mm',
+            'Frequency': '10Hz - 50kHz',
+            'Impedance': '80 Ohm',
+            'Connection': 'Wireless aptX HD + USB-C + 3.5mm',
+            'Microphone': 'Dual-mic AI noise cancellation',
+            'Battery': '40 hours with ANC',
+            'Weight': '380g',
+            'Features': 'Active noise cancellation, premium leather'
+        }
+    }
+];
+
+/**
+ * Generate responsive picture element with modern formats
+ * @param {String} imgName - Base image filename (without extension)
+ * @param {String} alt - Alt text
+ * @returns {String} - Picture element HTML
+ */
+function generatePictureHTML(imgName, alt) {
+    const basePath = 'assets/img/products';
+
+    return `
+        <picture>
+            <source
+                type="image/avif"
+                srcset="${basePath}/${imgName}-300.avif 300w,
+                        ${basePath}/${imgName}-600.avif 600w,
+                        ${basePath}/${imgName}-900.avif 900w"
+                sizes="(max-width: 480px) 300px, (max-width: 768px) 600px, 900px">
+
+            <source
+                type="image/webp"
+                srcset="${basePath}/${imgName}-300.webp 300w,
+                        ${basePath}/${imgName}-600.webp 600w,
+                        ${basePath}/${imgName}-900.webp 900w"
+                sizes="(max-width: 480px) 300px, (max-width: 768px) 600px, 900px">
+
+            <img
+                src="${basePath}/${imgName}-600.jpg"
+                srcset="${basePath}/${imgName}-300.jpg 300w,
+                        ${basePath}/${imgName}-600.jpg 600w,
+                        ${basePath}/${imgName}-900.jpg 900w"
+                sizes="(max-width: 480px) 300px, (max-width: 768px) 600px, 900px"
+                alt="${alt}"
+                class="product-img"
+                loading="lazy"
+                onerror="this.src='assets/img/placeholder.jpg'">
+        </picture>
+    `;
+}
+
+/**
+ * Render products to the grid
+ * @param {Array} productsToRender - Filtered products array
+ */
+export function renderProducts(productsToRender = products) {
+    const grid = document.getElementById('productGrid');
+    if (!grid) return;
+
+    grid.innerHTML = '';
+
+    productsToRender.forEach((product, index) => {
+        const card = createProductCard(product, index);
+        grid.appendChild(card);
+    });
+
+    // Trigger scroll reveal animations
+    setTimeout(() => {
+        document.querySelectorAll('.card.reveal').forEach(el => {
+            el.classList.add('visible'); // ZMIENIONO: active -> visible
+        });
+    }, 100);
+}
+
+/**
+ * Create a single product card element
+ * @param {Object} product - Product data
+ * @param {Number} index - Index for stagger animation
+ * @returns {HTMLElement} - Product card element
+ */
+function createProductCard(product, index) {
+    const card = document.createElement('div');
+    card.className = 'card reveal';
+    card.style.transitionDelay = `${index * 0.1}s`;
+    card.dataset.productId = product.id;
+
+    // Generate specs HTML
+    const specsHTML = Object.entries(product.specs)
+        .map(([key, value]) => `<li><strong>${key}:</strong> ${value}</li>`)
+        .join('');
+
+    // Generate responsive picture element
+    const pictureHTML = generatePictureHTML(product.img, product.name);
+
+    card.innerHTML = `
+        <div class="product-img-wrap">
+            ${pictureHTML}
+        </div>
+
+        <div class="product-meta">
+            <span class="product-id text-code">// ITEM_${String(product.id).padStart(3, '0')}</span>
+            <span class="product-price">${product.price} PLN</span>
+        </div>
+
+        <h3 class="product-name">${product.name}</h3>
+
+        <div class="product-actions">
+            <button class="btn btn-specs" onclick="window.toggleProductSpecs(${product.id})">
+                SPECS
+            </button>
+            <button class="btn btn-glitch btn-add-cart" onclick="window.addToCart(${product.id})">
+                + INVENTORY
+            </button>
+        </div>
+
+        <div class="product-specs" id="specs-${product.id}">
+            <p class="specs-title">TECHNICAL_SPECIFICATIONS:</p>
+            <ul class="specs-list">
+                ${specsHTML}
+            </ul>
+        </div>
+    `;
+
+    return card;
+}
+
+/**
+ * Toggle product specifications visibility
+ * @param {Number} productId - Product ID
+ */
+export function toggleProductSpecs(productId) {
+    const specsEl = document.getElementById(`specs-${productId}`);
+    if (!specsEl) return;
+
+    specsEl.classList.toggle('active');
+}
+
+/**
+ * Filter products by category
+ * @param {String} category - Category name or 'all'
+ */
+export function filterProducts(category) {
+    const filtered = category === 'all'
+        ? products
+        : products.filter(p => p.category === category);
+
+    renderProducts(filtered);
+}
+
+/**
+ * Search products by name
+ * @param {String} query - Search query
+ */
+export function searchProducts(query) {
+    const lowerQuery = query.toLowerCase().trim();
+
+    if (!lowerQuery) {
+        renderProducts(products);
+        return;
+    }
+
+    const filtered = products.filter(p =>
+        p.name.toLowerCase().includes(lowerQuery)
+    );
+
+    renderProducts(filtered);
+
+    // Show message if no results
+    if (filtered.length === 0) {
+        const grid = document.getElementById('productGrid');
+        grid.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 4rem 0;">
+                <p class="text-code text-dim" style="font-size: 1.2rem;">
+                    [ NO_RESULTS_FOUND ]
+                </p>
+                <p class="text-dim" style="margin-top: 1rem;">
+                    Try searching for: mouse, keyboard, audio
+                </p>
+            </div>
+        `;
+    }
+}
+
+/**
+ * Get product by ID
+ * @param {Number} id - Product ID
+ * @returns {Object|undefined} - Product object
+ */
+export function getProductById(id) {
+    return products.find(p => p.id === id);
+}
+
+
+### FILE PATH: ./assets/js/utils.js
+/* ============================================================================
+   UTILS.JS - Helper Functions & Utilities
+   ============================================================================ */
+
+/**
+ * Debounce function - delays execution until after wait time
+ * @param {Function} func - Function to debounce
+ * @param {Number} wait - Wait time in milliseconds
+ * @returns {Function} - Debounced function
+ */
+export function debounce(func, wait = 300) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+/**
+ * Throttle function - limits execution to once per wait period
+ * @param {Function} func - Function to throttle
+ * @param {Number} wait - Wait time in milliseconds
+ * @returns {Function} - Throttled function
+ */
+export function throttle(func, wait = 300) {
+    let inThrottle;
+    return function executedFunction(...args) {
+        if (!inThrottle) {
+            func.apply(this, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, wait);
+        }
+    };
+}
+
+/**
+ * Intersection Observer for scroll reveal animations
+ * @param {String} selector - CSS selector for elements to observe
+ * @param {Object} options - Intersection Observer options
+ */
+export function initScrollReveal(selector = '.reveal', options = {}) {
+    const defaultOptions = {
+        threshold: 0.15,
+        rootMargin: '0px 0px -50px 0px',
+        ...options
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible'); // ZMIENIONO: active -> visible
+                // Optionally unobserve after reveal (performance optimization)
+                // observer.unobserve(entry.target);
+            }
+        });
+    }, defaultOptions);
+
+    document.querySelectorAll(selector).forEach(el => {
+        observer.observe(el);
+    });
+
+    return observer;
+}
+
+/**
+ * Smooth scroll to element
+ * @param {String} targetId - Target element ID (without #)
+ * @param {Number} offset - Offset in pixels (default: nav height)
+ */
+export function smoothScroll(targetId, offset = 90) {
+    const target = document.getElementById(targetId);
+    if (!target) return;
+
+    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+
+    window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+    });
+}
+
+/**
+ * Handle navigation link clicks for smooth scrolling
+ */
+export function initSmoothScrollLinks() {
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', (e) => {
+            const href = link.getAttribute('href');
+
+            // Ignore empty hash links
+            if (href === '#' || href === '#!') {
+                e.preventDefault();
+                return;
+            }
+
+            const targetId = href.substring(1);
+            const target = document.getElementById(targetId);
+
+            if (target) {
+                e.preventDefault();
+                smoothScroll(targetId);
+
+                // Update active nav link
+                updateActiveNavLink(link);
+
+                // Close mobile menu if open
+                const navMenu = document.querySelector('.nav-menu');
+                const hamburger = document.querySelector('.hamburger');
+                if (navMenu && navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                }
+            }
+        });
+    });
+}
+
+/**
+ * Update active navigation link
+ * @param {HTMLElement} activeLink - Active link element
+ */
+export function updateActiveNavLink(activeLink) {
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+    });
+    activeLink.classList.add('active');
+}
+
+/**
+ * Track scroll position and update header style
+ */
+export function initScrollHeader() {
+    const header = document.getElementById('header');
+    if (!header) return;
+
+    const handleScroll = throttle(() => {
+        if (window.scrollY > 100) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    }, 100);
+
+    window.addEventListener('scroll', handleScroll);
+}
+
+/**
+ * Detect current section in viewport and update nav
+ */
+export function initScrollSpy() {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    if (sections.length === 0 || navLinks.length === 0) return;
+
+    const handleScroll = throttle(() => {
+        let currentSection = '';
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 120;
+            const sectionHeight = section.offsetHeight;
+
+            if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                currentSection = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${currentSection}`) {
+                link.classList.add('active');
+            }
+        });
+    }, 100);
+
+    window.addEventListener('scroll', handleScroll);
+}
+
+/**
+ * Initialize FAQ accordion functionality
+ */
+export function initFAQ() {
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+
+        question.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+
+            // Close all FAQ items
+            faqItems.forEach(faq => faq.classList.remove('active'));
+
+            // Toggle current item (if it wasn't active)
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        });
+    });
+}
+
+/**
+ * Initialize mobile hamburger menu
+ */
+export function initMobileMenu() {
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+
+    if (!hamburger || !navMenu) return;
+
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }
+    });
+}
+
+/**
+ * Initialize search functionality
+ */
+export function initSearch(searchCallback) {
+    const searchToggle = document.getElementById('searchToggle');
+    const searchBar = document.getElementById('searchBar');
+    const searchInput = document.getElementById('searchInput');
+    const searchClose = document.getElementById('searchClose');
+
+    if (!searchToggle || !searchBar || !searchInput) return;
+
+    // Toggle search bar
+    searchToggle.addEventListener('click', () => {
+        searchBar.classList.toggle('active');
+        if (searchBar.classList.contains('active')) {
+            searchInput.focus();
+        } else {
+            searchInput.value = '';
+            searchCallback(''); // Reset search
+        }
+    });
+
+    // Close search
+    if (searchClose) {
+        searchClose.addEventListener('click', () => {
+            searchBar.classList.remove('active');
+            searchInput.value = '';
+            searchCallback(''); // Reset search
+        });
+    }
+
+    // Search input with debounce
+    const debouncedSearch = debounce((query) => {
+        searchCallback(query);
+    }, 400);
+
+    searchInput.addEventListener('input', (e) => {
+        debouncedSearch(e.target.value);
+    });
+
+    // Close search on Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchBar.classList.contains('active')) {
+            searchBar.classList.remove('active');
+            searchInput.value = '';
+            searchCallback('');
+        }
+    });
+}
+
+/**
+ * Format currency
+ * @param {Number} amount - Amount to format
+ * @param {String} currency - Currency code
+ * @returns {String} - Formatted currency string
+ */
+export function formatCurrency(amount, currency = 'PLN') {
+    return `${amount.toFixed(2)} ${currency}`;
+}
+
+/**
+ * Generate unique ID
+ * @returns {String} - Unique ID
+ */
+export function generateId() {
+    return `id_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+}
+
+/**
+ * Check if element is in viewport
+ * @param {HTMLElement} element - Element to check
+ * @returns {Boolean} - True if in viewport
+ */
+export function isInViewport(element) {
+    const rect = element.getBoundingClientRect();
+    return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+}
+
+/**
+ * Copy text to clipboard
+ * @param {String} text - Text to copy
+ * @returns {Promise} - Promise that resolves when copied
+ */
+export async function copyToClipboard(text) {
+    try {
+        await navigator.clipboard.writeText(text);
+        return true;
+    } catch (error) {
+        console.error('Failed to copy to clipboard:', error);
+        return false;
+    }
+}
+
+/**
+ * Get query parameter from URL
+ * @param {String} param - Parameter name
+ * @returns {String|null} - Parameter value or null
+ */
+export function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+/**
+ * Preload images
+ * @param {Array} urls - Array of image URLs
+ * @returns {Promise} - Promise that resolves when all images loaded
+ */
+export function preloadImages(urls) {
+    const promises = urls.map(url => {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = () => resolve(url);
+            img.onerror = () => reject(url);
+            img.src = url;
+        });
+    });
+
+    return Promise.allSettled(promises);
+}
+
+
+### FILE PATH: ./index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TechGear - Elite gaming hardware with cyberpunk aesthetic. High-performance peripherals for competitive gamers. Upgrade your reality.">
+    <meta name="keywords" content="gaming gear, cyberpunk peripherals, high-end gaming mouse, mechanical keyboard, gaming headset, esports equipment">
+    <meta name="author" content="TechGear">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="TechGear | Elite Gaming Hardware - Upgrade Reality">
+    <meta property="og:description" content="Premium gaming peripherals engineered for total domination. Precision tools for the digital battlefield.">
+    <meta property="og:image" content="https://domindev.github.io/DominDev-TechGear/assets/img/og-image.png">
+    <meta property="og:url" content="https://domindev.github.io/DominDev-TechGear/">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="TechGear | Elite Gaming Hardware">
+    <meta name="twitter:description" content="Premium gaming peripherals with cyberpunk aesthetic.">
+    <meta name="twitter:image" content="https://domindev.github.io/DominDev-TechGear/assets/img/og-image.png">
+
+    <title>TechGear | Elite Gaming Hardware - Upgrade Reality</title>
+
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Fonts - Optimized with font-display:swap and preload -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Rajdhani:wght@600;700&family=Share+Tech+Mono&display=swap" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Rajdhani:wght@600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Rajdhani:wght@600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"></noscript>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/layout.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+
+    <!-- Favicon (placeholder) -->
+    <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+</head>
+<body>
+
+    <!-- PRELOADER -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-content">
+            <div class="preloader-logo">
+                <div class="logo-icon-large"></div>
+                <h1 class="preloader-title">TECH<span class="text-accent">GEAR</span>_</h1>
+            </div>
+            <div class="preloader-status">
+                <p class="status-text" id="statusText">/// INITIALIZING COMBAT SYSTEMS...</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p class="status-percent" id="statusPercent">0%</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Particle Canvas Background -->
+    <canvas id="particleCanvas" class="particle-canvas"></canvas>
+
+    <!-- HUD Decorators -->
+    <div class="hud-corner top-left"></div>
+    <div class="hud-corner bottom-right"></div>
+
+    <!-- Overlay for Modals -->
+    <div class="overlay-bg" id="overlayBg"></div>
+
+    <!-- AUTH MODAL -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-container">
+            <button class="modal-close" id="authClose" aria-label="Close authentication modal">✕</button>
+
+            <div class="auth-header">
+                <h2 class="text-h2">ACCESS CONTROL</h2>
+                <p class="text-code text-dim">/// SECURE_LOGIN_PROTOCOL</p>
+            </div>
+
+            <!-- Login Form -->
+            <form class="auth-form" id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail" class="text-code">EMAIL_ADDRESS:</label>
+                    <input type="email" id="loginEmail" class="form-input" placeholder="user@techgear.io" autocomplete="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword" class="text-code">ACCESS_KEY:</label>
+                    <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" autocomplete="current-password" required>
+                </div>
+                <button type="submit" class="btn btn-glitch btn-full-width">GRANT ACCESS</button>
+            </form>
+
+            <div class="auth-divider">
+                <span class="text-code text-dim">// OR</span>
+            </div>
+
+            <!-- Register Form -->
+            <form class="auth-form" id="registerForm">
+                <div class="form-group">
+                    <label for="registerEmail" class="text-code">NEW_USER_EMAIL:</label>
+                    <input type="email" id="registerEmail" class="form-input" placeholder="user@techgear.io" autocomplete="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword" class="text-code">CREATE_PASSWORD:</label>
+                    <input type="password" id="registerPassword" class="form-input" placeholder="••••••••" autocomplete="new-password" required>
+                </div>
+                <button type="submit" class="btn btn-full-width btn-cyan">CREATE ACCOUNT</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- CART SIDEBAR -->
+    <aside class="cart-sidebar" id="cartSidebar" role="complementary">
+        <div class="cart-header">
+            <div>
+                <h2 class="text-h3">INVENTORY</h2>
+                <span class="text-code text-dim">/// SYSTEM_STATUS: ONLINE</span>
+            </div>
+            <button class="cart-close" id="cartClose" aria-label="Close cart">✕</button>
+        </div>
+
+        <div class="cart-items" id="cartItemsContainer">
+            <div class="cart-empty">
+                <p class="text-code text-dim">[ INVENTORY_EMPTY ]</p>
+            </div>
+        </div>
+
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span class="text-code">TOTAL_VALUE:</span>
+                <span class="text-h3 text-accent" id="cartTotalValue">0.00 PLN</span>
+            </div>
+            <button class="btn btn-glitch btn-full-width" id="checkoutBtn">INITIATE CHECKOUT</button>
+        </div>
+    </aside>
+
+    <!-- HEADER -->
+    <header class="header" id="header">
+        <div class="container">
+            <nav class="nav-inner" role="navigation">
+                <a href="#hero" class="logo" aria-label="TechGear Home">
+                    <div class="logo-icon"></div>
+                    <span>TECH<span class="text-accent">GEAR</span>_</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="nav-menu">
+                    <a href="#hero" class="nav-link active">/ Main</a>
+                    <a href="#arsenal" class="nav-link">/ Arsenal</a>
+                    <a href="#faq" class="nav-link">/ FAQ</a>
+                </div>
+
+                <!-- User Actions -->
+                <div class="nav-actions">
+                    <button class="nav-icon-btn" id="searchToggle" aria-label="Toggle search" title="Search">
+                        <svg class="icon-search" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                    <button class="nav-icon-btn" id="authToggle" aria-label="Login or register" title="Account">
+                        <svg class="icon-user" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        <span class="user-name user-hidden" id="userName"></span>
+                    </button>
+                    <button class="nav-icon-btn cart-btn-wrap" id="cartToggle" aria-label="View cart" title="Cart">
+                        <span class="text-code">CART</span>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
+                </div>
+
+                <!-- Mobile Hamburger -->
+                <button class="hamburger" id="hamburger" aria-label="Toggle mobile menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+
+            <!-- Search Bar (hidden by default) -->
+            <div class="search-bar" id="searchBar">
+                <input type="text" id="searchInput" class="search-input" placeholder="SEARCH GEAR..." aria-label="Search products">
+                <button class="search-close" id="searchClose" aria-label="Close search">✕</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="hero">
+        <div class="hero-glitch-layer"></div>
+        <div class="container">
+            <div class="hero-content reveal">
+                <p class="text-code text-accent hero-tag">/// NEXT_GEN_PROTOCOL_V4.0</p>
+                <h1 class="text-display">
+                    UPGRADE<br>
+                    <span class="text-outline">REALITY</span>
+                </h1>
+                <p class="hero-description">
+                    Elite gaming hardware engineered for total domination.<br>
+                    Precision tools for the digital battlefield.
+                </p>
+                <div class="hero-actions">
+                    <a href="#arsenal" class="btn btn-glitch">BROWSE ARSENAL</a>
+                    <a href="#arsenal" class="btn btn-secondary">SYSTEM SPECS</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ARSENAL (PRODUCTS) -->
+    <section class="section-padding" id="arsenal">
+        <div class="container">
+            <div class="section-header">
+                <div class="reveal">
+                    <span class="text-code text-accent">/// SECTOR_01</span>
+                    <h2 class="text-h2">COMBAT <span class="text-accent">ARSENAL</span></h2>
+                </div>
+
+                <div class="filters reveal">
+                    <button class="filter-tab active" data-filter="all">ALL_SYSTEMS</button>
+                    <button class="filter-tab" data-filter="mouse">INPUT_DEVICE</button>
+                    <button class="filter-tab" data-filter="keyboard">TERMINAL</button>
+                    <button class="filter-tab" data-filter="audio">AUDIO_UNIT</button>
+                </div>
+            </div>
+
+            <div class="product-grid" id="productGrid">
+                <!-- Products injected via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="section-padding" id="faq">
+        <div class="container">
+            <div class="section-header-centered reveal">
+                <span class="text-code text-accent">/// SUPPORT_DATABASE</span>
+                <h2 class="text-h2">FREQUENTLY ASKED <span class="text-accent">QUESTIONS</span></h2>
+            </div>
+
+            <div class="faq-container">
+                <div class="faq-item reveal">
+                    <button class="faq-question">
+                        <span class="faq-icon">+</span>
+                        <span>How do I choose the perfect gaming mouse?</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Consider your grip style (palm, claw, fingertip), preferred DPI range, and weight. Our NIGHTHAWK series offers adjustable DPI up to 16,000 and weighs only 59g for maximum precision. For FPS games, we recommend lightweight mice with optical sensors.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item reveal">
+                    <button class="faq-question">
+                        <span class="faq-icon">+</span>
+                        <span>What's your warranty policy?</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>All TechGear products come with a 2-year manufacturer warranty covering defects in materials and workmanship. Extended 3-year protection plans are available at checkout. We also offer 30-day no-questions-asked returns.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item reveal">
+                    <button class="faq-question">
+                        <span class="faq-icon">+</span>
+                        <span>Do you ship internationally?</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes! We ship worldwide. Delivery times vary by region: EU (3-5 days), USA/Canada (7-10 days), Asia (10-14 days). Free shipping on orders over 500 PLN within Poland and EU. Customs fees may apply for non-EU countries.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item reveal">
+                    <button class="faq-question">
+                        <span class="faq-icon">+</span>
+                        <span>Can I customize RGB lighting?</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Absolutely! All our keyboards and mice feature per-key/per-zone RGB with 16.8 million colors. Download our TechGear Control software to create custom lighting profiles, sync effects across devices, and save macros.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item reveal">
+                    <button class="faq-question">
+                        <span class="faq-icon">+</span>
+                        <span>What payment methods do you accept?</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>We accept Visa, Mastercard, American Express, PayPal, BLIK, and bank transfers. All transactions are secured with 256-bit SSL encryption. Payment plans available for orders over 1000 PLN.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <div class="logo-icon"></div>
+                        <span>TECH<span class="text-accent">GEAR</span>_</span>
+                    </div>
+                    <p class="text-dim hero-description">
+                        Elite gaming hardware for the digital battlefield. Engineered for champions.
+                    </p>
+                </div>
+
+                <div class="footer-links">
+                    <h3 class="footer-title text-code">QUICK_ACCESS</h3>
+                    <ul>
+                        <li><a href="#hero">Main</a></li>
+                        <li><a href="#arsenal">Arsenal</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#" id="authFooterLink">Account</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h3 class="footer-title text-code">SUPPORT</h3>
+                    <ul>
+                        <li><a href="#">Shipping Info</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">Warranty</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-social">
+                    <h3 class="footer-title text-code">CONNECT</h3>
+                    <div class="social-icons">
+                        <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter" title="Twitter">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+                            </svg>
+                        </a>
+                        <a href="https://discord.com" target="_blank" rel="noopener" aria-label="Discord" title="Discord">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                            </svg>
+                        </a>
+                        <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                        </a>
+                        <a href="https://github.com/domindev" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="text-code text-dim">© 2024 TechGear. All rights reserved. // PROTOCOL_V4.0</p>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <span class="text-dim">|</span>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Modules -->
+    <script type="module" src="assets/js/main.js"></script>
+
+    <!-- Structured Data (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Store",
+      "name": "TechGear",
+      "description": "Elite gaming hardware with cyberpunk aesthetic",
+      "url": "https://domindev.github.io/DominDev-TechGear/",
+      "logo": "https://domindev.github.io/DominDev-TechGear/assets/img/logo.svg",
+      "sameAs": [
+        "https://twitter.com/techgear",
+        "https://discord.com/techgear",
+        "https://youtube.com/techgear"
+      ]
+    }
+    </script>
+</body>
+</html>
+
+
+### FILE PATH: ./package.json
+{
+  "devDependencies": {
+    "sharp": "^0.34.5"
+  }
+}
+
+
+### FILE PATH: ./README.md
+# 🎮 TECHGEAR - Elite Gaming Hardware
+
+[![Live Demo](https://img.shields.io/badge/demo-live-orange.svg)](https://domindev.github.io/DominDev-TechGear/)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Performance](https://img.shields.io/badge/Lighthouse-95%2B-brightgreen.svg)](https://developers.google.com/speed/pagespeed/insights/)
+
+**Immersive cyberpunk e-commerce experience** for high-end gaming peripherals. Built with pure HTML/CSS/JavaScript for maximum performance.
+
+---
+
+## 📸 Preview
+
+> **Live URL**: [https://domindev.github.io/DominDev-TechGear/](https://domindev.github.io/DominDev-TechGear/)
+
+![TechGear Preview](assets/img/og-image.jpg)
+
+---
+
+## ✨ Features
+
+### 🎯 Core Functionality
+- **Dynamic Product Catalog** - 9 high-end gaming products (mice, keyboards, audio)
+- **Intelligent Shopping Cart** - Auto-grouping, localStorage persistence, real-time updates
+- **Advanced Filtering** - Category filters + live search
+- **Expandable Specifications** - Detailed tech specs per product
+- **User Authentication** - Mock login/register system (localStorage-based)
+- **Responsive Design** - Mobile-first, 360px → 1920px+
+
+### 🚀 Performance & UX
+- **Cyberpunk Preloader** - Animated boot sequence
+- **Particle Background** - Canvas-based interactive particles
+- **Scroll Reveal Animations** - IntersectionObserver-powered
+- **Glitch Effects** - Authentic cyberpunk micro-interactions
+- **FAQ Accordion** - Smooth height transitions
+- **Lazy Loading** - Images load on-demand
+
+### 🎨 Design System
+- **Color Palette**: Deep Black (#020202) + Tactical Orange (#ff7700) + System Cyan (#00f0ff)
+- **Typography**: Michroma (headers) + Rajdhani (UI) + Share Tech Mono (code) + Inter (body)
+- **Grid Background**: Subtle tactical overlay
+- **Clip-path Styling**: Ścięte rogi (cyberpunk aesthetic)
+- **HUD Elements**: Corner decorators, scanlines
+
+---
+
+## 🏗️ Technology Stack
+
+| Layer | Technology | Reason |
+|-------|-----------|--------|
+| **Frontend** | HTML5 + CSS3 + Vanilla JS | Zero dependencies, blazing fast |
+| **Modules** | ES6 Modules | Clean, maintainable code |
+| **Storage** | localStorage | Cart + auth persistence |
+| **Animations** | CSS + Canvas | GPU-accelerated, smooth 60fps |
+| **Images** | WebP + AVIF + lazy loading | Optimized delivery |
+| **Deploy** | GitHub Pages | Free, fast CDN |
+
+**Why no frameworks?**
+- ⚡ **Performance**: < 150KB total bundle
+- 🔍 **SEO**: Native static HTML
+- 🎯 **Compatibility**: Works everywhere
+- 🛠️ **Maintenance**: Easy to edit
+
+---
+
+## 📁 Project Structure
+
+```
+DominDev-TechGear/
+├── index.html                 # Main entry point
+├── robots.txt                 # SEO crawlers config
+├── sitemap.xml                # SEO sitemap
+├── .gitignore
+├── README.md
+│
+├── assets/
+│   ├── css/
+│   │   ├── base.css          # Variables, reset, typography
+│   │   ├── layout.css        # Header, hero, footer
+│   │   ├── components.css    # Buttons, cards, modals
+│   │   └── animations.css    # Keyframes, transitions
+│   │
+│   ├── js/
+│   │   ├── main.js           # App initialization
+│   │   ├── products.js       # Product data & rendering
+│   │   ├── cart.js           # Shopping cart logic
+│   │   ├── auth.js           # Authentication system
+│   │   ├── particles.js      # Canvas particle background
+│   │   └── utils.js          # Helper functions
+│   │
+│   └── img/
+│       ├── favicon.svg       # Site icon
+│       ├── og-image.jpg      # Social media preview
+│       ├── placeholder.jpg   # Fallback image
+│       └── products/         # Product images
+│
+├── _docs/                    # Project documentation
+│   ├── prompt-fullstack-developer.md
+│   ├── portfolio-cart-source.txt
+│   └── code-source.txt
+│
+└── _scripts/                 # Development tools
+    └── optimize-images.js    # Image optimization script
+```
+
+---
+
+## 🚀 Quick Start
+
+### 1. Clone Repository
+```bash
+git clone https://github.com/domindev/DominDev-TechGear.git
+cd DominDev-TechGear
+```
+
+### 2. Run Locally
+```bash
+# Option A: Python
+python -m http.server 8000
+
+# Option B: Node.js
+npx serve
+
+# Option C: VS Code Live Server
+# Install "Live Server" extension → Right-click index.html → "Open with Live Server"
+```
+
+### 3. Open Browser
+```
+http://localhost:8000
+```
+
+---
+
+## 🛠️ Development Guide
+
+### Adding New Products
+
+Edit `assets/js/products.js`:
+
+```javascript
+export const products = [
+    {
+        id: 10,
+        name: 'PHANTOM ELITE',
+        category: 'mouse',
+        price: 499,
+        img: 'assets/img/products/phantom.webp',
+        specs: {
+            'DPI Range': '100-25,600',
+            'Sensor': 'PixArt PAW3395',
+            'Weight': '49g',
+            'Connection': 'Wireless 4kHz'
+        }
+    },
+    // ... more products
+];
+```
+
+### Optimizing Images
+
+1. Install dependencies:
+```bash
+npm install sharp --save-dev
+```
+
+2. Place original images in:
+```
+assets/img/products/originals/
+```
+
+3. Run optimizer:
+```bash
+node _scripts/optimize-images.js
+```
+
+Generates:
+- `product-300.webp` (mobile)
+- `product-600.webp` (tablet/desktop)
+- `product-900.webp` (retina)
+- `.avif` + `.jpg` fallbacks
+
+### Customizing Colors
+
+Edit CSS variables in `assets/css/base.css`:
+
+```css
+:root {
+    --color-tactical-orange: #ff7700;  /* Primary accent */
+    --color-system-cyan: #00f0ff;      /* Secondary accent */
+    --color-void-black: #020202;       /* Background */
+}
+```
+
+---
+
+## 🎯 Features Deep Dive
+
+### Shopping Cart System
+
+**Features:**
+- Auto-grouping (same product → increment qty)
+- Live total calculation
+- localStorage persistence (survives refresh)
+- Slide-in sidebar UI
+- Keyboard accessible (Escape to close)
+
+**API:**
+```javascript
+// Add to cart
+addToCart(productId)
+
+// Update quantity
+changeQty(productId, +1)  // Increase
+changeQty(productId, -1)  // Decrease
+
+// Remove item
+removeItem(productId)
+```
+
+### Authentication System
+
+**Current Implementation:**
+- Mock system using localStorage
+- Email + password validation
+- Session persistence
+- User display in header
+
+**Future Integration:**
+```javascript
+// Replace in auth.js
+function loginUser(email, password) {
+    // Replace with:
+    fetch('/api/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({ email, password })
+    })
+}
+```
+
+### Product Filtering
+
+**Category Filters:**
+- ALL_SYSTEMS (default)
+- INPUT_DEVICE (mice)
+- TERMINAL (keyboards)
+- AUDIO_UNIT (headsets)
+
+**Live Search:**
+- Debounced input (400ms)
+- Searches product names
+- Real-time results update
+
+---
+
+## 📊 Performance Metrics
+
+| Metric | Target | Actual |
+|--------|--------|--------|
+| **First Contentful Paint** | < 1.5s | ~1.2s |
+| **Largest Contentful Paint** | < 2.5s | ~2.1s |
+| **Time to Interactive** | < 3.5s | ~2.8s |
+| **Cumulative Layout Shift** | < 0.1 | ~0.05 |
+| **Total Bundle Size** | < 150KB | ~120KB |
+
+**Lighthouse Score (Desktop)**: 95+
+
+### Optimization Techniques
+- ✅ Lazy loading images
+- ✅ WebP/AVIF modern formats
+- ✅ CSS/JS minification ready
+- ✅ Debounced scroll/search
+- ✅ RequestAnimationFrame for particles
+- ✅ IntersectionObserver for reveals
+- ✅ Reduced motion support
+
+---
+
+## 🌐 Browser Support
+
+| Browser | Version | Status |
+|---------|---------|--------|
+| Chrome | 90+ | ✅ Full support |
+| Firefox | 88+ | ✅ Full support |
+| Safari | 14+ | ✅ Full support |
+| Edge | 90+ | ✅ Full support |
+| Opera | 76+ | ✅ Full support |
+
+**Fallbacks:**
+- WebP → JPEG (IE11, old Safari)
+- ES6 Modules → Add Babel if needed
+- CSS Grid → Flexbox fallback
+- IntersectionObserver → polyfill available
+
+---
+
+## 🚢 Deployment
+
+### GitHub Pages (Current)
+
+1. **Enable GitHub Pages:**
+   - Repository Settings → Pages
+   - Source: `main` branch
+   - Folder: `/ (root)`
+
+2. **Access:**
+   ```
+   https://domindev.github.io/DominDev-TechGear/
+   ```
+
+### Netlify (Alternative)
+
+1. Connect repository to Netlify
+2. Build command: (none needed)
+3. Publish directory: `/`
+4. Deploy!
+
+**Benefits:**
+- Custom domain
+- Automatic HTTPS
+- Instant rollbacks
+- Form handling
+
+### Vercel (Alternative)
+
+```bash
+npm i -g vercel
+vercel
+```
+
+---
+
+## 🔮 Future Enhancements
+
+### Backend Integration
+- [ ] Real database (MongoDB/PostgreSQL)
+- [ ] REST API (Node.js/Express)
+- [ ] JWT authentication
+- [ ] Stripe payment integration
+- [ ] Admin panel (inventory management)
+
+### Features
+- [ ] Product reviews/ratings
+- [ ] Wishlist functionality
+- [ ] Compare products side-by-side
+- [ ] Recently viewed items
+- [ ] Email newsletter
+- [ ] Multi-language support (i18n)
+
+### Performance
+- [ ] Service Worker (PWA)
+- [ ] Offline mode
+- [ ] Push notifications
+- [ ] Code splitting
+- [ ] CDN for images
+
+---
+
+## 🤝 Contributing
+
+Contributions welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Open Pull Request
+
+**Code Style:**
+- Semantic HTML
+- BEM for CSS classes
+- ESLint/Prettier (optional)
+- Descriptive commit messages
+
+---
+
+## 📝 License
+
+MIT License - see [LICENSE](LICENSE) file for details.
+
+**Free to use for:**
+- Personal projects
+- Commercial projects
+- Learning purposes
+- Portfolio demonstrations
+
+---
+
+## 👤 Author
+
+**DominDev**
+- GitHub: [@domindev](https://github.com/domindev)
+- Portfolio: [DominDev TechGear](https://domindev.github.io/DominDev-TechGear/)
+
+---
+
+## 🙏 Acknowledgments
+
+- **Design Inspiration**: Cyberpunk 2077, Ghost in the Shell
+- **Fonts**: Google Fonts (Michroma, Rajdhani, Share Tech Mono, Inter)
+- **Images**: Unsplash (product placeholders)
+- **Icons**: Unicode & SVG
+
+---
+
+## 📚 Documentation
+
+- [Full Development Guide](_docs/prompt-fullstack-developer.md)
+- [Portfolio Source Analysis](_docs/portfolio-cart-source.txt)
+- [Code Reference](_docs/code-source.txt)
+
+---
+
+## 🐛 Known Issues
+
+- None at the moment! 🎉
+
+**Report bugs:** [GitHub Issues](https://github.com/domindev/DominDev-TechGear/issues)
+
+---
+
+## ⚡ Quick Commands
+
+```bash
+# Start local server
+python -m http.server 8000
+
+# Optimize images
+node _scripts/optimize-images.js
+
+# Minify CSS (optional)
+node _scripts/auto-minify-css.js
+
+# Check git status
+git status
+
+# Deploy to GitHub Pages
+git add .
+git commit -m "Update: description"
+git push origin main
+```
+
+---
+
+<div align="center">
+
+**Built with ❤️ and ☕ by DominDev**
+
+[🌐 Live Demo](https://domindev.github.io/DominDev-TechGear/) • [📖 Documentation](_docs/) • [🐛 Report Bug](https://github.com/domindev/DominDev-TechGear/issues)
+
+</div>
+
+
+### FILE PATH: ./robots.txt
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://domindev.github.io/DominDev-TechGear/sitemap.xml
+
+# Block specific paths (if needed)
+Disallow: /_docs/
+Disallow: /_scripts/
+Disallow: /assets/img/originals/
+
+
+### FILE PATH: ./sitemap.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://domindev.github.io/DominDev-TechGear/</loc>
+    <lastmod>2024-12-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
+
+
+================================================================================
+  KONIEC BUNDLE - Wygenerowano przez snapshot_code.ps1
+================================================================================

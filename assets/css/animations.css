@@ -313,7 +313,7 @@
         transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.reveal.active {
+.reveal.visible {
     opacity: 1;
     transform: translateY(0);
 }
@@ -327,7 +327,7 @@
         transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.reveal-left.active {
+.reveal-left.visible {
     opacity: 1;
     transform: translateX(0);
 }
@@ -341,7 +341,7 @@
         transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.reveal-right.active {
+.reveal-right.visible {
     opacity: 1;
     transform: translateX(0);
 }
@@ -355,7 +355,7 @@
         transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.reveal-scale.active {
+.reveal-scale.visible {
     opacity: 1;
     transform: scale(1);
 }

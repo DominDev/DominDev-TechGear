@@ -12,7 +12,9 @@
       "Bash(curl:*)",
       "Bash(powershell -Command:*)",
       "Bash(node _scripts/download-product-images-pexels.js:*)",
-      "Bash(node _scripts/optimize-images.js:*)"
+      "Bash(node _scripts/optimize-images.js:*)",
+      "Bash(git config:*)",
+      "Bash(grep:*)"
     ]
   }
 }
