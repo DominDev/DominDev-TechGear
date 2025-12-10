@@ -9,7 +9,7 @@ export const products = [
         name: 'NIGHTHAWK X2 PRO',
         category: 'mouse',
         price: 349,
-        img: 'https://images.unsplash.com/photo-1615663245857-acda84b471bc?auto=format&fit=crop&q=80&w=600',
+        img: 'nighthawk-x2-pro',
         specs: {
             'DPI Range': '100-16,000 (adjustable)',
             'Sensor': 'PixArt PMW3399 Optical',
@@ -25,7 +25,7 @@ export const products = [
         name: 'VIPER STEALTH',
         category: 'mouse',
         price: 299,
-        img: 'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?auto=format&fit=crop&q=80&w=600',
+        img: 'viper-stealth',
         specs: {
             'DPI Range': '100-12,000',
             'Sensor': 'Optical Precision',
@@ -41,7 +41,7 @@ export const products = [
         name: 'GHOST TRACKER',
         category: 'mouse',
         price: 419,
-        img: 'https://images.unsplash.com/photo-1601445638532-3c6f6c2aa4d6?auto=format&fit=crop&q=80&w=600',
+        img: 'ghost-tracker',
         specs: {
             'DPI Range': '50-20,000',
             'Sensor': 'Laser High-Precision',
@@ -59,7 +59,7 @@ export const products = [
         name: 'CYBERDECK MK.IV',
         category: 'keyboard',
         price: 1299,
-        img: 'https://images.unsplash.com/photo-1595225476474-87563907a212?auto=format&fit=crop&q=80&w=600',
+        img: 'cyberdeck-mk-iv',
         specs: {
             'Layout': 'TKL (87-key)',
             'Switches': 'Cherry MX Red (linear)',
@@ -75,7 +75,7 @@ export const products = [
         name: 'MECHANIC K-75',
         category: 'keyboard',
         price: 649,
-        img: 'https://images.unsplash.com/photo-1587829741301-dc798b91a91e?auto=format&fit=crop&q=80&w=600',
+        img: 'mechanic-k-75',
         specs: {
             'Layout': 'Full-size (104-key)',
             'Switches': 'Gateron Brown (tactile)',
@@ -91,7 +91,7 @@ export const products = [
         name: 'SHADOWTYPE MINI',
         category: 'keyboard',
         price: 899,
-        img: 'https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?auto=format&fit=crop&q=80&w=600',
+        img: 'shadowtype-mini',
         specs: {
             'Layout': '60% compact (61-key)',
             'Switches': 'Kailh Box White (clicky)',
@@ -110,7 +110,7 @@ export const products = [
         name: 'TG-1 PRO WIRELESS',
         category: 'audio',
         price: 899,
-        img: 'https://images.unsplash.com/photo-1629429408209-1f912961dbd8?auto=format&fit=crop&q=80&w=600',
+        img: 'tg-1-pro-wireless',
         specs: {
             'Driver': '50mm Neodymium',
             'Frequency': '20Hz - 20kHz',
@@ -127,7 +127,7 @@ export const products = [
         name: 'VOID SURROUND',
         category: 'audio',
         price: 599,
-        img: 'https://images.unsplash.com/photo-1612444530582-fc66183b16f7?auto=format&fit=crop&q=80&w=600',
+        img: 'void-surround',
         specs: {
             'Driver': '40mm custom-tuned',
             'Frequency': '15Hz - 25kHz',
@@ -144,7 +144,7 @@ export const products = [
         name: 'SILENT PREDATOR',
         category: 'audio',
         price: 1199,
-        img: 'https://images.unsplash.com/photo-1618366712010-f4ae9c647dcf?auto=format&fit=crop&q=80&w=600',
+        img: 'silent-predator',
         specs: {
             'Driver': 'Planar magnetic 60mm',
             'Frequency': '10Hz - 50kHz',
@@ -157,6 +157,45 @@ export const products = [
         }
     }
 ];
+
+/**
+ * Generate responsive picture element with modern formats
+ * @param {String} imgName - Base image filename (without extension)
+ * @param {String} alt - Alt text
+ * @returns {String} - Picture element HTML
+ */
+function generatePictureHTML(imgName, alt) {
+    const basePath = 'assets/img/products';
+
+    return `
+        <picture>
+            <source
+                type="image/avif"
+                srcset="${basePath}/${imgName}-300.avif 300w,
+                        ${basePath}/${imgName}-600.avif 600w,
+                        ${basePath}/${imgName}-900.avif 900w"
+                sizes="(max-width: 480px) 300px, (max-width: 768px) 600px, 900px">
+
+            <source
+                type="image/webp"
+                srcset="${basePath}/${imgName}-300.webp 300w,
+                        ${basePath}/${imgName}-600.webp 600w,
+                        ${basePath}/${imgName}-900.webp 900w"
+                sizes="(max-width: 480px) 300px, (max-width: 768px) 600px, 900px">
+
+            <img
+                src="${basePath}/${imgName}-600.jpg"
+                srcset="${basePath}/${imgName}-300.jpg 300w,
+                        ${basePath}/${imgName}-600.jpg 600w,
+                        ${basePath}/${imgName}-900.jpg 900w"
+                sizes="(max-width: 480px) 300px, (max-width: 768px) 600px, 900px"
+                alt="${alt}"
+                class="product-img"
+                loading="lazy"
+                onerror="this.src='assets/img/placeholder.jpg'">
+        </picture>
+    `;
+}
 
 /**
  * Render products to the grid
@@ -198,13 +237,12 @@ function createProductCard(product, index) {
         .map(([key, value]) => `<li><strong>${key}:</strong> ${value}</li>`)
         .join('');
 
+    // Generate responsive picture element
+    const pictureHTML = generatePictureHTML(product.img, product.name);
+
     card.innerHTML = `
         <div class="product-img-wrap">
-            <img src="${product.img}"
-                 alt="${product.name}"
-                 class="product-img"
-                 loading="lazy"
-                 onerror="this.src='assets/img/placeholder.jpg'">
+            ${pictureHTML}
         </div>
 
         <div class="product-meta">
