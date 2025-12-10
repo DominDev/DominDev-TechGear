@@ -50,6 +50,13 @@
     --nav-height: 90px;
     --border-radius: 0;
 
+    /* Component Sizes */
+    --cart-width: 450px;
+    --product-img-height: 250px;
+    --product-img-height-mobile: 200px;
+    --reveal-distance: 40px;
+    --reveal-distance-small: 30px;
+
     /* Clip Paths (Cyberpunk Corners) */
     --clip-corner: polygon(
         10px 0, 100% 0,
@@ -326,16 +333,7 @@ select:focus {
 /* --------------------------------------------------------------------------
    [8] UTILITIES
    -------------------------------------------------------------------------- */
-.reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity var(--transition-slow), transform var(--transition-slow);
-}
-
-.reveal.active {
-    opacity: 1;
-    transform: translateY(0);
-}
+/* NOTE: .reveal class is defined in animations.css */
 
 .hidden {
     display: none !important;

@@ -15,6 +15,7 @@ export class ParticleSystem {
         this.particleCount = 80;
         this.mouse = { x: null, y: null };
         this.animationId = null;
+        this.isVisible = true; // Track canvas visibility
 
         this.init();
     }
@@ -64,6 +65,24 @@ export class ParticleSystem {
             this.mouse.x = null;
             this.mouse.y = null;
         });
+
+        // Pause animation when canvas is not visible (Performance optimization)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                this.isVisible = entry.isIntersecting;
+
+                if (entry.isIntersecting && !this.animationId) {
+                    // Resume animation
+                    this.animate();
+                } else if (!entry.isIntersecting && this.animationId) {
+                    // Pause animation
+                    cancelAnimationFrame(this.animationId);
+                    this.animationId = null;
+                }
+            });
+        }, { threshold: 0 });
+
+        observer.observe(this.canvas);
     }
 
     drawParticle(particle) {
@@ -127,6 +146,9 @@ export class ParticleSystem {
     }
 
     animate() {
+        // Only animate if canvas is visible
+        if (!this.isVisible) return;
+
         // Clear canvas
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
@@ -160,7 +182,7 @@ export function initParticles() {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (prefersReducedMotion) {
-        console.log('Particles disabled: user prefers reduced motion');
+        // Particles disabled for users who prefer reduced motion
         return null;
     }
 

@@ -25,14 +25,21 @@ export function toggleCart() {
  * @param {Number} productId - Product ID
  */
 export function addToCart(productId) {
-    const product = getProductById(productId);
+    // Validate product ID
+    const id = Number(productId);
+    if (!Number.isInteger(id) || id <= 0) {
+        console.error(`Invalid product ID: ${productId}. Must be a positive integer.`);
+        return;
+    }
+
+    const product = getProductById(id);
     if (!product) {
-        console.error(`Product with ID ${productId} not found`);
+        console.error(`Product with ID ${id} not found`);
         return;
     }
 
     // Check if product already exists in cart
-    const existingItem = cart.find(item => item.id === productId);
+    const existingItem = cart.find(item => item.id === id);
 
     if (existingItem) {
         existingItem.qty++;
