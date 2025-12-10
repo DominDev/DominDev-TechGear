@@ -8,6 +8,20 @@ const USERS_STORAGE_KEY = 'techgear_users';
 let currentUser = loadAuthFromStorage();
 
 /**
+ * Hash password using Web Crypto API (SHA-256)
+ * @param {String} password - Plain text password
+ * @returns {Promise<String>} - Hex-encoded hash
+ */
+async function hashPassword(password) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    return hashHex;
+}
+
+/**
  * Toggle authentication modal visibility
  */
 export function toggleAuthModal() {
@@ -22,7 +36,7 @@ export function toggleAuthModal() {
  * Handle login form submission
  * @param {Event} e - Form submit event
  */
-export function handleLogin(e) {
+export async function handleLogin(e) {
     e.preventDefault();
 
     const email = document.getElementById('loginEmail').value;
@@ -43,7 +57,9 @@ export function handleLogin(e) {
         return;
     }
 
-    if (user.password !== password) {
+    // Hash the entered password and compare with stored hash
+    const passwordHash = await hashPassword(password);
+    if (user.passwordHash !== passwordHash) {
         alert('Incorrect password');
         return;
     }
@@ -60,7 +76,7 @@ export function handleLogin(e) {
  * Handle registration form submission
  * @param {Event} e - Form submit event
  */
-export function handleRegister(e) {
+export async function handleRegister(e) {
     e.preventDefault();
 
     const email = document.getElementById('registerEmail').value;
@@ -84,11 +100,14 @@ export function handleRegister(e) {
         return;
     }
 
+    // Hash password before storing
+    const passwordHash = await hashPassword(password);
+
     // Create new user
     const newUser = {
         id: Date.now(),
         email: email,
-        password: password, // In production, this should be hashed!
+        passwordHash: passwordHash, // Stored as SHA-256 hash
         createdAt: new Date().toISOString()
     };
 
