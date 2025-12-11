@@ -27,9 +27,9 @@ export function initRain() {
     // Get responsive speed multiplier (slower on mobile)
     function getSpeedMultiplier() {
         const screenWidth = window.innerWidth;
-        if (screenWidth < 480) return 0.5;    // 50% speed on mobile phones
-        if (screenWidth < 768) return 0.65;   // 65% speed on tablets
-        if (screenWidth < 1200) return 0.8;   // 80% speed on small laptops
+        if (screenWidth < 480) return 0.3;    // 30% speed on mobile phones
+        if (screenWidth < 768) return 0.45;   // 45% speed on tablets
+        if (screenWidth < 1200) return 0.7;   // 70% speed on small laptops
         return 1;                             // 100% speed on desktop
     }
 
