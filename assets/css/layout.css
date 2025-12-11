@@ -671,6 +671,32 @@
     }
 }
 
+@media (max-width: 900px) and (orientation: portrait) {
+    /* Tablets in portrait mode - iPad Air, iPad Pro portrait */
+    .hero-text-layer,
+    .hero-text-overlay {
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        max-width: 90%;
+    }
+
+    .hero-subtitle,
+    .hero-subtitle-outline {
+        font-size: clamp(2rem, 4vw, 3.5rem);
+        letter-spacing: 0.2em;
+    }
+
+    .hero-title-massive,
+    .hero-title-outline {
+        font-size: clamp(4.5rem, 12vw, 9rem);
+    }
+
+    .hero-product-img {
+        height: 65vh;
+    }
+}
+
 @media (max-width: 768px) {
     .hero-ui-overlay {
         padding: 0 1.5rem 2rem;
