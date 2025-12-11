@@ -30,7 +30,7 @@ export function initMistyRain() {
         if (screenWidth < 480) return 80;      // Mobile phones
         if (screenWidth < 768) return 120;     // Tablets
         if (screenWidth < 1200) return 180;    // Small laptops
-        return 250;                            // Desktop
+        return 320;                            // Desktop - increased density
     }
 
     // Rain configuration
@@ -79,7 +79,15 @@ export function initMistyRain() {
             this.y = initial ? Math.random() * height : -20;
             this.speed = Math.random() * 3 + config.speedBase;
             this.length = Math.random() * (config.lengthMax - config.lengthMin) + config.lengthMin;
-            this.opacity = Math.random() * 0.3 + 0.4;
+
+            // Slightly higher opacity on desktop for better visibility
+            const screenWidth = window.innerWidth;
+            if (screenWidth >= 1200) {
+                this.opacity = Math.random() * 0.35 + 0.5; // 0.5-0.85 on desktop (increased from 0.4-0.7)
+            } else {
+                this.opacity = Math.random() * 0.3 + 0.4; // 0.4-0.7 on smaller screens
+            }
+
             this.width = Math.random() * 0.5 + 0.5;
 
             // Random color (favor orange and cyan)
@@ -136,8 +144,9 @@ export function initMistyRain() {
             // Visual properties
             this.opacity = 0; // Start invisible for growth animation
             this.thickness = Math.random() * 2 + 2;
-            // Only orange lightning (realistic)
-            this.color = 'rgba(255, 160, 64, 1)'; // Bright orange-yellow for realistic lightning
+
+            // Only orange lightning (realistic) - keep color at full opacity to avoid pixelation
+            this.color = 'rgba(255, 160, 64, 1)';
 
             // Timing and animation
             this.createdAt = Date.now();
@@ -236,17 +245,21 @@ export function initMistyRain() {
             // Flicker effect - bolt "blinks" several times before disappearing
             const flickerStartProgress = 0.5; // Start flickering at 50% of lifetime (after growth)
 
+            // Reduce max brightness on desktop
+            const screenWidth = window.innerWidth;
+            const maxBrightness = screenWidth >= 1200 ? 0.7 : 1; // 70% on desktop, 100% on mobile
+
             if (progress < flickerStartProgress) {
-                // Full brightness during growth and hold phase
-                this.opacity = 1;
+                // Full brightness during growth and hold phase (adjusted for desktop)
+                this.opacity = maxBrightness;
             } else {
                 // Flicker phase - rapid on/off cycles
                 const flickerPhase = (progress - flickerStartProgress) / (1 - flickerStartProgress);
                 const flickerSpeed = 8; // How fast it flickers
                 const flickerValue = Math.sin(flickerPhase * Math.PI * flickerSpeed);
 
-                // Gradually reduce maximum brightness during flickers
-                const maxOpacity = 1 - (flickerPhase * 0.3); // Fade from 1 to 0.7
+                // Gradually reduce maximum brightness during flickers (adjusted for desktop)
+                const maxOpacity = maxBrightness - (flickerPhase * 0.3 * maxBrightness);
 
                 // Create sharp on/off effect
                 if (flickerValue > 0) {
@@ -295,28 +308,36 @@ export function initMistyRain() {
                     ctx.fill();
                 }
 
-                // Main bolt glow
-                ctx.shadowBlur = 25; // Increased from 20
+                // Main bolt glow - dimmer on desktop
+                const screenWidth = window.innerWidth;
+                if (screenWidth >= 1200) {
+                    ctx.shadowBlur = 18; // Reduced on desktop
+                } else {
+                    ctx.shadowBlur = 25;
+                }
                 ctx.shadowColor = this.color;
 
-                // Draw thicker glow
-                ctx.strokeStyle = this.color.replace('1)', `${this.opacity * 0.4})`); // Increased from 0.3
-                ctx.lineWidth = this.thickness * 5; // Increased from 4
+                // Draw thicker glow - dimmer on desktop
+                const glowOpacity = screenWidth >= 1200 ? 0.3 : 0.4;
+                const glowThickness = screenWidth >= 1200 ? 4 : 5;
+                ctx.strokeStyle = this.color.replace(/[\d.]+\)$/g, `${this.opacity * glowOpacity})`);
+                ctx.lineWidth = this.thickness * glowThickness;
                 ctx.beginPath();
                 ctx.moveTo(segment.x1, segment.y1);
                 ctx.lineTo(segment.x2, segment.y2);
                 ctx.stroke();
 
                 // Draw main bolt
-                ctx.strokeStyle = this.color.replace('1)', `${this.opacity})`);
+                ctx.strokeStyle = this.color.replace(/[\d.]+\)$/g, `${this.opacity})`);
                 ctx.lineWidth = segment.isBranch ? this.thickness * 0.6 : this.thickness;
                 ctx.beginPath();
                 ctx.moveTo(segment.x1, segment.y1);
                 ctx.lineTo(segment.x2, segment.y2);
                 ctx.stroke();
 
-                // Draw bright core
-                ctx.strokeStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                // Draw bright core - dimmer on desktop
+                const coreOpacity = screenWidth >= 1200 ? this.opacity * 0.75 : this.opacity;
+                ctx.strokeStyle = `rgba(255, 255, 255, ${coreOpacity})`;
                 ctx.lineWidth = segment.isBranch ? this.thickness * 0.3 : this.thickness * 0.5;
                 ctx.beginPath();
                 ctx.moveTo(segment.x1, segment.y1);
@@ -361,9 +382,14 @@ export function initMistyRain() {
             }, i * 50);
         }
 
-        // Screen flash
+        // Screen flash - dimmer on desktop
         lightning.active = true;
-        lightning.flashIntensity = 0.6 + Math.random() * 0.4;
+        const screenWidth = window.innerWidth;
+        if (screenWidth >= 1200) {
+            lightning.flashIntensity = 0.4 + Math.random() * 0.3; // 0.4-0.7 on desktop (dimmer)
+        } else {
+            lightning.flashIntensity = 0.6 + Math.random() * 0.4; // 0.6-1.0 on smaller screens
+        }
 
         // End flash after duration
         setTimeout(() => {
