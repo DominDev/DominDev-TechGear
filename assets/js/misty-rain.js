@@ -119,32 +119,71 @@ export function initMistyRain() {
             this.startX = Math.random() * width;
             this.startY = 0;
 
+            // Random direction: 0 = vertical, 1 = diagonal right, -1 = diagonal left
+            const directionChance = Math.random();
+            if (directionChance < 0.65) {
+                this.direction = 0; // 65% vertical
+            } else if (directionChance < 0.825) {
+                this.direction = 1; // 17.5% diagonal right
+            } else {
+                this.direction = -1; // 17.5% diagonal left
+            }
+
             // Create jagged path down screen
             this.segments = [];
             this.createBoltPath();
 
             // Visual properties
-            this.opacity = 1;
+            this.opacity = 0; // Start invisible for growth animation
             this.thickness = Math.random() * 2 + 2;
-            this.color = Math.random() > 0.5 ?
-                'rgba(0, 240, 255, 1)' :
-                'rgba(255, 119, 0, 1)';
+            // Only orange lightning (realistic)
+            this.color = 'rgba(255, 160, 64, 1)'; // Bright orange-yellow for realistic lightning
 
-            // Timing
+            // Timing and animation
             this.createdAt = Date.now();
             this.lifetime = config.lightning.boltDuration;
+            this.flickerCount = 0;
+            this.maxFlickers = 4 + Math.floor(Math.random() * 3); // 4-6 flickers
+
+            // Growth animation (lightning develops from top to bottom)
+            this.growthDuration = 150; // 150ms to fully grow
+            this.currentSegment = 0; // Which segment we're currently drawing
         }
 
         createBoltPath() {
             let currentX = this.startX;
             let currentY = this.startY;
-            const segments = 15 + Math.floor(Math.random() * 10); // 15-25 segments
+
+            // Responsive segment count and size based on screen width
+            const screenWidth = window.innerWidth;
+            let segments, zigzagRange, branchLength;
+
+            if (screenWidth < 480) {
+                // Mobile: smaller, fewer segments
+                segments = 12 + Math.floor(Math.random() * 8); // 12-20 segments
+                zigzagRange = 60; // Reduced zigzag
+                branchLength = 2 + Math.floor(Math.random() * 2); // 2-4 branch segments
+            } else if (screenWidth < 768) {
+                // Tablet: medium size
+                segments = 15 + Math.floor(Math.random() * 10); // 15-25 segments
+                zigzagRange = 90;
+                branchLength = 3 + Math.floor(Math.random() * 3); // 3-6 branch segments
+            } else {
+                // Desktop: full size
+                segments = 18 + Math.floor(Math.random() * 15); // 18-33 segments
+                zigzagRange = 140;
+                branchLength = 4 + Math.floor(Math.random() * 5); // 4-8 branch segments
+            }
+
             const segmentHeight = height / segments;
+
+            // Diagonal drift per segment
+            const diagonalDrift = this.direction * (15 + Math.random() * 10); // 15-25px drift per segment
 
             for (let i = 0; i < segments; i++) {
                 // Add some randomness to X position (zigzag)
-                const offsetX = (Math.random() - 0.5) * 80;
-                const nextX = currentX + offsetX;
+                const offsetX = (Math.random() - 0.5) * zigzagRange;
+                const nextX = currentX + offsetX + diagonalDrift;
                 const nextY = currentY + segmentHeight;
 
                 this.segments.push({
@@ -154,14 +193,17 @@ export function initMistyRain() {
                     y2: nextY
                 });
 
-                // Random branches (30% chance)
-                if (Math.random() > 0.7 && i > 3) {
-                    const branchLength = 3 + Math.floor(Math.random() * 3);
+                // Random branches (45% chance on desktop, 30% on mobile)
+                const branchChance = screenWidth < 768 ? 0.7 : 0.55;
+                if (Math.random() > branchChance && i > 3) {
                     let branchX = currentX;
                     let branchY = currentY;
 
+                    // Branch direction (opposite to main bolt direction for more sprawl)
+                    const branchDirection = Math.random() > 0.5 ? 1 : -1;
+
                     for (let j = 0; j < branchLength; j++) {
-                        const branchOffsetX = (Math.random() - 0.5) * 60;
+                        const branchOffsetX = (Math.random() - 0.5) * (zigzagRange * 0.6) + (branchDirection * 20);
                         const branchNextX = branchX + branchOffsetX;
                         const branchNextY = branchY + segmentHeight * 0.7;
 
@@ -187,21 +229,79 @@ export function initMistyRain() {
             const age = Date.now() - this.createdAt;
             const progress = age / this.lifetime;
 
-            // Fade out
-            this.opacity = Math.max(0, 1 - progress);
+            // Growth animation - lightning develops from top to bottom
+            const growthProgress = Math.min(age / this.growthDuration, 1);
+            this.currentSegment = Math.floor(growthProgress * this.segments.length);
+
+            // Flicker effect - bolt "blinks" several times before disappearing
+            const flickerStartProgress = 0.5; // Start flickering at 50% of lifetime (after growth)
+
+            if (progress < flickerStartProgress) {
+                // Full brightness during growth and hold phase
+                this.opacity = 1;
+            } else {
+                // Flicker phase - rapid on/off cycles
+                const flickerPhase = (progress - flickerStartProgress) / (1 - flickerStartProgress);
+                const flickerSpeed = 8; // How fast it flickers
+                const flickerValue = Math.sin(flickerPhase * Math.PI * flickerSpeed);
+
+                // Gradually reduce maximum brightness during flickers
+                const maxOpacity = 1 - (flickerPhase * 0.3); // Fade from 1 to 0.7
+
+                // Create sharp on/off effect
+                if (flickerValue > 0) {
+                    this.opacity = maxOpacity;
+                } else {
+                    this.opacity = 0.1; // Almost off during "off" phase
+                }
+
+                // Final fade out at the very end
+                if (progress > 0.95) {
+                    this.opacity *= (1 - (progress - 0.95) / 0.05);
+                }
+            }
 
             return age < this.lifetime;
         }
 
         draw() {
-            this.segments.forEach(segment => {
+            // Only draw segments that have "grown" so far
+            this.segments.forEach((segment, index) => {
+                // Skip segments that haven't appeared yet in growth animation
+                if (index > this.currentSegment) return;
+
+                // Path illumination - glowing particles along the lightning path
+                const segmentLength = Math.sqrt(
+                    Math.pow(segment.x2 - segment.x1, 2) +
+                    Math.pow(segment.y2 - segment.y1, 2)
+                );
+                const particleCount = Math.floor(segmentLength / 15); // Particle every 15px
+
+                for (let i = 0; i <= particleCount; i++) {
+                    const t = i / particleCount;
+                    const px = segment.x1 + (segment.x2 - segment.x1) * t;
+                    const py = segment.y1 + (segment.y2 - segment.y1) * t;
+
+                    // Draw illumination orb
+                    const orbRadius = segment.isBranch ? 8 : 12;
+                    const gradient = ctx.createRadialGradient(px, py, 0, px, py, orbRadius);
+                    gradient.addColorStop(0, this.color.replace('1)', `${this.opacity * 0.6})`));
+                    gradient.addColorStop(0.5, this.color.replace('1)', `${this.opacity * 0.3})`));
+                    gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+                    ctx.fillStyle = gradient;
+                    ctx.beginPath();
+                    ctx.arc(px, py, orbRadius, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
                 // Main bolt glow
-                ctx.shadowBlur = 20;
+                ctx.shadowBlur = 25; // Increased from 20
                 ctx.shadowColor = this.color;
 
                 // Draw thicker glow
-                ctx.strokeStyle = this.color.replace('1)', `${this.opacity * 0.3})`);
-                ctx.lineWidth = this.thickness * 4;
+                ctx.strokeStyle = this.color.replace('1)', `${this.opacity * 0.4})`); // Increased from 0.3
+                ctx.lineWidth = this.thickness * 5; // Increased from 4
                 ctx.beginPath();
                 ctx.moveTo(segment.x1, segment.y1);
                 ctx.lineTo(segment.x2, segment.y2);
@@ -289,18 +389,31 @@ export function initMistyRain() {
 
     // Draw lightning effects
     function drawLightning() {
-        // Draw screen flash
+        // Draw screen flash - realistic orange lightning glow
         if (lightning.active) {
-            const gradient = ctx.createRadialGradient(
+            // Multiple layers for realistic orange flash
+            const gradient1 = ctx.createRadialGradient(
                 width / 2, height / 3, 0,
-                width / 2, height / 3, width
+                width / 2, height / 3, width * 0.6
             );
-            gradient.addColorStop(0, `rgba(255, 255, 255, ${lightning.flashIntensity * 0.15})`);
-            gradient.addColorStop(0.4, `rgba(0, 240, 255, ${lightning.flashIntensity * 0.08})`);
-            gradient.addColorStop(0.7, `rgba(255, 119, 0, ${lightning.flashIntensity * 0.05})`);
-            gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+            gradient1.addColorStop(0, `rgba(255, 200, 100, ${lightning.flashIntensity * 0.25})`);
+            gradient1.addColorStop(0.3, `rgba(255, 150, 50, ${lightning.flashIntensity * 0.15})`);
+            gradient1.addColorStop(0.6, `rgba(255, 119, 0, ${lightning.flashIntensity * 0.08})`);
+            gradient1.addColorStop(1, 'rgba(0, 0, 0, 0)');
 
-            ctx.fillStyle = gradient;
+            ctx.fillStyle = gradient1;
+            ctx.fillRect(0, 0, width, height);
+
+            // Additional bright orange overlay for intensity
+            const gradient2 = ctx.createRadialGradient(
+                width / 2, height / 4, 0,
+                width / 2, height / 4, width * 0.4
+            );
+            gradient2.addColorStop(0, `rgba(255, 180, 80, ${lightning.flashIntensity * 0.2})`);
+            gradient2.addColorStop(0.5, `rgba(255, 140, 40, ${lightning.flashIntensity * 0.1})`);
+            gradient2.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+            ctx.fillStyle = gradient2;
             ctx.fillRect(0, 0, width, height);
         }
 
