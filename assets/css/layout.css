@@ -321,6 +321,19 @@
     will-change: transform; /* GPU acceleration */
 }
 
+/* Reduce fog intensity on smaller screens */
+@media (max-width: 768px) {
+    .fog-canvas {
+        opacity: 0.25; /* Much more subtle on mobile/tablet */
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1199px) {
+    .fog-canvas {
+        opacity: 0.35; /* Reduced on small laptops */
+    }
+}
+
 /* Layer 1: Abstract Rings */
 .abstract-ring {
     position: absolute;
