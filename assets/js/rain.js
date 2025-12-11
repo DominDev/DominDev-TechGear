@@ -24,9 +24,19 @@ export function initRain() {
         return 120;                           // Desktop
     }
 
+    // Get responsive speed multiplier (slower on mobile)
+    function getSpeedMultiplier() {
+        const screenWidth = window.innerWidth;
+        if (screenWidth < 480) return 0.5;    // 50% speed on mobile phones
+        if (screenWidth < 768) return 0.65;   // 65% speed on tablets
+        if (screenWidth < 1200) return 0.8;   // 80% speed on small laptops
+        return 1;                             // 100% speed on desktop
+    }
+
     // Rain configuration
     const config = {
         count: getDropCount(),               // Number of drops (responsive)
+        speedMultiplier: getSpeedMultiplier(), // Speed multiplier (responsive)
         colors: [
             'rgba(255, 119, 0, 0.8)',        // Tactical Orange
             'rgba(0, 240, 255, 0.8)',        // System Cyan
@@ -46,8 +56,10 @@ export function initRain() {
 
         // Update drop count on resize
         const newCount = getDropCount();
-        if (newCount !== config.count) {
+        const newSpeedMultiplier = getSpeedMultiplier();
+        if (newCount !== config.count || newSpeedMultiplier !== config.speedMultiplier) {
             config.count = newCount;
+            config.speedMultiplier = newSpeedMultiplier;
             initRainDrops();
         }
     }
@@ -64,7 +76,7 @@ export function initRain() {
             this.y = initial ? Math.random() * height : -50;
             this.z = Math.random() * 0.6 + 0.4;  // Depth (affects size and speed)
             this.len = (Math.random() * 25 + config.lengthBase) * this.z;
-            this.speed = (Math.random() * 8 + config.speedBase) * this.z;
+            this.speed = (Math.random() * 8 + config.speedBase) * this.z * config.speedMultiplier;
             this.opacity = Math.random() * 0.5 + 0.3;
 
             // Random color (favor orange and cyan)
