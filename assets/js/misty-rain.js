@@ -1,10 +1,10 @@
 /* ============================================================================
-   MISTY-RAIN.JS - Atmospheric Mist with Thunderstorm Effects
+   MISTY-RAIN.JS - Fine Rain with Lightning Bolts
    ============================================================================ */
 
 /**
- * Misty Rain Effect with Lightning
- * Creates subtle mist particles with occasional lightning flashes
+ * Fine Rain Effect with Animated Lightning
+ * Creates visible fine rain particles with occasional lightning bolts across screen
  */
 export function initMistyRain() {
     const canvas = document.getElementById('rainCanvas');
@@ -13,44 +13,43 @@ export function initMistyRain() {
     const ctx = canvas.getContext('2d');
 
     let width, height;
-    let mist = [];
+    let raindrops = [];
     let animationId;
 
-    // Lightning state
+    // Lightning bolt state
     let lightning = {
         active: false,
-        intensity: 0,
+        bolts: [],
         nextStrike: 0,
-        flashCount: 0,
-        flashesRemaining: 0
+        flashIntensity: 0
     };
 
-    // Get responsive mist particle count based on screen size
-    function getMistCount() {
+    // Get responsive raindrop count based on screen size
+    function getRainCount() {
         const screenWidth = window.innerWidth;
-        if (screenWidth < 480) return 30;     // Mobile phones
-        if (screenWidth < 768) return 50;     // Tablets
-        if (screenWidth < 1200) return 80;    // Small laptops
-        return 100;                           // Desktop
+        if (screenWidth < 480) return 80;      // Mobile phones
+        if (screenWidth < 768) return 120;     // Tablets
+        if (screenWidth < 1200) return 180;    // Small laptops
+        return 250;                            // Desktop
     }
 
-    // Mist configuration
+    // Rain configuration
     const config = {
-        count: getMistCount(),
+        count: getRainCount(),
         colors: [
-            'rgba(255, 119, 0, 0.15)',       // Tactical Orange (very subtle)
-            'rgba(0, 240, 255, 0.15)',       // System Cyan (very subtle)
-            'rgba(255, 136, 32, 0.2)',       // Orange Bright
-            'rgba(51, 246, 255, 0.2)'        // Cyan Bright
+            'rgba(255, 119, 0, 0.6)',        // Tactical Orange
+            'rgba(0, 240, 255, 0.6)',        // System Cyan
+            'rgba(255, 136, 32, 0.7)',       // Orange Bright
+            'rgba(51, 246, 255, 0.7)'        // Cyan Bright
         ],
-        speedBase: 0.3,                      // Very slow drift
-        particleSize: { min: 1, max: 3 },    // Small particles
+        speedBase: 4,                        // Base falling speed
+        lengthMin: 8,                        // Min raindrop length
+        lengthMax: 15,                       // Max raindrop length
         lightning: {
-            minInterval: 8000,               // Min 8 seconds between storms
-            maxInterval: 15000,              // Max 15 seconds between storms
-            flashDuration: 150,              // Each flash lasts 150ms
-            minFlashes: 1,                   // Minimum flashes per storm
-            maxFlashes: 3                    // Maximum flashes per storm
+            minInterval: 6000,               // Min 6 seconds between lightning
+            maxInterval: 12000,              // Max 12 seconds between lightning
+            flashDuration: 200,              // Screen flash duration
+            boltDuration: 300                // Lightning bolt visible duration
         }
     };
 
@@ -61,46 +60,29 @@ export function initMistyRain() {
         canvas.width = width;
         canvas.height = height;
 
-        // Update mist count on resize
-        const newCount = getMistCount();
+        // Update rain count on resize
+        const newCount = getRainCount();
         if (newCount !== config.count) {
             config.count = newCount;
-            initMist();
+            initRain();
         }
     }
 
-    // Mist Particle class
-    class MistParticle {
+    // Raindrop class
+    class Raindrop {
         constructor() {
             this.reset(true);
         }
 
         reset(initial = false) {
             this.x = Math.random() * width;
-            // If initial, spread across screen, else start at random edge
-            if (initial) {
-                this.y = Math.random() * height;
-            } else {
-                // Start from top or sides randomly
-                const edge = Math.random();
-                if (edge < 0.7) {
-                    this.y = -10;
-                    this.x = Math.random() * width;
-                } else {
-                    this.y = Math.random() * height;
-                    this.x = Math.random() < 0.5 ? -10 : width + 10;
-                }
-            }
+            this.y = initial ? Math.random() * height : -20;
+            this.speed = Math.random() * 3 + config.speedBase;
+            this.length = Math.random() * (config.lengthMax - config.lengthMin) + config.lengthMin;
+            this.opacity = Math.random() * 0.3 + 0.4;
+            this.width = Math.random() * 0.5 + 0.5;
 
-            // Movement properties
-            this.speedY = Math.random() * 0.3 + config.speedBase;
-            this.speedX = (Math.random() - 0.5) * 0.5; // Slight horizontal drift
-            this.size = Math.random() * (config.particleSize.max - config.particleSize.min) + config.particleSize.min;
-            this.opacity = Math.random() * 0.4 + 0.1;
-            this.wobble = Math.random() * 0.02;
-            this.wobbleOffset = Math.random() * Math.PI * 2;
-
-            // Random color
+            // Random color (favor orange and cyan)
             const colorPick = Math.random();
             if (colorPick < 0.4) {
                 this.color = config.colors[0]; // Orange
@@ -114,40 +96,143 @@ export function initMistyRain() {
         }
 
         update() {
-            // Wobble effect for organic movement
-            this.wobbleOffset += this.wobble;
-            this.x += this.speedX + Math.sin(this.wobbleOffset) * 0.3;
-            this.y += this.speedY;
-
-            // Reset if out of bounds
-            if (this.y > height + 10 || this.x < -10 || this.x > width + 10) {
+            this.y += this.speed;
+            if (this.y > height + 20) {
                 this.reset();
             }
         }
 
         draw() {
-            // Draw as a soft circle
-            const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
-
-            // Lightning brightness boost
-            let brightness = lightning.active ? lightning.intensity : 1;
-            let adjustedOpacity = this.opacity * brightness;
-
-            gradient.addColorStop(0, this.color.replace(/[\d.]+\)$/g, `${adjustedOpacity})`));
-            gradient.addColorStop(1, this.color.replace(/[\d.]+\)$/g, '0)'));
-
-            ctx.fillStyle = gradient;
+            ctx.strokeStyle = this.color.replace(/[\d.]+\)$/g, `${this.opacity})`);
+            ctx.lineWidth = this.width;
             ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fill();
+            ctx.moveTo(this.x, this.y);
+            ctx.lineTo(this.x, this.y + this.length);
+            ctx.stroke();
         }
     }
 
-    // Initialize mist particles
-    function initMist() {
-        mist = [];
+    // Lightning Bolt class
+    class LightningBolt {
+        constructor() {
+            // Random starting point at top of screen
+            this.startX = Math.random() * width;
+            this.startY = 0;
+
+            // Create jagged path down screen
+            this.segments = [];
+            this.createBoltPath();
+
+            // Visual properties
+            this.opacity = 1;
+            this.thickness = Math.random() * 2 + 2;
+            this.color = Math.random() > 0.5 ?
+                'rgba(0, 240, 255, 1)' :
+                'rgba(255, 119, 0, 1)';
+
+            // Timing
+            this.createdAt = Date.now();
+            this.lifetime = config.lightning.boltDuration;
+        }
+
+        createBoltPath() {
+            let currentX = this.startX;
+            let currentY = this.startY;
+            const segments = 15 + Math.floor(Math.random() * 10); // 15-25 segments
+            const segmentHeight = height / segments;
+
+            for (let i = 0; i < segments; i++) {
+                // Add some randomness to X position (zigzag)
+                const offsetX = (Math.random() - 0.5) * 80;
+                const nextX = currentX + offsetX;
+                const nextY = currentY + segmentHeight;
+
+                this.segments.push({
+                    x1: currentX,
+                    y1: currentY,
+                    x2: nextX,
+                    y2: nextY
+                });
+
+                // Random branches (30% chance)
+                if (Math.random() > 0.7 && i > 3) {
+                    const branchLength = 3 + Math.floor(Math.random() * 3);
+                    let branchX = currentX;
+                    let branchY = currentY;
+
+                    for (let j = 0; j < branchLength; j++) {
+                        const branchOffsetX = (Math.random() - 0.5) * 60;
+                        const branchNextX = branchX + branchOffsetX;
+                        const branchNextY = branchY + segmentHeight * 0.7;
+
+                        this.segments.push({
+                            x1: branchX,
+                            y1: branchY,
+                            x2: branchNextX,
+                            y2: branchNextY,
+                            isBranch: true
+                        });
+
+                        branchX = branchNextX;
+                        branchY = branchNextY;
+                    }
+                }
+
+                currentX = nextX;
+                currentY = nextY;
+            }
+        }
+
+        update() {
+            const age = Date.now() - this.createdAt;
+            const progress = age / this.lifetime;
+
+            // Fade out
+            this.opacity = Math.max(0, 1 - progress);
+
+            return age < this.lifetime;
+        }
+
+        draw() {
+            this.segments.forEach(segment => {
+                // Main bolt glow
+                ctx.shadowBlur = 20;
+                ctx.shadowColor = this.color;
+
+                // Draw thicker glow
+                ctx.strokeStyle = this.color.replace('1)', `${this.opacity * 0.3})`);
+                ctx.lineWidth = this.thickness * 4;
+                ctx.beginPath();
+                ctx.moveTo(segment.x1, segment.y1);
+                ctx.lineTo(segment.x2, segment.y2);
+                ctx.stroke();
+
+                // Draw main bolt
+                ctx.strokeStyle = this.color.replace('1)', `${this.opacity})`);
+                ctx.lineWidth = segment.isBranch ? this.thickness * 0.6 : this.thickness;
+                ctx.beginPath();
+                ctx.moveTo(segment.x1, segment.y1);
+                ctx.lineTo(segment.x2, segment.y2);
+                ctx.stroke();
+
+                // Draw bright core
+                ctx.strokeStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.lineWidth = segment.isBranch ? this.thickness * 0.3 : this.thickness * 0.5;
+                ctx.beginPath();
+                ctx.moveTo(segment.x1, segment.y1);
+                ctx.lineTo(segment.x2, segment.y2);
+                ctx.stroke();
+            });
+
+            ctx.shadowBlur = 0;
+        }
+    }
+
+    // Initialize raindrops
+    function initRain() {
+        raindrops = [];
         for (let i = 0; i < config.count; i++) {
-            mist.push(new MistParticle());
+            raindrops.push(new Raindrop());
         }
 
         // Schedule first lightning
@@ -161,57 +246,66 @@ export function initMistyRain() {
             config.lightning.minInterval;
 
         lightning.nextStrike = Date.now() + interval;
-        lightning.flashesRemaining = Math.floor(
-            Math.random() * (config.lightning.maxFlashes - config.lightning.minFlashes + 1)
-        ) + config.lightning.minFlashes;
     }
 
-    // Update lightning effect
+    // Trigger lightning strike
+    function triggerLightning() {
+        // Create 1-3 lightning bolts
+        const boltCount = Math.floor(Math.random() * 3) + 1;
+        lightning.bolts = [];
+
+        for (let i = 0; i < boltCount; i++) {
+            // Stagger bolt creation slightly
+            setTimeout(() => {
+                lightning.bolts.push(new LightningBolt());
+            }, i * 50);
+        }
+
+        // Screen flash
+        lightning.active = true;
+        lightning.flashIntensity = 0.6 + Math.random() * 0.4;
+
+        // End flash after duration
+        setTimeout(() => {
+            lightning.active = false;
+        }, config.lightning.flashDuration);
+
+        // Schedule next strike
+        scheduleLightning();
+    }
+
+    // Update lightning
     function updateLightning() {
         const now = Date.now();
 
-        // Check if it's time for a lightning strike
-        if (!lightning.active && now >= lightning.nextStrike) {
-            if (lightning.flashesRemaining > 0) {
-                // Start a flash
-                lightning.active = true;
-                lightning.intensity = 0.3 + Math.random() * 0.4; // Random intensity
-                lightning.flashCount = 0;
-
-                // Flash will auto-end after duration
-                setTimeout(() => {
-                    lightning.active = false;
-                    lightning.flashesRemaining--;
-
-                    // Schedule next flash in this storm (quick succession)
-                    if (lightning.flashesRemaining > 0) {
-                        lightning.nextStrike = now + 100 + Math.random() * 300;
-                    } else {
-                        // Storm over, schedule next storm
-                        scheduleLightning();
-                    }
-                }, config.lightning.flashDuration);
-            }
+        // Check if it's time for lightning
+        if (now >= lightning.nextStrike && lightning.bolts.length === 0) {
+            triggerLightning();
         }
 
-        // Draw lightning flash overlay
-        if (lightning.active) {
-            // Add white flash overlay
-            ctx.fillStyle = `rgba(255, 255, 255, ${lightning.intensity * 0.08})`;
-            ctx.fillRect(0, 0, width, height);
+        // Update and remove dead bolts
+        lightning.bolts = lightning.bolts.filter(bolt => bolt.update());
+    }
 
-            // Add cyan/orange glow
+    // Draw lightning effects
+    function drawLightning() {
+        // Draw screen flash
+        if (lightning.active) {
             const gradient = ctx.createRadialGradient(
                 width / 2, height / 3, 0,
                 width / 2, height / 3, width
             );
-            gradient.addColorStop(0, `rgba(0, 240, 255, ${lightning.intensity * 0.15})`);
-            gradient.addColorStop(0.5, `rgba(255, 119, 0, ${lightning.intensity * 0.08})`);
+            gradient.addColorStop(0, `rgba(255, 255, 255, ${lightning.flashIntensity * 0.15})`);
+            gradient.addColorStop(0.4, `rgba(0, 240, 255, ${lightning.flashIntensity * 0.08})`);
+            gradient.addColorStop(0.7, `rgba(255, 119, 0, ${lightning.flashIntensity * 0.05})`);
             gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
 
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, width, height);
         }
+
+        // Draw lightning bolts
+        lightning.bolts.forEach(bolt => bolt.draw());
     }
 
     // Animation loop
@@ -219,14 +313,15 @@ export function initMistyRain() {
         // Clear canvas
         ctx.clearRect(0, 0, width, height);
 
-        // Update and draw each mist particle
-        mist.forEach(particle => {
-            particle.update();
-            particle.draw();
+        // Update and draw rain
+        raindrops.forEach(drop => {
+            drop.update();
+            drop.draw();
         });
 
         // Update and draw lightning
         updateLightning();
+        drawLightning();
 
         animationId = requestAnimationFrame(animate);
     }
@@ -236,7 +331,7 @@ export function initMistyRain() {
 
     // Initialize
     resize();
-    initMist();
+    initRain();
     animate();
 
     // Pause when tab hidden (performance)
