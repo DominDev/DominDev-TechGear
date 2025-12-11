@@ -7,6 +7,7 @@ import { initCart, addToCart, changeQty, removeItem, toggleCart } from './cart.j
 import { initAuth, toggleAuthModal } from './auth.js';
 import { initParticles } from './particles.js';
 import { initRain } from './rain.js';
+import { initMistyRain } from './misty-rain.js';
 import { initParallax, initMouseParallax } from './parallax.js';
 import {
     initScrollReveal,
@@ -157,7 +158,8 @@ function initApp() {
     // 5. Initialize visual effects (after page load for performance)
     window.addEventListener('load', () => {
         // initParticles(); // Disabled - using rain in hero instead
-        initRain();
+        // initRain(); // TEMP DISABLED - testing new misty rain effect
+        initMistyRain(); // NEW: Atmospheric mist with lightning
         // initParallax(); // Disabled - not needed for layered design
         // initMouseParallax(); // Disabled - conflicts with scroll parallax
     });
