@@ -8,6 +8,7 @@ import { initAuth, toggleAuthModal } from './auth.js';
 import { initParticles } from './particles.js';
 import { initRain } from './rain.js';
 import { initMistyRain } from './misty-rain.js';
+import { initFog } from './fog.js';
 import { initParallax, initMouseParallax } from './parallax.js';
 import {
     initScrollReveal,
@@ -159,6 +160,7 @@ function initApp() {
     window.addEventListener('load', () => {
         // initParticles(); // Disabled - using rain in hero instead
         // initRain(); // TEMP DISABLED - testing new misty rain effect
+        initFog(); // NEW: Subtle floating fog in background
         initMistyRain(); // NEW: Atmospheric mist with lightning
         // initParallax(); // Disabled - not needed for layered design
         // initMouseParallax(); // Disabled - conflicts with scroll parallax
