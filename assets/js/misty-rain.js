@@ -24,13 +24,13 @@ export function initMistyRain() {
         flashIntensity: 0
     };
 
-    // Get responsive raindrop count based on screen size
+    // Get responsive raindrop count based on screen size (optimized for performance)
     function getRainCount() {
         const screenWidth = window.innerWidth;
-        if (screenWidth < 480) return 80;      // Mobile phones
-        if (screenWidth < 768) return 120;     // Tablets
-        if (screenWidth < 1200) return 180;    // Small laptops
-        return 320;                            // Desktop - increased density
+        if (screenWidth < 480) return 50;      // Mobile phones (reduced from 80)
+        if (screenWidth < 768) return 80;      // Tablets (reduced from 120)
+        if (screenWidth < 1200) return 120;    // Small laptops (reduced from 180)
+        return 180;                            // Desktop (reduced from 320 for better performance)
     }
 
     // Rain configuration
@@ -282,31 +282,6 @@ export function initMistyRain() {
             this.segments.forEach((segment, index) => {
                 // Skip segments that haven't appeared yet in growth animation
                 if (index > this.currentSegment) return;
-
-                // Path illumination - glowing particles along the lightning path
-                const segmentLength = Math.sqrt(
-                    Math.pow(segment.x2 - segment.x1, 2) +
-                    Math.pow(segment.y2 - segment.y1, 2)
-                );
-                const particleCount = Math.floor(segmentLength / 15); // Particle every 15px
-
-                for (let i = 0; i <= particleCount; i++) {
-                    const t = i / particleCount;
-                    const px = segment.x1 + (segment.x2 - segment.x1) * t;
-                    const py = segment.y1 + (segment.y2 - segment.y1) * t;
-
-                    // Draw illumination orb
-                    const orbRadius = segment.isBranch ? 8 : 12;
-                    const gradient = ctx.createRadialGradient(px, py, 0, px, py, orbRadius);
-                    gradient.addColorStop(0, this.color.replace('1)', `${this.opacity * 0.6})`));
-                    gradient.addColorStop(0.5, this.color.replace('1)', `${this.opacity * 0.3})`));
-                    gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-
-                    ctx.fillStyle = gradient;
-                    ctx.beginPath();
-                    ctx.arc(px, py, orbRadius, 0, Math.PI * 2);
-                    ctx.fill();
-                }
 
                 // Main bolt glow - dimmer on desktop
                 const screenWidth = window.innerWidth;

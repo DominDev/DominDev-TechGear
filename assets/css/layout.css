@@ -308,6 +308,19 @@
     z-index: 1;
 }
 
+/* Layer 0.7: Fog Canvas */
+.fog-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1.5;
+    pointer-events: none;
+    opacity: 0.5;
+    will-change: transform; /* GPU acceleration */
+}
+
 /* Layer 1: Abstract Rings */
 .abstract-ring {
     position: absolute;
@@ -369,6 +382,7 @@
     /* Back to screen for rain glow effect */
     mix-blend-mode: screen;
     opacity: 0.6;
+    will-change: transform; /* GPU acceleration */
 }
 
 /* Layer 3: Background Typography (BEHIND product) */
