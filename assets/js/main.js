@@ -6,6 +6,8 @@ import { renderProducts, filterProducts, searchProducts, toggleProductSpecs } fr
 import { initCart, addToCart, changeQty, removeItem, toggleCart } from './cart.js';
 import { initAuth, toggleAuthModal } from './auth.js';
 import { initParticles } from './particles.js';
+import { initRain } from './rain.js';
+import { initParallax, initMouseParallax } from './parallax.js';
 import {
     initScrollReveal,
     initSmoothScrollLinks,
@@ -152,9 +154,12 @@ function initApp() {
     initMobileMenu();
     initSearch(searchProducts);
 
-    // 5. Initialize particle background (after page load for performance)
+    // 5. Initialize visual effects (after page load for performance)
     window.addEventListener('load', () => {
-        initParticles();
+        // initParticles(); // Disabled - using rain in hero instead
+        initRain();
+        // initParallax(); // Disabled - not needed for layered design
+        // initMouseParallax(); // Disabled - conflicts with scroll parallax
     });
 
     // 6. Log system info (dev mode)

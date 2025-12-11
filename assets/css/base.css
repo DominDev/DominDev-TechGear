@@ -17,14 +17,25 @@
 
     /* Colors - Accent Primary (Orange) */
     --color-tactical-orange: #ff7700;
+    --color-orange-bright: #ff8820;
+    --color-orange-dark: #cc6000;
     --color-orange-glow: rgba(255, 119, 0, 0.6);
+    --color-orange-glow-strong: rgba(255, 119, 0, 0.8);
     --color-orange-dim: rgba(255, 119, 0, 0.1);
     --color-orange-subtle: rgba(255, 119, 0, 0.03);
 
     /* Colors - Accent Secondary (Cyan) */
     --color-system-cyan: #00f0ff;
+    --color-cyan-bright: #33f6ff;
     --color-cyan-dim: rgba(0, 240, 255, 0.2);
     --color-cyan-glow: rgba(0, 240, 255, 0.5);
+    --color-cyan-glow-strong: rgba(0, 240, 255, 0.7);
+
+    /* Gradients */
+    --gradient-orange: linear-gradient(135deg, var(--color-tactical-orange), var(--color-orange-bright));
+    --gradient-cyan: linear-gradient(135deg, var(--color-system-cyan), var(--color-cyan-bright));
+    --gradient-tactical: linear-gradient(135deg, var(--color-tactical-orange), var(--color-system-cyan));
+    --gradient-dark: linear-gradient(180deg, var(--color-panel-dark), var(--color-void-black));
 
     /* Colors - Text */
     --color-text-primary: #e0e0e0;
@@ -73,8 +84,12 @@
     --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 5px 20px rgba(0, 0, 0, 0.5);
     --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.7);
+    --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.9);
     --shadow-glow-orange: 0 0 30px var(--color-orange-glow);
+    --shadow-glow-orange-strong: 0 0 50px var(--color-orange-glow-strong), 0 0 100px var(--color-orange-glow);
     --shadow-glow-cyan: 0 0 20px var(--color-cyan-glow);
+    --shadow-glow-cyan-strong: 0 0 40px var(--color-cyan-glow-strong), 0 0 80px var(--color-cyan-glow);
+    --shadow-inset-glow: inset 0 0 20px rgba(255, 119, 0, 0.15);
 
     /* Transitions */
     --transition-fast: 0.2s ease;
