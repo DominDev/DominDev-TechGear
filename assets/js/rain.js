@@ -15,9 +15,18 @@ export function initRain() {
     let width, height;
     let drops = [];
 
+    // Get responsive drop count based on screen size
+    function getDropCount() {
+        const screenWidth = window.innerWidth;
+        if (screenWidth < 480) return 40;     // Mobile phones
+        if (screenWidth < 768) return 60;     // Tablets
+        if (screenWidth < 1200) return 90;    // Small laptops
+        return 120;                           // Desktop
+    }
+
     // Rain configuration
     const config = {
-        count: 120,                          // Number of drops
+        count: getDropCount(),               // Number of drops (responsive)
         colors: [
             'rgba(255, 119, 0, 0.8)',        // Tactical Orange
             'rgba(0, 240, 255, 0.8)',        // System Cyan
@@ -34,6 +43,13 @@ export function initRain() {
         height = window.innerHeight;
         canvas.width = width;
         canvas.height = height;
+
+        // Update drop count on resize
+        const newCount = getDropCount();
+        if (newCount !== config.count) {
+            config.count = newCount;
+            initRainDrops();
+        }
     }
 
     // Drop class
