@@ -687,9 +687,23 @@
         letter-spacing: 0.2em;
     }
 
-    .hero-title-massive,
+    /* Improve visibility on portrait tablets */
+    .hero-title-massive {
+        font-size: clamp(4.5rem, 12vw, 9rem);
+        -webkit-text-stroke: 3px rgba(255, 255, 255, 1);
+        text-stroke: 3px rgba(255, 255, 255, 1);
+        text-shadow:
+            0 0 45px rgba(255, 255, 255, 0.85),
+            0 0 65px rgba(0, 240, 255, 0.45),
+            0 0 25px rgba(255, 119, 0, 0.35);
+    }
+
     .hero-title-outline {
         font-size: clamp(4.5rem, 12vw, 9rem);
+        -webkit-text-stroke: 4px var(--color-white);
+        text-stroke: 4px var(--color-white);
+        filter: drop-shadow(0 0 45px rgba(255, 255, 255, 0.5))
+                drop-shadow(0 0 25px rgba(0, 240, 255, 0.35));
     }
 
     .hero-product-img {
@@ -742,9 +756,23 @@
         text-stroke: 1.5px var(--color-tactical-orange);
     }
 
-    .hero-title-massive,
+    /* Increase visibility on mobile */
+    .hero-title-massive {
+        font-size: clamp(4rem, 14vw, 8rem);
+        -webkit-text-stroke: 3px rgba(255, 255, 255, 1);
+        text-stroke: 3px rgba(255, 255, 255, 1);
+        text-shadow:
+            0 0 40px rgba(255, 255, 255, 0.8),
+            0 0 60px rgba(0, 240, 255, 0.4),
+            0 0 20px rgba(255, 119, 0, 0.3);
+    }
+
     .hero-title-outline {
         font-size: clamp(4rem, 14vw, 8rem);
+        -webkit-text-stroke: 4px var(--color-white);
+        text-stroke: 4px var(--color-white);
+        filter: drop-shadow(0 0 40px rgba(255, 255, 255, 0.4))
+                drop-shadow(0 0 20px rgba(0, 240, 255, 0.3));
     }
 
     .hero-product-img {
@@ -784,9 +812,23 @@
         text-stroke: 1px var(--color-tactical-orange);
     }
 
-    .hero-title-massive,
+    /* Maximum visibility on small mobile */
+    .hero-title-massive {
+        font-size: clamp(3rem, 11vw, 5rem);
+        -webkit-text-stroke: 3px rgba(255, 255, 255, 1);
+        text-stroke: 3px rgba(255, 255, 255, 1);
+        text-shadow:
+            0 0 50px rgba(255, 255, 255, 0.9),
+            0 0 70px rgba(0, 240, 255, 0.5),
+            0 0 30px rgba(255, 119, 0, 0.4);
+    }
+
     .hero-title-outline {
         font-size: clamp(3rem, 11vw, 5rem);
+        -webkit-text-stroke: 4px var(--color-white);
+        text-stroke: 4px var(--color-white);
+        filter: drop-shadow(0 0 50px rgba(255, 255, 255, 0.6))
+                drop-shadow(0 0 30px rgba(0, 240, 255, 0.4));
     }
 
     .hero-product-img {
