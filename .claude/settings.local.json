@@ -14,7 +14,11 @@
       "Bash(node _scripts/download-product-images-pexels.js:*)",
       "Bash(node _scripts/optimize-images.js:*)",
       "Bash(git config:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(start http://localhost:8080)",
+      "Bash(python -m http.server:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)"
     ]
   }
 }

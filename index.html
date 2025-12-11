@@ -59,9 +59,6 @@
         </div>
     </div>
 
-    <!-- Particle Canvas Background -->
-    <canvas id="particleCanvas" class="particle-canvas"></canvas>
-
     <!-- HUD Decorators -->
     <div class="hud-corner top-left"></div>
     <div class="hud-corner bottom-right"></div>
@@ -189,25 +186,62 @@
         </div>
     </header>
 
-    <!-- HERO SECTION -->
+    <!-- HERO SECTION - Layered Design -->
     <section class="hero" id="hero">
-        <div class="hero-glitch-layer"></div>
-        <div class="container">
-            <div class="hero-content reveal">
-                <p class="text-code text-accent hero-tag">/// NEXT_GEN_PROTOCOL_V4.0</p>
-                <h1 class="text-display">
-                    UPGRADE<br>
-                    <span class="text-outline">REALITY</span>
-                </h1>
-                <p class="hero-description">
-                    Elite gaming hardware engineered for total domination. Precision tools for the digital battlefield.
-                </p>
-                <div class="hero-actions">
-                    <a href="#arsenal" class="btn btn-glitch">BROWSE ARSENAL</a>
-                    <a href="#arsenal" class="btn btn-secondary">SYSTEM SPECS</a>
+
+        <!-- Layer 0: Background -->
+        <div class="hero-bg"></div>
+        <div class="hero-overlay-radial"></div>
+
+        <!-- Layer 1: Abstract Rings -->
+        <div class="abstract-ring ring-1"></div>
+        <div class="abstract-ring ring-2"></div>
+        <div class="abstract-ring ring-3"></div>
+
+        <!-- Layer 2: Rain Canvas -->
+        <canvas id="rainCanvas" class="rain-canvas"></canvas>
+
+        <!-- Layer 3: Background Typography (Behind Product) -->
+        <div class="hero-text-layer">
+            <span class="hero-subtitle">TECH</span>
+            <h1 class="hero-title-massive">GEAR</h1>
+        </div>
+
+        <!-- Layer 4: Central Product/Character (ON TOP of text) -->
+        <div class="hero-product-layer">
+            <img src="assets/img/hero-product.png" alt="Gaming Gear" class="hero-product-img">
+        </div>
+
+        <!-- Layer 7: Typography Outline Overlay (ABOVE character for cutout effect) -->
+        <div class="hero-text-overlay">
+            <span class="hero-subtitle-outline">TECH</span>
+            <h1 class="hero-title-outline">GEAR</h1>
+        </div>
+
+        <!-- Layer 10: UI Overlay -->
+        <div class="hero-ui-overlay">
+            <!-- Bottom UI -->
+            <div class="hero-footer-ui">
+                <div class="hero-label-box">
+                    <span class="text-code text-accent">/// ARSENAL</span>
+                    <p class="hero-tagline">Next-gen gaming hardware engineered for domination</p>
+                </div>
+
+                <!-- Scroll Indicator (Center) -->
+                <div class="hero-scroll-indicator">
+                    <div class="scroll-mouse">
+                        <div class="scroll-wheel"></div>
+                    </div>
+                    <span class="text-code">SCROLL</span>
+                </div>
+
+                <!-- CTA Button (Right) -->
+                <div class="hero-cta-box">
+                    <a href="#arsenal" class="btn btn-hero">ENTER ARSENAL</a>
                 </div>
             </div>
         </div>
+
     </section>
 
     <!-- ARSENAL (PRODUCTS) -->

@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DRIFT NEXUS | Cyberpunk Hero Section</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- 1. RESET & VARIABLES --- */
+        :root {
+            --c-black: #050505;
+            --c-dark-blue: #0a0e17;
+            --c-cyan: #00f0ff;
+            --c-yellow: #fcee0a;
+            --c-white: #ffffff;
+            --c-grey: #8a8a8a;
+            
+            --f-display: 'Syncopate', sans-serif;
+            --f-ui: 'Rajdhani', sans-serif;
+            
+            --spacing-container: 4vw;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--c-black);
+            color: var(--c-white);
+            font-family: var(--f-ui);
+            overflow-x: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* --- 2. LAYOUT & LAYERS --- */
+        .hero-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Layer 0: Background Image */
+        .layer-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Dark Cyberpunk City Texture */
+            background: url('https://images.unsplash.com/photo-1605218427306-022020613864?q=80&w=2670&auto=format&fit=crop') no-repeat center center/cover;
+            filter: brightness(0.4) contrast(1.2) hue-rotate(180deg);
+            z-index: 0;
+        }
+        
+        /* Layer 0.5: Gradient Overlay for atmosphere */
+        .layer-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, transparent 0%, var(--c-black) 90%);
+            z-index: 1;
+        }
+
+        /* Abstract Rings (Yellow circles in mockup) */
+        .abstract-ring {
+            position: absolute;
+            border: 2px solid var(--c-yellow);
+            border-radius: 50%;
+            opacity: 0.6;
+            box-shadow: 0 0 15px var(--c-yellow);
+            z-index: 1;
+            transform: translate(-50%, -50%);
+            left: 50%;
+            top: 50%;
+        }
+        
+        .ring-1 { width: 60vh; height: 60vh; border-left-color: transparent; transform: translate(-50%, -50%) rotate(45deg); }
+        .ring-2 { width: 55vh; height: 55vh; border: 1px dashed var(--c-cyan); box-shadow: 0 0 10px var(--c-cyan); opacity: 0.4; }
+
+        /* Layer 1: Rain (Canvas) */
+        #rain-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+            mix-blend-mode: screen;
+        }
+
+        /* Layer 2: Typography (Behind Character) */
+        .layer-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            text-align: center;
+            width: 100%;
+            pointer-events: none;
+        }
+
+        .title-small {
+            display: block;
+            font-family: var(--f-display);
+            font-size: 1.5rem;
+            letter-spacing: 0.5em;
+            margin-bottom: -10px;
+            color: var(--c-white);
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        .title-main {
+            font-family: var(--f-display);
+            font-size: clamp(4rem, 18vw, 16rem); /* Responsive huge text */
+            font-weight: 700;
+            color: var(--c-white);
+            line-height: 0.8;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+            /* Optional: subtle texture on text */
+            background: linear-gradient(to bottom, #fff 40%, #ccc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.3));
+        }
+
+        /* Layer 3: Character (The Depth Trick) */
+        .layer-character {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 4;
+            height: 90vh; /* Adjust based on asset */
+            width: auto;
+            max-width: 90vw;
+            
+            /* Since I cannot use the exact copyrighted image, I am using a high-quality 
+               placeholder of a person. In a real project, this would be a transparent PNG.
+               
+               NOTE FOR USER: Replace 'src' with your transparent PNG cut-out.
+            */
+            pointer-events: none;
+            
+            /* Lighting effect on the character */
+            filter: drop-shadow(0 0 50px rgba(0, 0, 0, 0.8)) contrast(1.1);
+            
+            /* Masking to simulate the cut-out if the image has a bg (for demo only) 
+               In production, just use a transparent PNG and remove mask-image */
+            mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+        }
+
+        /* Layer 10: UI Overlay (Top z-index) */
+        .ui-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 2rem var(--spacing-container);
+            pointer-events: none; /* Let clicks pass through empty areas */
+        }
+
+        /* Header UI */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            pointer-events: auto;
+        }
+
+        .logo {
+            font-family: var(--f-display);
+            font-size: 1.2rem;
+            line-height: 1.1;
+            text-transform: uppercase;
+            border-left: 2px solid var(--c-cyan);
+            padding-left: 10px;
+        }
+        .logo span { display: block; font-size: 0.8em; opacity: 0.7; }
+
+        nav {
+            display: none; /* Hidden on mobile */
+        }
+        
+        @media (min-width: 1024px) {
+            nav {
+                display: flex;
+                gap: 3rem;
+            }
+        }
+
+        nav a {
+            color: var(--c-white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 500;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--c-cyan);
+            text-shadow: 0 0 8px var(--c-cyan);
+        }
+
+        .btn-inventory {
+            border: 1px solid var(--c-white);
+            border-radius: 50px; /* Pill shape */
+            padding: 0.8rem 2rem;
+            background: transparent;
+            color: var(--c-white);
+            font-family: var(--f-ui);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-inventory:hover {
+            background: var(--c-white);
+            color: var(--c-black);
+            box-shadow: 0 0 15px rgba(255,255,255,0.4);
+        }
+
+        /* Footer UI */
+        .footer-ui {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            pointer-events: auto;
+            margin-bottom: 2rem;
+        }
+
+        .project-label {
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border-left: 2px solid var(--c-white);
+            padding-left: 1rem;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            left: 50%;
+            bottom: 40px;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mouse-icon {
+            width: 24px;
+            height: 36px;
+            border: 2px solid var(--c-white);
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .mouse-icon::before {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 6px;
+            background: var(--c-cyan);
+            border-radius: 2px;
+            animation: scroll-wheel 1.5s infinite;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .icon-box {
+            width: 44px;
+            height: 44px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 8px; /* Slightly rounded square */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .icon-box:hover {
+            border-color: var(--c-cyan);
+            background: rgba(0, 240, 255, 0.1);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+        }
+        
+        .icon-box svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--c-white);
+        }
+
+        /* --- 3. ANIMATIONS --- */
+        @keyframes scroll-wheel {
+            0% { top: 6px; opacity: 1; }
+            100% { top: 18px; opacity: 0; }
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .layer-character {
+                height: 70vh;
+                left: 50%;
+            }
+            .title-main {
+                font-size: 5rem;
+            }
+            .footer-ui {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+            .social-icons {
+                align-self: flex-end;
+            }
+            .scroll-indicator {
+                bottom: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero-container">
+        
+        <!-- Layer 0: Background -->
+        <div class="layer-bg"></div>
+        <div class="layer-overlay"></div>
+        
+        <!-- Layer 0.5: Abstract Rings -->
+        <div class="abstract-ring ring-1"></div>
+        <div class="abstract-ring ring-2"></div>
+
+        <!-- Layer 1: Rain Animation -->
+        <canvas id="rain-canvas"></canvas>
+
+        <!-- Layer 2: Text (Behind Character) -->
+        <div class="layer-text">
+            <span class="title-small">DRIFT</span>
+            <h1 class="title-main">NEXUS</h1>
+        </div>
+
+        <!-- Layer 3: Character (In Front of Text) -->
+        <!-- 
+           FIXED: Changed to a more reliable Unsplash URL for VR/Cyberpunk character.
+           Adjusted masking to blend the image seamlessly into the black background.
+        -->
+        <img src="https://images.unsplash.com/photo-1592478411213-61535fdd861d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+             alt="VR Character" 
+             class="layer-character"
+             style="mix-blend-mode: normal; 
+                    /* Advanced masking to hide the rectangular edges of the JPG */
+                    -webkit-mask-image: radial-gradient(circle at center 40%, black 30%, transparent 70%);
+                    mask-image: radial-gradient(circle at center 40%, black 30%, transparent 70%);
+                    /* Positioning adjustments */
+                    object-fit: cover;
+                    object-position: center top;
+                    opacity: 1;
+                    transform: translateX(-50%) scale(1.1);"
+        >
+
+        <!-- Layer 10: UI Overlay -->
+        <div class="ui-layer">
+            <header>
+                <div class="logo">
+                    Drift<span>Nexus</span>
+                </div>
+                <nav>
+                    <a href="#">About</a>
+                    <a href="#">Gameplay</a>
+                    <a href="#">Ecosystems</a>
+                    <a href="#">NFT</a>
+                    <a href="#">Utilities</a>
+                    <a href="#">Roadmap</a>
+                    <a href="#">Team</a>
+                </nav>
+                <button class="btn-inventory">Inventory</button>
+            </header>
+
+            <div class="footer-ui">
+                <div class="project-label">About the project</div>
+                
+                <div class="scroll-indicator">
+                    <div class="mouse-icon"></div>
+                </div>
+
+                <div class="social-icons">
+                    <!-- Generic Boat Icon (Opensea style) -->
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24"><path d="M12 2L2 12h3v8h6v-6h2v6h6v-8h3L12 2z"/></svg>
+                    </div>
+                    <!-- Generic Discord Style Icon -->
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24"><path d="M19.27 5.33C17.94 4.71 16.5 4.26 15 4a.09.09 0 0 0-.07.03c-.18.33-.39.76-.53 1.09a16.09 16.09 0 0 0-4.8 0c-.14-.34-.35-.76-.54-1.09c-.01-.02-.04-.03-.07-.03c-1.5.26-2.93.71-4.27 1.33c-.01 0-.02.01-.03.02c-2.72 4.07-3.47 8.03-3.1 11.95c0 .02.01.04.03.05c1.8 1.32 3.53 2.12 5.2 2.65c.03.01.06 0 .07-.02c.4-.55.76-1.13 1.07-1.74c.02-.04 0-.08-.04-.09c-.57-.22-1.11-.48-1.64-.78c-.04-.02-.04-.08.01-.11c.11-.08.22-.17.33-.25c.02-.02.05-.02.07-.01c3.44 1.57 7.15 1.57 10.55 0c.02-.01.05-.01.07.01c.11.09.22.17.33.26c.04.03.04.09 0 .11c-.52.31-1.07.56-1.64.78c-.04.01-.05.06-.04.09c.32.61.68 1.19 1.07 1.74c.03.01.06.02.09.01c1.72-.53 3.45-1.33 5.25-2.65c.02-.01.03-.03.03-.05c.44-4.53-.6-8.5-3.1-11.95c-.01-.01-.02-.02-.04-.02zM8.5 14.5c-1.08 0-1.96-.99-1.96-2.2s.87-2.2 1.96-2.2s1.96.99 1.96 2.2s-.88 2.2-1.96 2.2zm7 0c-1.08 0-1.96-.99-1.96-2.2s.87-2.2 1.96-2.2s1.96.99 1.96 2.2s-.88 2.2-1.96 2.2z"/></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* --- 4. RAIN ENGINE (Vanilla JS) --- */
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('rain-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            let width, height;
+            let drops = [];
+            
+            // Konfiguracja deszczu
+            const config = {
+                count: 150,        // Ilość kropel
+                color: '#80e5ff',  // Kolor (lekki cyan)
+                speedBase: 15,     // Prędkość
+                lengthBase: 20     // Długość kropli
+            };
+
+            function resize() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+            }
+
+            class Drop {
+                constructor() {
+                    this.reset(true);
+                }
+
+                reset(initial = false) {
+                    this.x = Math.random() * width;
+                    // Jeśli start, losuj pozycję Y na ekranie, inaczej resetuj nad ekranem
+                    this.y = initial ? Math.random() * height : -50;
+                    this.z = Math.random() * 0.5 + 0.5; // Głębia (wpływa na wielkość i prędkość)
+                    this.len = (Math.random() * 20 + config.lengthBase) * this.z;
+                    this.speed = (Math.random() * 10 + config.speedBase) * this.z;
+                    this.opacity = Math.random() * 0.4 + 0.1;
+                }
+
+                update() {
+                    this.y += this.speed;
+                    if (this.y > height) {
+                        this.reset();
+                    }
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgba(128, 229, 255, ${this.opacity})`;
+                    ctx.lineWidth = 1.5 * this.z;
+                    ctx.moveTo(this.x, this.y);
+                    ctx.lineTo(this.x, this.y + this.len);
+                    ctx.stroke();
+                }
+            }
+
+            function initRain() {
+                drops = [];
+                for(let i=0; i<config.count; i++) {
+                    drops.push(new Drop());
+                }
+            }
+
+            function animate() {
+                // Clear with slight trail effect optional, but here we want crisp rain
+                ctx.clearRect(0, 0, width, height);
+
+                drops.forEach(drop => {
+                    drop.update();
+                    drop.draw();
+                });
+
+                requestAnimationFrame(animate);
+            }
+
+            // Init
+            window.addEventListener('resize', () => {
+                resize();
+                // Opcjonalnie reset kropel przy zmianie rozmiaru
+            });
+            
+            resize();
+            initRain();
+            animate();
+        });
+    </script>
+</body>
+</html>
