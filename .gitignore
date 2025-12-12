@@ -4,59 +4,59 @@
 
 # Dependencies
 node_modules/
-package-lock.json
-yarn.lock
 
-# Development
-.DS_Store
-Thumbs.db
+# Lockfiles:
+# - For npm projects: COMMIT package-lock.json (do NOT ignore it)
+# - Ignore other lockfiles to avoid mixing package managers
+yarn.lock
+pnpm-lock.yaml
+
+# Development / IDE
 .vscode/
 .idea/
 *.log
 *.tmp
+*.swp
+*.swo
+*~
+
+# OS / System files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
 
 # Build & Cache
 dist/
 build/
 .cache/
 .parcel-cache/
+.nyc_output/
+coverage/
+.eslintcache
+.stylelintcache
 
-# Environment
+# Environment (commit only safe templates like .env.example)
 .env
-.env.local
-.env.production
+.env.*
+!.env.example
+!.env.template
+!.env.sample
 
-# Image Originals (don't commit unoptimized images)
+# Image / design sources & originals (don't commit unoptimized/source assets)
 **/originals/
 *.psd
 *.ai
 *.sketch
 
-# Temporary Files
-*.swp
-*.swo
-*~
+# Temporary directories
 .tmp/
 
-# OS Files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Desktop.ini
-
-# Testing
-coverage/
-.nyc_output/
-
-# Misc
-.sass-cache/
-*.css.map
-*.js.map
-
-# Ignore local settings for Claude integration
+# Claude Code local-only files (keep CLAUDE.md tracked)
 .claude/settings.local.json
 .claude/.session.local.json
 .claude/.auth.local.json
@@ -65,4 +65,3 @@ coverage/
 .claude/.temp.local.json
 .claude/.logs.local.json
 .claude/.data.local.json
-.CLAUDE.md
