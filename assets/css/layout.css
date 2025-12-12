@@ -948,9 +948,9 @@
         display: none;
     }
 
-    /* Move character higher and make smaller */
+    /* Position character for optimal mobile layout */
     .hero-product-layer {
-        transform: translate(-50%, -65%); /* Move up higher to match text */
+        transform: translate(-50%, -60%); /* Slightly higher for better composition */
     }
 
     .hero-product-img {
@@ -998,7 +998,7 @@
 
     /* Reduce ring glow on mobile for better text visibility and position at character center */
     .animated-ring {
-        top: 40%; /* Move rings higher to center on character torso */
+        top: 45%; /* Center rings on character torso */
     }
 
     .ring-1 {
