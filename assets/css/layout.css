@@ -241,12 +241,20 @@
     padding: 0.5rem;
     background: transparent;
     border: 1px solid var(--color-border-active);
+    cursor: pointer;
+    z-index: 1000;
+    transition: var(--transition-base);
+}
+
+.hamburger:hover {
+    border-color: var(--color-tactical-orange);
+    background: rgba(255, 119, 0, 0.1);
 }
 
 .hamburger span {
     display: block;
     width: 25px;
-    height: 2px;
+    height: 2.5px; /* Slightly thicker for better visibility */
     background: var(--color-text-primary);
     transition: var(--transition-base);
 }
@@ -261,6 +269,30 @@
 
 .hamburger.active span:nth-child(3) {
     transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Mobile Auth Button - Hidden on Desktop */
+.mobile-auth-btn {
+    display: none; /* Hidden by default on desktop */
+    width: 100%;
+    justify-content: flex-start;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--color-border-active);
+    background: rgba(255, 119, 0, 0.05);
+    margin-top: var(--spacing-sm);
+}
+
+.mobile-auth-btn:hover {
+    background: rgba(255, 119, 0, 0.15);
+    border-color: var(--color-tactical-orange);
+}
+
+.mobile-auth-btn .text-code {
+    margin-left: var(--spacing-xs);
+}
+
+.mobile-auth-btn .user-name {
+    margin-left: var(--spacing-xs);
 }
 
 /* --------------------------------------------------------------------------
@@ -1167,6 +1199,15 @@
         display: flex;
     }
 
+    /* Show mobile auth button inside menu, hide desktop auth button */
+    .mobile-auth-btn {
+        display: flex; /* Show in mobile menu */
+    }
+
+    #authToggle {
+        display: none !important; /* Hide desktop auth button in nav-actions */
+    }
+
     .hero-content {
         padding-left: var(--spacing-sm);
         border-left-width: 3px;
@@ -1209,6 +1250,32 @@
     .nav-icon-btn {
         padding: 0.4rem;
         font-size: 0.75rem;
+    }
+
+    /* Hide CART text on small screens, show only icon + badge */
+    .cart-text {
+        display: none;
+    }
+
+    /* Adjust cart button spacing when text is hidden */
+    .cart-btn-wrap {
+        gap: 0.3rem;
+    }
+
+    /* Make icon more visible */
+    .icon-cart {
+        width: 18px;
+        height: 18px;
+    }
+
+    /* Reduce spacing in nav-actions on very small screens */
+    .nav-actions {
+        gap: 0.3rem;
+    }
+
+    /* Reduce search icon size for more space */
+    #searchToggle {
+        padding: 0.3rem;
     }
 
     .hero {

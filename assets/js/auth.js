@@ -223,37 +223,82 @@ export function logout() {
  */
 export function updateAuthUI() {
     const userNameEl = document.getElementById('userName');
+    const userNameMobileEl = document.getElementById('userNameMobile');
     const authToggle = document.getElementById('authToggle');
+    const authToggleMobile = document.getElementById('authToggleMobile');
 
-    if (!userNameEl || !authToggle) return;
+    const username = currentUser ? currentUser.email.split('@')[0].toUpperCase() : '';
 
-    if (currentUser) {
-        // User logged in
-        const username = currentUser.email.split('@')[0].toUpperCase();
-        userNameEl.textContent = `USER_${username}`;
-        userNameEl.classList.remove('user-hidden');
+    // Update desktop auth button
+    if (authToggle) {
+        if (currentUser) {
+            // User logged in
+            if (userNameEl) {
+                userNameEl.textContent = `USER_${username}`;
+                userNameEl.classList.remove('user-hidden');
+            }
 
-        // Change auth button to logout
-        authToggle.innerHTML = `
-            <svg class="icon-user" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-            <span class="user-name text-cyan">${username}</span>
-        `;
-        authToggle.onclick = logout;
-        authToggle.title = 'Logout';
-    } else {
-        // User not logged in
-        userNameEl.classList.add('user-hidden');
-        authToggle.innerHTML = `
-            <svg class="icon-user" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-        `;
-        authToggle.onclick = toggleAuthModal;
-        authToggle.title = 'Login or Register';
+            authToggle.innerHTML = `
+                <svg class="icon-user" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span class="user-name text-cyan">${username}</span>
+            `;
+            authToggle.onclick = logout;
+            authToggle.title = 'Logout';
+        } else {
+            // User not logged in
+            if (userNameEl) {
+                userNameEl.classList.add('user-hidden');
+            }
+
+            authToggle.innerHTML = `
+                <svg class="icon-user" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            `;
+            authToggle.onclick = toggleAuthModal;
+            authToggle.title = 'Login or Register';
+        }
+    }
+
+    // Update mobile auth button
+    if (authToggleMobile) {
+        if (currentUser) {
+            // User logged in
+            if (userNameMobileEl) {
+                userNameMobileEl.textContent = username;
+                userNameMobileEl.classList.remove('user-hidden');
+            }
+
+            authToggleMobile.innerHTML = `
+                <svg class="icon-user" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span class="text-code">LOGOUT</span>
+                <span class="user-name text-cyan">${username}</span>
+            `;
+            authToggleMobile.onclick = logout;
+            authToggleMobile.title = 'Logout';
+        } else {
+            // User not logged in
+            if (userNameMobileEl) {
+                userNameMobileEl.classList.add('user-hidden');
+            }
+
+            authToggleMobile.innerHTML = `
+                <svg class="icon-user" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span class="text-code">LOGIN</span>
+            `;
+            authToggleMobile.onclick = toggleAuthModal;
+            authToggleMobile.title = 'Login or Register';
+        }
     }
 }
 
@@ -330,7 +375,7 @@ function loadAuthFromStorage() {
 export function initAuth() {
     updateAuthUI();
 
-    // Auth toggle button
+    // Desktop auth toggle button
     const authToggle = document.getElementById('authToggle');
     const authFooterLink = document.getElementById('authFooterLink');
 
@@ -338,6 +383,25 @@ export function initAuth() {
         authToggle.addEventListener('click', () => {
             if (!isAuthenticated()) {
                 toggleAuthModal();
+            } else {
+                logout();
+            }
+        });
+    }
+
+    // Mobile auth toggle button
+    const authToggleMobile = document.getElementById('authToggleMobile');
+    if (authToggleMobile) {
+        authToggleMobile.addEventListener('click', () => {
+            if (!isAuthenticated()) {
+                toggleAuthModal();
+                // Close mobile menu after opening auth modal
+                const navMenu = document.querySelector('.nav-menu');
+                const hamburger = document.querySelector('.hamburger');
+                if (navMenu && navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                }
             } else {
                 logout();
             }
