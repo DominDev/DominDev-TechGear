@@ -55,3 +55,14 @@ coverage/
 .sass-cache/
 *.css.map
 *.js.map
+
+# Ignore local settings for Claude integration
+.claude/settings.local.json
+.claude/.session.local.json
+.claude/.auth.local.json
+.claude/.history.local.json
+.claude/.cache.local.json
+.claude/.temp.local.json
+.claude/.logs.local.json
+.claude/.data.local.json
+.CLAUDE.md
