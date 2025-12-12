@@ -851,3 +851,181 @@
 .btn-add-cart {
     flex: 1.2;
 }
+
+/* --------------------------------------------------------------------------
+   [10] MOCKUP-INSPIRED COMPONENTS (Priority 1)
+   -------------------------------------------------------------------------- */
+
+/* Corner Bracket Frames for Section Headers */
+.section-header-framed {
+    position: relative;
+    padding: 2.5rem 2rem;
+}
+
+.section-header-framed::before,
+.section-header-framed::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    transition: all 0.3s ease;
+}
+
+/* Top-left bracket */
+.section-header-framed::before {
+    top: 0;
+    left: 0;
+    border-top: 3px solid var(--color-system-cyan);
+    border-left: 3px solid var(--color-system-cyan);
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+}
+
+/* Bottom-right bracket */
+.section-header-framed::after {
+    bottom: 0;
+    right: 0;
+    border-bottom: 3px solid var(--color-tactical-orange);
+    border-right: 3px solid var(--color-tactical-orange);
+    box-shadow: 0 0 10px rgba(255, 119, 0, 0.4);
+}
+
+/* Hover effect on section headers */
+.section-header-framed:hover::before {
+    width: 60px;
+    height: 60px;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
+}
+
+.section-header-framed:hover::after {
+    width: 60px;
+    height: 60px;
+    box-shadow: 0 0 20px rgba(255, 119, 0, 0.6);
+}
+
+/* Add extra corners for full frame effect */
+.section-header-framed-full {
+    position: relative;
+    padding: 2rem;
+}
+
+.section-header-framed-full::before,
+.section-header-framed-full::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    transition: all 0.3s ease;
+}
+
+/* Top-left bracket */
+.section-header-framed-full::before {
+    top: 0;
+    left: 0;
+    border-top: 3px solid var(--color-system-cyan);
+    border-left: 3px solid var(--color-system-cyan);
+}
+
+/* Bottom-right bracket */
+.section-header-framed-full::after {
+    bottom: 0;
+    right: 0;
+    border-bottom: 3px solid var(--color-tactical-orange);
+    border-right: 3px solid var(--color-tactical-orange);
+}
+
+/* Top-right and bottom-left corners via wrapper */
+.bracket-wrapper {
+    position: relative;
+}
+
+.bracket-wrapper::before,
+.bracket-wrapper::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    transition: all 0.3s ease;
+}
+
+.bracket-wrapper::before {
+    top: 0;
+    right: 0;
+    border-top: 3px solid var(--color-tactical-orange);
+    border-right: 3px solid var(--color-tactical-orange);
+}
+
+.bracket-wrapper::after {
+    bottom: 0;
+    left: 0;
+    border-bottom: 3px solid var(--color-system-cyan);
+    border-left: 3px solid var(--color-system-cyan);
+}
+
+/* Rounded Outline Button Variant (Mockup Style) */
+.btn-outline-rounded {
+    position: relative;
+    background: transparent;
+    border: 2px solid var(--color-text-primary);
+    border-radius: 50px;
+    padding: 1rem 2.5rem;
+    color: var(--color-text-primary);
+    font-family: var(--font-code);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-block;
+    text-align: center;
+    clip-path: none; /* Override tactical clip-path */
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+}
+
+.btn-outline-rounded::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, var(--color-system-cyan), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    border-radius: 50px;
+    z-index: -1;
+}
+
+.btn-outline-rounded:hover {
+    border-color: var(--color-system-cyan);
+    color: var(--color-system-cyan);
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.6),
+                0 4px 20px rgba(0, 240, 255, 0.3);
+    transform: translateY(-3px);
+}
+
+.btn-outline-rounded:hover::before {
+    opacity: 0.2;
+}
+
+.btn-outline-rounded:active {
+    transform: translateY(-1px);
+}
+
+/* Orange variant */
+.btn-outline-rounded.btn-orange {
+    border-color: var(--color-tactical-orange);
+    color: var(--color-tactical-orange);
+}
+
+.btn-outline-rounded.btn-orange::before {
+    background: radial-gradient(circle, var(--color-tactical-orange), transparent 70%);
+}
+
+.btn-outline-rounded.btn-orange:hover {
+    border-color: var(--color-orange-bright);
+    color: var(--color-orange-bright);
+    box-shadow: 0 0 30px rgba(255, 119, 0, 0.6),
+                0 4px 20px rgba(255, 119, 0, 0.3);
+}
