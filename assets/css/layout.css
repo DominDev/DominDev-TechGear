@@ -596,40 +596,98 @@
     gap: 0.5rem;
     opacity: 0.7;
     transition: opacity var(--transition-base);
+    cursor: pointer;
 }
 
 .hero-scroll-indicator:hover {
     opacity: 1;
 }
 
-/* Mouse Icon */
-.scroll-mouse {
-    width: 26px;
-    height: 40px;
-    border: 2px solid var(--color-white);
-    border-radius: 13px;
-    position: relative;
+.hero-scroll-indicator:hover .chevron {
+    animation-duration: 1s; /* Speed up on hover */
+}
+
+/* Chevron Stack Container */
+.chevron-stack {
     display: flex;
-    justify-content: center;
-    padding-top: 8px;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 0;
 }
 
-.scroll-wheel {
-    width: 3px;
-    height: 8px;
+/* Individual Chevron (Angular V shape pointing down) */
+.chevron {
+    width: 20px;
+    height: 10px;
+    position: relative;
+    opacity: 0;
+    animation: chevronCascade 2s ease-in-out infinite;
+}
+
+.chevron::before,
+.chevron::after {
+    content: '';
+    position: absolute;
+    width: 60%;
+    height: 2px;
     background: var(--color-tactical-orange);
-    border-radius: 2px;
-    animation: scrollWheel 1.5s infinite;
+    box-shadow:
+        0 0 8px rgba(255, 119, 0, 0.6),
+        0 0 15px rgba(255, 119, 0, 0.3);
+    transition: all 0.3s ease;
 }
 
-@keyframes scrollWheel {
+.chevron::before {
+    left: 0;
+    top: 0;
+    transform: rotate(45deg);
+    transform-origin: left center;
+}
+
+.chevron::after {
+    right: 0;
+    top: 0;
+    transform: rotate(-45deg);
+    transform-origin: right center;
+}
+
+/* Hover effect - intensify glow */
+.hero-scroll-indicator:hover .chevron::before,
+.hero-scroll-indicator:hover .chevron::after {
+    background: var(--color-tactical-orange);
+    box-shadow:
+        0 0 12px rgba(255, 119, 0, 0.9),
+        0 0 20px rgba(255, 119, 0, 0.5),
+        0 0 30px rgba(255, 119, 0, 0.3);
+}
+
+/* Staggered cascade animation for each chevron */
+.chevron:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.chevron:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.chevron:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+/* Chevron Cascade Animation - fade in, move down, fade out */
+@keyframes chevronCascade {
     0% {
-        transform: translateY(0);
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    50% {
         opacity: 1;
+        transform: translateY(0);
     }
     100% {
-        transform: translateY(18px);
         opacity: 0;
+        transform: translateY(8px);
     }
 }
 

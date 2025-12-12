@@ -351,3 +351,16 @@ export function preloadImages(urls) {
 
     return Promise.allSettled(promises);
 }
+
+/**
+ * Initialize hero scroll indicator
+ * Scrolls to the next section (arsenal) when clicked
+ */
+export function initHeroScrollIndicator() {
+    const scrollIndicator = document.getElementById('heroScrollIndicator');
+    if (!scrollIndicator) return;
+
+    scrollIndicator.addEventListener('click', () => {
+        smoothScroll('arsenal');
+    });
+}
