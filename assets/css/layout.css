@@ -270,6 +270,7 @@
     position: relative;
     width: 100%;
     height: 100vh;
+    height: 100dvh; /* Dynamic viewport height - accounts for mobile browser UI */
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -761,10 +762,19 @@
         padding-left: 0;
         padding-top: var(--spacing-sm);
         max-width: 100%;
+        margin-top: 3rem; /* Add space above description line to avoid overlap with GEAR text */
     }
 
     .hero-scroll-indicator {
-        order: -1; /* Move to top */
+        order: 3; /* Move to bottom - after label and CTA */
+    }
+
+    .hero-label-box {
+        order: 1;
+    }
+
+    .hero-cta-box {
+        order: 2;
     }
 
     /* Center text on mobile */
@@ -831,13 +841,21 @@
 }
 
 @media (max-width: 480px) {
-    /* TECH - White with strong black shadow for maximum visibility (Option 2) */
+    /* Move text layer in front of character on mobile */
+    .hero-text-layer {
+        z-index: 8; /* ABOVE character (5) for better visibility */
+        transform: translate(-50%, -70%); /* Move higher up to create space for description */
+    }
+
+    /* TECH - Solid white text with strong shadow (no outline transparency) */
     .hero-subtitle {
-        font-size: clamp(2rem, 6vw, 3rem);
-        letter-spacing: 0.3em;
+        font-size: clamp(2.5rem, 8vw, 4rem); /* Slightly larger for better visibility */
+        letter-spacing: 0.15em; /* Tighter letter spacing */
+        margin-bottom: 0.1rem; /* Minimal gap between TECH and GEAR */
         color: var(--color-white);
-        -webkit-text-stroke: 2px var(--color-white);
-        text-stroke: 2px var(--color-white);
+        -webkit-text-fill-color: var(--color-white);
+        -webkit-text-stroke: 0;
+        text-stroke: 0;
         /* Strong black shadow for contrast */
         text-shadow:
             3px 3px 8px rgba(0, 0, 0, 0.95),
@@ -846,23 +864,19 @@
             0 0 50px rgba(255, 255, 255, 0.5);
     }
 
+    /* Hide outline layer on mobile - no transparency effect */
     .hero-subtitle-outline {
-        font-size: clamp(2rem, 6vw, 3rem);
-        letter-spacing: 0.3em;
-        color: transparent;
-        -webkit-text-fill-color: transparent;
-        -webkit-text-stroke: 2px var(--color-white);
-        text-stroke: 2px var(--color-white);
-        filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.9))
-                drop-shadow(0 0 30px rgba(255, 255, 255, 0.6));
+        display: none;
     }
 
-    /* GEAR - White with strong black shadow for maximum visibility (Option 2) */
+    /* GEAR - Solid white text with strong shadow (no outline transparency) */
     .hero-title-massive {
-        font-size: clamp(5rem, 18vw, 8rem);
+        font-size: clamp(5rem, 17vw, 7.5rem); /* Slightly larger for better visibility */
+        line-height: 0.9; /* Tighter line height */
         color: var(--color-white);
-        -webkit-text-stroke: 3px var(--color-white);
-        text-stroke: 3px var(--color-white);
+        -webkit-text-fill-color: var(--color-white);
+        -webkit-text-stroke: 0;
+        text-stroke: 0;
         /* Strong black shadow for contrast */
         text-shadow:
             4px 4px 10px rgba(0, 0, 0, 0.95),
@@ -871,24 +885,24 @@
             0 0 60px rgba(255, 255, 255, 0.6);
     }
 
+    /* Hide outline layer on mobile - no transparency effect */
     .hero-title-outline {
-        font-size: clamp(5rem, 18vw, 8rem);
-        color: transparent;
-        -webkit-text-fill-color: transparent;
-        -webkit-text-stroke: 3px var(--color-white);
-        text-stroke: 3px var(--color-white);
-        filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.9))
-                drop-shadow(0 0 40px rgba(255, 255, 255, 0.7));
+        display: none;
+    }
+
+    /* Move character higher and make smaller */
+    .hero-product-layer {
+        transform: translate(-50%, -65%); /* Move up higher to match text */
     }
 
     .hero-product-img {
-        height: 65vh;
+        height: 50vh; /* Smaller to fit better and leave space for UI */
     }
 
     /* Reduce character glow on mobile for better text visibility */
     .hero-product-layer::before {
         width: 80vw;
-        height: 55vh;
+        height: 50vh;
         filter: blur(40px);
         opacity: 0.4; /* Reduced from 0.8 */
         background: radial-gradient(
@@ -900,35 +914,55 @@
     }
 
     .btn-hero {
-        padding: 1rem 2rem;
-        font-size: 0.85rem;
+        padding: 0.9rem 1.8rem; /* Slightly smaller */
+        font-size: 0.8rem;
     }
 
     .hero-tagline {
-        font-size: 0.85rem;
+        font-size: 0.8rem; /* Smaller tagline */
+        line-height: 1.4; /* Tighter line height */
     }
 
-    /* Reduce ring glow on mobile for better text visibility */
+    /* Reduce margin on label box - elements are now more compact */
+    .hero-label-box {
+        margin-top: 2rem; /* Smaller margin since text is higher and more compact */
+        padding-top: 0.5rem; /* Less padding */
+    }
+
+    /* Reduce UI overlay padding for more compact layout */
+    .hero-ui-overlay {
+        padding: 0 1.5rem 1.5rem; /* Smaller bottom padding */
+    }
+
+    .hero-footer-ui {
+        gap: 1rem; /* Smaller gap between UI elements */
+    }
+
+    /* Reduce ring glow on mobile for better text visibility and position at character center */
+    .animated-ring {
+        top: 40%; /* Move rings higher to center on character torso */
+    }
+
     .ring-1 {
-        width: 40vh;
-        height: 40vh;
-        border-width: 3px;
+        width: 35vh; /* Smaller to match smaller character */
+        height: 35vh;
+        border-width: 2.5px;
         opacity: 0.3; /* Reduced from 0.5 */
-        box-shadow: 0 0 40px rgba(255, 119, 0, 0.3),
-                    0 0 60px rgba(255, 119, 0, 0.15); /* Reduced glow */
+        box-shadow: 0 0 35px rgba(255, 119, 0, 0.3),
+                    0 0 50px rgba(255, 119, 0, 0.15); /* Reduced glow */
     }
     .ring-2 {
-        width: 32vh;
-        height: 32vh;
+        width: 28vh; /* Smaller to match smaller character */
+        height: 28vh;
         border-width: 1.5px;
         opacity: 0.5; /* Reduced from 0.8 */
-        filter: drop-shadow(0 0 6px var(--color-system-cyan))
-                drop-shadow(0 0 10px rgba(0, 240, 255, 0.4)); /* Reduced glow */
+        filter: drop-shadow(0 0 5px var(--color-system-cyan))
+                drop-shadow(0 0 8px rgba(0, 240, 255, 0.4)); /* Reduced glow */
     }
     .ring-3 {
-        width: 24vh;
-        height: 24vh;
-        border-width: 2px;
+        width: 20vh; /* Smaller to match smaller character */
+        height: 20vh;
+        border-width: 1.5px;
         opacity: 0.2; /* Reduced from 0.3 */
     }
 }
