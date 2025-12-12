@@ -147,6 +147,16 @@
                     <a href="#hero" class="nav-link active">/ Main</a>
                     <a href="#arsenal" class="nav-link">/ Arsenal</a>
                     <a href="#faq" class="nav-link">/ FAQ</a>
+
+                    <!-- Mobile-only Auth Button (hidden on desktop) -->
+                    <button class="nav-icon-btn mobile-auth-btn" id="authToggleMobile" aria-label="Login or register" title="Account">
+                        <svg class="icon-user" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        <span class="text-code">LOGIN</span>
+                        <span class="user-name user-hidden" id="userNameMobile"></span>
+                    </button>
                 </div>
 
                 <!-- User Actions -->
@@ -165,7 +175,12 @@
                         <span class="user-name user-hidden" id="userName"></span>
                     </button>
                     <button class="nav-icon-btn cart-btn-wrap" id="cartToggle" aria-label="View cart" title="Cart">
-                        <span class="text-code">CART</span>
+                        <svg class="icon-cart" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                        <span class="text-code cart-text">CART</span>
                         <span class="cart-count" id="cartCount">0</span>
                     </button>
                 </div>
