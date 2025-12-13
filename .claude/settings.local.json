@@ -38,7 +38,6 @@
       "Write(./.env.*)",
       "Write(./secrets/**)",
       "Write(./config/credentials.json)",
-
       "Bash(curl:*)",
       "Bash(powershell -Command:*)",
       "Bash(git commit:*)",
