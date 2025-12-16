@@ -3,105 +3,11 @@
    ============================================================================ */
 
 /* --------------------------------------------------------------------------
-   [1] BUTTONS
+   [1] BUTTONS - See unified system at end of file
    -------------------------------------------------------------------------- */
-.btn {
-    position: relative;
-    padding: 1rem 2.5rem;
-    font-family: var(--font-code);
-    font-weight: 700;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--color-void-black);
-    background: var(--color-tactical-orange);
-    border: 2px solid var(--color-tactical-orange);
-    clip-path: var(--clip-corner-small);
-    overflow: hidden;
-    cursor: pointer;
-    transition: all var(--transition-base);
-    display: inline-block;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(255, 119, 0, 0.3);
-    transform: translateY(0);
-}
-
-.btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, var(--color-orange-bright), var(--color-tactical-orange));
-    opacity: 0;
-    transition: opacity var(--transition-base);
-    z-index: -1;
-}
-
-.btn::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.2),
-        transparent
-    );
-    transition: left 0.5s ease;
-    z-index: 1;
-}
-
-.btn:hover {
-    color: var(--color-void-black);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-glow-orange-strong), 0 8px 25px rgba(255, 119, 0, 0.5);
-    border-color: var(--color-orange-bright);
-    background: var(--color-orange-bright);
-}
-
-.btn:hover::before {
-    opacity: 0;
-}
-
-.btn:hover::after {
-    left: 100%;
-}
-
-.btn:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 10px rgba(255, 119, 0, 0.3);
-}
-
-.btn-secondary {
-    border-color: var(--color-border-active);
-    color: var(--color-text-primary);
-    background: rgba(17, 17, 17, 0.8);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-}
-
-.btn-secondary::before {
-    background: var(--gradient-dark);
-}
-
-.btn-secondary:hover {
-    color: var(--color-white);
-    border-color: var(--color-system-cyan);
-    box-shadow: var(--shadow-glow-cyan), 0 8px 25px rgba(0, 240, 255, 0.3);
-    transform: translateY(-2px);
-}
-
-.btn-glitch:hover {
-    animation: glitch-skew 0.3s ease both infinite;
-}
 
 /* --------------------------------------------------------------------------
-   [2] PRODUCT FILTERS
+   [2] PRODUCT FILTERS - Tactical style matching buttons
    -------------------------------------------------------------------------- */
 .filters {
     display: flex;
@@ -112,47 +18,46 @@
 .filter-tab {
     font-family: var(--font-code);
     text-transform: uppercase;
-    padding: 0.6rem 1.5rem;
-    font-size: 0.85rem;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
     color: var(--color-text-dim);
-    background: rgba(17, 17, 17, 0.5);
-    backdrop-filter: blur(5px);
-    border: 1px solid var(--color-border-active);
+    background: transparent;
+    border: none;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
-    overflow: hidden;
-}
-
-.filter-tab::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: var(--gradient-tactical);
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
+    /* Tactical clip-path - matching secondary buttons */
+    clip-path: polygon(
+        0 0,
+        calc(100% - 8px) 0,
+        100% 8px,
+        100% 100%,
+        8px 100%,
+        0 calc(100% - 8px)
+    );
+    box-shadow: inset 0 0 0 1px var(--color-border-active);
 }
 
 .filter-tab:hover {
     color: var(--color-tactical-orange);
-    border-color: var(--color-tactical-orange);
-    background: var(--color-orange-dim);
+    box-shadow: inset 0 0 0 1px var(--color-tactical-orange);
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(255, 119, 0, 0.3);
 }
 
 .filter-tab.active {
-    color: var(--color-white);
-    border-color: var(--color-tactical-orange);
-    background: var(--gradient-orange);
-    box-shadow: 0 4px 20px rgba(255, 119, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-}
-
-.filter-tab.active::before {
-    transform: scaleX(1);
+    color: var(--color-void-black);
+    background: var(--color-tactical-orange);
+    box-shadow: 0 4px 15px rgba(255, 119, 0, 0.4);
+    /* Primary clip-path for active state */
+    clip-path: polygon(
+        8px 0,
+        100% 0,
+        100% calc(100% - 8px),
+        calc(100% - 8px) 100%,
+        0 100%,
+        0 8px
+    );
 }
 
 /* --------------------------------------------------------------------------
@@ -802,6 +707,18 @@
     .product-img-wrap {
         height: 200px;
     }
+
+    /* Product card buttons - ensure single line */
+    .product-actions .btn {
+        padding: 0.5rem 0.6rem;
+        font-size: 0.65rem;
+        letter-spacing: 0.5px;
+    }
+
+    .filter-tab {
+        font-size: 0.7rem;
+        padding: 0.5rem 0.8rem;
+    }
 }
 
 /* --------------------------------------------------------------------------
@@ -842,10 +759,36 @@
     display: none;
 }
 
-/* Product action buttons */
+/* Product action buttons - single line text */
+.product-actions .btn {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    /* Smaller clip-path corners for compact buttons */
+    clip-path: polygon(
+        8px 0,
+        100% 0,
+        100% calc(100% - 8px),
+        calc(100% - 8px) 100%,
+        0 100%,
+        0 8px
+    );
+}
+
+.product-actions .btn-secondary {
+    clip-path: polygon(
+        0 0,
+        calc(100% - 8px) 0,
+        100% 8px,
+        100% 100%,
+        8px 100%,
+        0 calc(100% - 8px)
+    );
+}
+
 .btn-specs {
-    flex: 0.8;
-    font-size: 0.75rem;
+    flex: 1;
 }
 
 .btn-add-cart {
@@ -856,81 +799,34 @@
    [10] MOCKUP-INSPIRED COMPONENTS (Priority 1)
    -------------------------------------------------------------------------- */
 
-/* Corner Bracket Frames for Section Headers */
+/* Corner Bracket Frames for Section Headers - Subtle corner lines */
 .section-header-framed {
     position: relative;
-    padding: 2.5rem 2rem;
+    padding: 1.5rem 2rem;
 }
 
 .section-header-framed::before,
 .section-header-framed::after {
     content: '';
     position: absolute;
-    width: 50px;
-    height: 50px;
-    transition: all 0.3s ease;
+    width: 30px;
+    height: 30px;
 }
 
-/* Top-left bracket */
+/* Top-left bracket - subtle line */
 .section-header-framed::before {
     top: 0;
     left: 0;
-    border-top: 3px solid var(--color-system-cyan);
-    border-left: 3px solid var(--color-system-cyan);
-    box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+    border-top: 2px solid var(--color-system-cyan);
+    border-left: 2px solid var(--color-system-cyan);
 }
 
-/* Bottom-right bracket */
+/* Bottom-right bracket - subtle line */
 .section-header-framed::after {
     bottom: 0;
     right: 0;
-    border-bottom: 3px solid var(--color-tactical-orange);
-    border-right: 3px solid var(--color-tactical-orange);
-    box-shadow: 0 0 10px rgba(255, 119, 0, 0.4);
-}
-
-/* Hover effect on section headers */
-.section-header-framed:hover::before {
-    width: 60px;
-    height: 60px;
-    box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
-}
-
-.section-header-framed:hover::after {
-    width: 60px;
-    height: 60px;
-    box-shadow: 0 0 20px rgba(255, 119, 0, 0.6);
-}
-
-/* Add extra corners for full frame effect */
-.section-header-framed-full {
-    position: relative;
-    padding: 2rem;
-}
-
-.section-header-framed-full::before,
-.section-header-framed-full::after {
-    content: '';
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    transition: all 0.3s ease;
-}
-
-/* Top-left bracket */
-.section-header-framed-full::before {
-    top: 0;
-    left: 0;
-    border-top: 3px solid var(--color-system-cyan);
-    border-left: 3px solid var(--color-system-cyan);
-}
-
-/* Bottom-right bracket */
-.section-header-framed-full::after {
-    bottom: 0;
-    right: 0;
-    border-bottom: 3px solid var(--color-tactical-orange);
-    border-right: 3px solid var(--color-tactical-orange);
+    border-bottom: 2px solid var(--color-tactical-orange);
+    border-right: 2px solid var(--color-tactical-orange);
 }
 
 /* Top-right and bottom-left corners via wrapper */
@@ -961,14 +857,20 @@
     border-left: 3px solid var(--color-system-cyan);
 }
 
-/* Rounded Outline Button Variant (Mockup Style) */
-.btn-outline-rounded {
+/* ==========================================================================
+   UNIFIED BUTTON SYSTEM - Cyberpunk Tactical Style
+   ========================================================================== */
+
+/*
+   Clip-path shapes:
+   - Primary: Asymmetric cut (left-bottom + right-top corners)
+   - Secondary: Opposite asymmetric (left-top + right-bottom corners)
+*/
+
+/* Base tactical button */
+.btn-tactical {
     position: relative;
-    background: transparent;
-    border: 2px solid var(--color-text-primary);
-    border-radius: 50px;
     padding: 1rem 2.5rem;
-    color: var(--color-text-primary);
     font-family: var(--font-code);
     font-weight: 700;
     font-size: 0.9rem;
@@ -976,56 +878,216 @@
     letter-spacing: 2px;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     text-align: center;
-    clip-path: none; /* Override tactical clip-path */
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
-    overflow: hidden;
+    border: none;
+    /* Asymmetric clip: ścięty lewy-dolny i prawy-górny róg */
+    clip-path: polygon(
+        12px 0,           /* start after top-left cut */
+        100% 0,           /* top-right corner */
+        100% calc(100% - 12px),  /* before bottom-right cut */
+        calc(100% - 12px) 100%,  /* bottom-right cut */
+        0 100%,           /* bottom-left corner */
+        0 12px            /* top-left cut */
+    );
 }
 
-.btn-outline-rounded::before {
+/* Primary button - Filled orange */
+.btn-tactical.btn-primary {
+    background: var(--color-tactical-orange);
+    color: var(--color-void-black);
+    box-shadow: 0 4px 15px rgba(255, 119, 0, 0.3);
+}
+
+.btn-tactical.btn-primary::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, var(--color-system-cyan), transparent 70%);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    border-radius: 50px;
-    z-index: -1;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+    pointer-events: none;
 }
 
-.btn-outline-rounded:hover {
-    border-color: var(--color-system-cyan);
+.btn-tactical.btn-primary:hover {
+    background: var(--color-orange-bright);
+    transform: translateY(-2px);
+    box-shadow: 0 0 25px rgba(255, 119, 0, 0.6),
+                0 6px 20px rgba(255, 119, 0, 0.4);
+}
+
+.btn-tactical.btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(255, 119, 0, 0.3);
+}
+
+/* Secondary button - Outline style */
+.btn-tactical.btn-secondary {
+    background: transparent;
+    color: var(--color-text-primary);
+    box-shadow: inset 0 0 0 2px var(--color-border-active);
+}
+
+.btn-tactical.btn-secondary:hover {
     color: var(--color-system-cyan);
-    box-shadow: 0 0 30px rgba(0, 240, 255, 0.6),
-                0 4px 20px rgba(0, 240, 255, 0.3);
-    transform: translateY(-3px);
+    box-shadow: inset 0 0 0 2px var(--color-system-cyan),
+                0 0 15px rgba(0, 240, 255, 0.3);
+    transform: translateY(-2px);
 }
 
-.btn-outline-rounded:hover::before {
-    opacity: 0.2;
+.btn-tactical.btn-secondary:active {
+    transform: translateY(0);
 }
 
-.btn-outline-rounded:active {
-    transform: translateY(-1px);
+/* Ghost button - Minimal outline */
+.btn-tactical.btn-ghost {
+    background: rgba(17, 17, 17, 0.5);
+    color: var(--color-text-secondary);
+    box-shadow: inset 0 0 0 1px var(--color-border-base);
 }
 
-/* Orange variant */
-.btn-outline-rounded.btn-orange {
-    border-color: var(--color-tactical-orange);
+.btn-tactical.btn-ghost:hover {
     color: var(--color-tactical-orange);
+    box-shadow: inset 0 0 0 1px var(--color-tactical-orange),
+                0 0 10px rgba(255, 119, 0, 0.2);
 }
 
-.btn-outline-rounded.btn-orange::before {
-    background: radial-gradient(circle, var(--color-tactical-orange), transparent 70%);
+/* Glitch effect modifier */
+.btn-tactical.btn-glitch:hover {
+    animation: glitch-skew 0.3s ease both;
 }
 
-.btn-outline-rounded.btn-orange:hover {
-    border-color: var(--color-orange-bright);
-    color: var(--color-orange-bright);
-    box-shadow: 0 0 30px rgba(255, 119, 0, 0.6),
-                0 4px 20px rgba(255, 119, 0, 0.3);
+/* Alternative shape - opposite corners cut */
+.btn-tactical.btn-alt-shape {
+    clip-path: polygon(
+        0 0,              /* top-left corner */
+        calc(100% - 12px) 0,  /* before top-right cut */
+        100% 12px,        /* top-right cut */
+        100% 100%,        /* bottom-right corner */
+        12px 100%,        /* before bottom-left cut */
+        0 calc(100% - 12px)   /* bottom-left cut */
+    );
+}
+
+/* ==========================================================================
+   LEGACY SUPPORT - Keep old classes working
+   ========================================================================== */
+
+/* Map old .btn to new system */
+.btn {
+    position: relative;
+    padding: 1rem 2.5rem;
+    font-family: var(--font-code);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: var(--color-tactical-orange);
+    color: var(--color-void-black);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    clip-path: polygon(
+        12px 0,
+        100% 0,
+        100% calc(100% - 12px),
+        calc(100% - 12px) 100%,
+        0 100%,
+        0 12px
+    );
+    box-shadow: 0 4px 15px rgba(255, 119, 0, 0.3);
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.btn:hover {
+    background: var(--color-orange-bright);
+    color: var(--color-white);
+    transform: translateY(-2px);
+    box-shadow: 0 0 25px rgba(255, 119, 0, 0.6),
+                0 6px 20px rgba(255, 119, 0, 0.4);
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* Glitch effect on primary buttons */
+.btn.btn-glitch:hover {
+    animation: glitch-skew 0.3s ease both;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--color-text-primary);
+    box-shadow: inset 0 0 0 2px var(--color-border-active);
+    clip-path: polygon(
+        0 0,
+        calc(100% - 12px) 0,
+        100% 12px,
+        100% 100%,
+        12px 100%,
+        0 calc(100% - 12px)
+    );
+}
+
+.btn-secondary::before {
+    display: none;
+}
+
+.btn-secondary:hover {
+    color: var(--color-system-cyan);
+    background: transparent;
+    box-shadow: inset 0 0 0 2px var(--color-system-cyan),
+                0 0 15px rgba(0, 240, 255, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .section-header-framed {
+        padding: 1rem 1.5rem;
+    }
+
+    .section-header-framed::before,
+    .section-header-framed::after {
+        width: 25px;
+        height: 25px;
+    }
+
+    .btn-tactical,
+    .btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-header-framed {
+        padding: 0.75rem 1rem;
+    }
+
+    .section-header-framed::before,
+    .section-header-framed::after {
+        width: 20px;
+        height: 20px;
+    }
+
+    .btn-tactical,
+    .btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+    }
 }

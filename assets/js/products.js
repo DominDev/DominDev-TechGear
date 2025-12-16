@@ -253,7 +253,7 @@ function createProductCard(product, index) {
         <h3 class="product-name">${product.name}</h3>
 
         <div class="product-actions">
-            <button class="btn btn-specs" onclick="window.toggleProductSpecs(${product.id})">
+            <button class="btn btn-secondary btn-specs" onclick="window.toggleProductSpecs(${product.id})">
                 SPECS
             </button>
             <button class="btn btn-glitch btn-add-cart" onclick="window.addToCart(${product.id})">

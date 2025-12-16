@@ -738,9 +738,14 @@
 /* Right: CTA Box */
 .hero-cta-box {
     justify-self: end;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
-.btn-hero {
+/* Hero CTA buttons - larger size */
+.hero-cta-box .btn {
     padding: 1.2rem 3rem;
     font-size: 1rem;
 }
@@ -1015,8 +1020,8 @@
         );
     }
 
-    .btn-hero {
-        padding: 0.9rem 1.8rem; /* Slightly smaller */
+    .hero-cta-box .btn {
+        padding: 0.9rem 1.8rem;
         font-size: 0.8rem;
     }
 
