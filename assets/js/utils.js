@@ -107,12 +107,13 @@ export function initSmoothScrollLinks() {
                 // Update active nav link
                 updateActiveNavLink(link);
 
-                // Close mobile menu if open
+                // Close mobile menu if open and restore scroll
                 const navMenu = document.querySelector('.nav-menu');
                 const hamburger = document.querySelector('.hamburger');
                 if (navMenu && navMenu.classList.contains('active')) {
                     navMenu.classList.remove('active');
                     hamburger.classList.remove('active');
+                    document.body.style.overflow = '';
                 }
             }
         });
@@ -157,14 +158,20 @@ export function initScrollSpy() {
 
     if (sections.length === 0 || navLinks.length === 0) return;
 
-    const handleScroll = throttle(() => {
-        let currentSection = '';
+    // Flag to temporarily disable scroll spy during programmatic scroll
+    let isScrolling = false;
+
+    const updateActiveLink = () => {
+        // Skip update if we're in the middle of a programmatic scroll
+        if (isScrolling) return;
+
+        let currentSection = 'hero'; // Default to hero
 
         sections.forEach(section => {
-            const sectionTop = section.offsetTop - 120;
-            const sectionHeight = section.offsetHeight;
+            const sectionTop = section.offsetTop - 150;
 
-            if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+            // Check if we've scrolled past this section's start
+            if (window.scrollY >= sectionTop) {
                 currentSection = section.getAttribute('id');
             }
         });
@@ -175,9 +182,29 @@ export function initScrollSpy() {
                 link.classList.add('active');
             }
         });
-    }, 100);
+    };
+
+    const handleScroll = throttle(updateActiveLink, 100);
 
     window.addEventListener('scroll', handleScroll);
+
+    // Listen for nav link clicks to immediately set active state
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            // Immediately set this link as active
+            navLinks.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+
+            // Disable scroll spy temporarily during smooth scroll
+            isScrolling = true;
+            setTimeout(() => {
+                isScrolling = false;
+            }, 800); // Match smooth scroll duration
+        });
+    });
+
+    // Run once on init to set correct initial state
+    updateActiveLink();
 }
 
 /**
@@ -212,16 +239,30 @@ export function initMobileMenu() {
 
     if (!hamburger || !navMenu) return;
 
+    const toggleMenu = (open) => {
+        hamburger.classList.toggle('active', open);
+        navMenu.classList.toggle('active', open);
+
+        // Lock/unlock body scroll when menu is open/closed
+        if (open !== undefined) {
+            document.body.style.overflow = open ? 'hidden' : '';
+        } else {
+            // Toggle case
+            const isOpen = navMenu.classList.contains('active');
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+        }
+    };
+
     hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        navMenu.classList.toggle('active');
+        toggleMenu();
     });
 
     // Close menu when clicking outside
     document.addEventListener('click', (e) => {
         if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
+            if (navMenu.classList.contains('active')) {
+                toggleMenu(false);
+            }
         }
     });
 }
