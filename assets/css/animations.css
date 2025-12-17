@@ -3,7 +3,7 @@
    ============================================================================ */
 
 /* --------------------------------------------------------------------------
-   [1] PRELOADER
+   [1] PRELOADER - Circular Progress (Hero-style rings)
    -------------------------------------------------------------------------- */
 .preloader {
     position: fixed;
@@ -27,64 +27,153 @@
 
 .preloader-content {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-lg);
 }
 
-.preloader-logo {
-    margin-bottom: var(--spacing-lg);
-    animation: pulse 2s ease-in-out infinite;
+/* Rings Container - holds all circular elements */
+.preloader-rings {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Decorative rotating ring (like hero ring-2) */
+.preloader-ring-deco {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px dashed var(--color-system-cyan);
+    border-top-color: transparent;
+    border-right-color: transparent;
+    opacity: 0.6;
+    filter: drop-shadow(0 0 8px var(--color-system-cyan))
+            drop-shadow(0 0 15px rgba(0, 240, 255, 0.4));
+    animation: preloaderRingSpin 8s linear infinite;
+}
+
+/* SVG Progress Circle */
+.preloader-progress-svg {
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    transform: rotate(-90deg); /* Start from top */
+}
+
+.progress-bg {
+    fill: none;
+    stroke: var(--color-border-active);
+    stroke-width: 4;
+    opacity: 0.3;
+}
+
+.progress-ring {
+    fill: none;
+    stroke: url(#progressGradient);
+    stroke-width: 6;
+    stroke-linecap: round;
+    /* Circle circumference = 2 * PI * r = 2 * 3.14159 * 90 ≈ 565.49 */
+    stroke-dasharray: 565.49;
+    stroke-dashoffset: 565.49; /* Start empty (fully offset) */
+    transition: stroke-dashoffset 0.3s ease;
+    filter: drop-shadow(0 0 10px var(--color-orange-glow))
+            drop-shadow(0 0 20px rgba(255, 119, 0, 0.3));
+}
+
+/* Center content (logo + percent) */
+.preloader-center {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
 }
 
 .logo-icon-large {
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     background: var(--color-tactical-orange);
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    margin: 0 auto var(--spacing-sm);
-    animation: rotate 3s linear infinite;
-}
-
-.preloader-title {
-    font-family: var(--font-header);
-    font-size: 2.5rem;
-    color: var(--color-white);
-    letter-spacing: 3px;
-    animation: glitch-text 3s ease-in-out infinite;
-}
-
-.preloader-status {
-    margin-top: var(--spacing-lg);
-}
-
-.status-text {
-    font-family: var(--font-code);
-    color: var(--color-system-cyan);
-    font-size: 0.9rem;
-    margin-bottom: var(--spacing-sm);
-    animation: typing 2s steps(30) infinite;
-}
-
-.progress-bar {
-    width: 300px;
-    height: 4px;
-    background: var(--color-border-active);
-    margin: 0 auto var(--spacing-xs);
-    position: relative;
-    overflow: hidden;
-}
-
-.progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--color-tactical-orange), var(--color-system-cyan));
-    width: 0;
-    transition: width 0.3s ease;
-    box-shadow: 0 0 10px var(--color-orange-glow);
+    animation: logoPulse 2s ease-in-out infinite;
+    box-shadow: 0 0 30px rgba(255, 119, 0, 0.5);
 }
 
 .status-percent {
     font-family: var(--font-code);
     color: var(--color-tactical-orange);
-    font-size: 1.2rem;
+    font-size: 1.8rem;
     font-weight: 700;
+    text-shadow: 0 0 20px rgba(255, 119, 0, 0.6);
+    letter-spacing: 2px;
+}
+
+/* Title below rings */
+.preloader-title {
+    font-family: var(--font-header);
+    font-size: 2rem;
+    color: var(--color-white);
+    letter-spacing: 4px;
+    animation: glitch-text 3s ease-in-out infinite;
+    margin: 0;
+}
+
+/* Status text at bottom */
+.preloader-content > .status-text {
+    font-family: var(--font-code);
+    color: var(--color-system-cyan);
+    font-size: 0.85rem;
+    animation: typing 2s steps(30) infinite;
+    margin: 0;
+}
+
+/* Preloader-specific keyframes */
+@keyframes preloaderRingSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes logoPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 30px rgba(255, 119, 0, 0.5);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 50px rgba(255, 119, 0, 0.7);
+    }
+}
+
+/* Mobile responsive */
+@media (max-width: 480px) {
+    .preloader-rings {
+        width: 220px;
+        height: 220px;
+    }
+
+    .preloader-progress-svg {
+        width: 190px;
+        height: 190px;
+    }
+
+    .logo-icon-large {
+        width: 55px;
+        height: 55px;
+    }
+
+    .status-percent {
+        font-size: 1.4rem;
+    }
+
+    .preloader-title {
+        font-size: 1.6rem;
+    }
 }
 
 /* --------------------------------------------------------------------------

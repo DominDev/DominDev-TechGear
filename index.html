@@ -45,17 +45,32 @@
     <!-- PRELOADER -->
     <div class="preloader" id="preloader">
         <div class="preloader-content">
-            <div class="preloader-logo">
-                <div class="logo-icon-large"></div>
-                <p class="preloader-title">TECH<span class="text-accent">GEAR</span>_</p>
-            </div>
-            <div class="preloader-status">
-                <p class="status-text" id="statusText">/// INITIALIZING COMBAT SYSTEMS...</p>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill"></div>
+            <!-- Circular Progress Container -->
+            <div class="preloader-rings">
+                <!-- Decorative rotating ring (like hero) -->
+                <div class="preloader-ring-deco"></div>
+                <!-- SVG Circular Progress -->
+                <svg class="preloader-progress-svg" viewBox="0 0 200 200">
+                    <defs>
+                        <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#FF7700" />
+                            <stop offset="100%" style="stop-color:#00F0FF" />
+                        </linearGradient>
+                    </defs>
+                    <!-- Background ring -->
+                    <circle class="progress-bg" cx="100" cy="100" r="90" />
+                    <!-- Progress ring (fills up) -->
+                    <circle class="progress-ring" id="progressRing" cx="100" cy="100" r="90" />
+                </svg>
+                <!-- Center content -->
+                <div class="preloader-center">
+                    <div class="logo-icon-large"></div>
+                    <p class="status-percent" id="statusPercent">0%</p>
                 </div>
-                <p class="status-percent" id="statusPercent">0%</p>
             </div>
+            <!-- Title and status below -->
+            <p class="preloader-title">TECH<span class="text-accent">GEAR</span>_</p>
+            <p class="status-text" id="statusText">/// INITIALIZING COMBAT SYSTEMS...</p>
         </div>
     </div>
 
