@@ -364,3 +364,31 @@ export function initHeroScrollIndicator() {
         smoothScroll('arsenal');
     });
 }
+
+/**
+ * Initialize scroll-to-top button
+ * Shows when scrolled past hero, scrolls to top when clicked
+ */
+export function initScrollToTop() {
+    const scrollBtn = document.getElementById('scrollToTop');
+    if (!scrollBtn) return;
+
+    const showThreshold = 500; // Show after scrolling 500px
+
+    const handleScroll = throttle(() => {
+        if (window.scrollY > showThreshold) {
+            scrollBtn.classList.add('visible');
+        } else {
+            scrollBtn.classList.remove('visible');
+        }
+    }, 100);
+
+    window.addEventListener('scroll', handleScroll);
+
+    scrollBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
