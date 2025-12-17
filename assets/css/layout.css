@@ -219,18 +219,45 @@
     left: 0;
     right: 0;
     background: var(--color-panel-dark);
-    border-bottom: 1px solid var(--color-border-active);
+    border-bottom: 2px solid var(--color-tactical-orange);
     padding: var(--spacing-sm) 0;
     transform: translateY(-100%);
     opacity: 0;
     pointer-events: none;
-    transition: transform var(--transition-base), opacity var(--transition-base);
+    transition: transform var(--transition-base), opacity var(--transition-base), border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .search-bar.active {
     transform: translateY(0);
     opacity: 1;
     pointer-events: all;
+}
+
+/* Search bar border states */
+.search-bar.search-empty {
+    border-bottom-color: var(--color-tactical-orange);
+    box-shadow: 0 2px 10px rgba(255, 119, 0, 0.2);
+}
+
+.search-bar.search-found {
+    border-bottom-color: var(--color-system-cyan);
+    box-shadow: 0 2px 10px rgba(0, 240, 255, 0.2);
+}
+
+.search-bar.search-no-results {
+    border-bottom-color: #ff4444;
+    box-shadow: 0 2px 10px rgba(255, 68, 68, 0.2);
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.search-input-wrap {
+    flex: 1;
+    position: relative;
 }
 
 .search-input {
@@ -242,19 +269,64 @@
     border: 1px solid var(--color-border-active);
     color: var(--color-text-primary);
     clip-path: var(--clip-corner-small);
+    transition: border-color 0.3s ease;
+}
+
+.search-bar.search-found .search-input {
+    border-color: var(--color-system-cyan);
+}
+
+.search-bar.search-no-results .search-input {
+    border-color: #ff4444;
+}
+
+/* Inline search feedback */
+.search-feedback-inline {
+    font-family: var(--font-code);
+    font-size: 0.8rem;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.search-feedback-inline.visible {
+    opacity: 1;
+}
+
+.search-feedback-inline.found {
+    color: var(--color-system-cyan);
+}
+
+.search-feedback-inline.no-results {
+    color: #ff4444;
+}
+
+.search-feedback-inline strong {
+    color: var(--color-white);
 }
 
 .search-close {
-    position: absolute;
-    right: var(--spacing-md);
-    top: 50%;
-    transform: translateY(-50%);
     color: var(--color-text-dim);
     font-size: 1.5rem;
+    padding: 0.5rem;
+    transition: color 0.3s ease;
 }
 
 .search-close:hover {
     color: var(--color-tactical-orange);
+}
+
+@media (max-width: 768px) {
+    .search-container {
+        flex-wrap: wrap;
+    }
+
+    .search-feedback-inline {
+        width: 100%;
+        text-align: center;
+        margin-top: var(--spacing-xs);
+        font-size: 0.75rem;
+    }
 }
 
 /* Hamburger (Mobile) - Tactical Grid Icon */
