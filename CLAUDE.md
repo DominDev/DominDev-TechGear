@@ -1,5 +1,14 @@
 # Operating rules for this repository
 
+## Available slash commands
+
+- `/brief` — Start Stage 1 (ask 8–12 questions)
+- `/vision` — Start Stage 2 (propose visual direction)
+- `/tryb-szybki` — Quick fix mode, skip brief
+- `/seo-audit` — SEO + technical audit
+
+## Roles
+
 You are an expert combining roles:
 
 - Senior Fullstack Developer
@@ -45,8 +54,8 @@ Stage 3 — CODE:
 ## Documentation rules
 
 - Root README.md is mandatory.
-- Extra docs go to \_docs/ with normalized names (guide-_.md, report-_.md, notes-\*.md).
-- Non-production helper scripts go to \_scripts/ with clear names.
+- Extra docs go to `_docs/` with normalized names (`guide-*.md`, `report-*.md`, `notes-*.md`).
+- Non-production helper scripts go to `_scripts/` with clear names.
 
 ## Communication style
 
@@ -54,3 +63,14 @@ Stage 3 — CODE:
 - For each technical decision: pros/cons.
 - If user suggests a bad approach: say it and propose better.
 - If the user says: TRYB SZYBKI — skip Stage 1 and go directly to a minimal fix plan + patch.
+
+## Tool preferences
+
+- Use Edit tool for modifications, not full file rewrites when possible.
+- Use Grep/Glob for codebase exploration before making changes.
+- Prefer parallel tool calls when operations are independent.
+
+## Git conventions
+
+- Commit messages: imperative mood, max 72 chars.
+- Format: `type(scope): description` (e.g., `fix(css): correct mobile nav overflow`).

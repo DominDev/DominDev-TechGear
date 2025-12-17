@@ -296,7 +296,17 @@ export function updateAuthUI() {
                 </svg>
                 <span class="text-code">LOGIN</span>
             `;
-            authToggleMobile.onclick = toggleAuthModal;
+            // Open auth modal and close mobile menu
+            authToggleMobile.onclick = () => {
+                toggleAuthModal();
+                // Close mobile menu after opening auth modal
+                const navMenu = document.querySelector('.nav-menu');
+                const hamburger = document.querySelector('.hamburger');
+                if (navMenu && navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                }
+            };
             authToggleMobile.title = 'Login or Register';
         }
     }
@@ -375,38 +385,11 @@ function loadAuthFromStorage() {
 export function initAuth() {
     updateAuthUI();
 
-    // Desktop auth toggle button
-    const authToggle = document.getElementById('authToggle');
+    // NOTE: Auth toggle click handlers are set via onclick in updateAuthUI()
+    // to avoid conflicts between addEventListener and onclick assignment
+
+    // Footer auth link
     const authFooterLink = document.getElementById('authFooterLink');
-
-    if (authToggle) {
-        authToggle.addEventListener('click', () => {
-            if (!isAuthenticated()) {
-                toggleAuthModal();
-            } else {
-                logout();
-            }
-        });
-    }
-
-    // Mobile auth toggle button
-    const authToggleMobile = document.getElementById('authToggleMobile');
-    if (authToggleMobile) {
-        authToggleMobile.addEventListener('click', () => {
-            if (!isAuthenticated()) {
-                toggleAuthModal();
-                // Close mobile menu after opening auth modal
-                const navMenu = document.querySelector('.nav-menu');
-                const hamburger = document.querySelector('.hamburger');
-                if (navMenu && navMenu.classList.contains('active')) {
-                    navMenu.classList.remove('active');
-                    hamburger.classList.remove('active');
-                }
-            } else {
-                logout();
-            }
-        });
-    }
 
     if (authFooterLink) {
         authFooterLink.addEventListener('click', (e) => {

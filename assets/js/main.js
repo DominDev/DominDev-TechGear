@@ -96,16 +96,14 @@ function initProductFilters() {
 }
 
 /* ----------------------------------------------------------------------------
-   GLOBAL WINDOW FUNCTIONS (Dev Mode Only - for console debugging)
+   GLOBAL WINDOW FUNCTIONS (Required for inline onclick handlers)
    ---------------------------------------------------------------------------- */
 
-// Expose functions in dev mode only for debugging
-if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-    window.addToCart = addToCart;
-    window.changeQty = changeQty;
-    window.removeItem = removeItem;
-    window.toggleProductSpecs = toggleProductSpecs;
-}
+// Expose functions globally - required for product card buttons and cart controls
+window.addToCart = addToCart;
+window.changeQty = changeQty;
+window.removeItem = removeItem;
+window.toggleProductSpecs = toggleProductSpecs;
 
 /* ----------------------------------------------------------------------------
    OVERLAY HANDLER
