@@ -21,9 +21,9 @@
     padding: 0.6rem 1.2rem;
     font-size: 0.8rem;
     letter-spacing: 1px;
-    color: var(--color-text-dim);
-    background: transparent;
-    border: none;
+    color: var(--color-text-secondary);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--color-border-active);
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     position: relative;
@@ -36,14 +36,14 @@
         8px 100%,
         0 calc(100% - 8px)
     );
-    box-shadow: inset 0 0 0 1px var(--color-border-active);
 }
 
 /* Inactive hover: like SPECS button (cyan outline + swap corners) */
 .filter-tab:hover {
     color: var(--color-system-cyan);
-    box-shadow: inset 0 0 0 1px var(--color-system-cyan),
-                0 0 10px rgba(0, 240, 255, 0.2);
+    border-color: var(--color-system-cyan);
+    background: rgba(0, 240, 255, 0.08);
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
     transform: translateY(-2px);
     /* Hover: swap to cut top-left & bottom-right */
     clip-path: polygon(
