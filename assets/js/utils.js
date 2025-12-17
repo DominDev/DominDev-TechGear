@@ -257,6 +257,14 @@ export function initMobileMenu() {
         toggleMenu();
     });
 
+    // Close menu button
+    const navMenuClose = document.getElementById('navMenuClose');
+    if (navMenuClose) {
+        navMenuClose.addEventListener('click', () => {
+            toggleMenu(false);
+        });
+    }
+
     // Close menu when clicking outside
     document.addEventListener('click', (e) => {
         if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
