@@ -384,6 +384,66 @@
     color: var(--color-void-black);
 }
 
+/* Mobile Social Links - Hidden on Desktop */
+.mobile-social {
+    display: none; /* Hidden by default on desktop */
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) 0;
+    margin-top: auto; /* Push to bottom of menu */
+    border-top: 1px solid rgba(255, 119, 0, 0.3);
+}
+
+.mobile-social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    color: var(--color-text-secondary);
+    /* Card-style background */
+    background: linear-gradient(135deg, rgba(20, 20, 22, 0.98), rgba(28, 28, 32, 0.95));
+    border: 1px solid var(--color-border-active);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    /* All 4 corners cut like product cards */
+    clip-path: polygon(
+        8px 0,
+        calc(100% - 8px) 0,
+        100% 8px,
+        100% calc(100% - 8px),
+        calc(100% - 8px) 100%,
+        8px 100%,
+        0 calc(100% - 8px),
+        0 8px
+    );
+}
+
+.mobile-social a:hover {
+    color: var(--color-tactical-orange);
+    border-color: var(--color-tactical-orange);
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5),
+                0 0 25px rgba(255, 119, 0, 0.3);
+    /* Full rectangle on hover like cards */
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        100% 0,
+        100% 100%,
+        100% 100%,
+        0 100%,
+        0 100%,
+        0 0
+    );
+}
+
+.mobile-social svg {
+    width: 20px;
+    height: 20px;
+}
+
 /* --------------------------------------------------------------------------
    [2] HERO SECTION - LAYERED DESIGN (Product ON TOP of Typography)
    -------------------------------------------------------------------------- */
@@ -1197,43 +1257,50 @@
 
 .social-icons {
     display: flex;
-    gap: var(--spacing-sm);
+    gap: var(--spacing-md);
 }
 
 .social-icons a {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
     border: 1px solid var(--color-border-active);
     color: var(--color-text-secondary);
-    background: rgba(17, 17, 17, 0.5);
-    backdrop-filter: blur(5px);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-.social-icons a::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--gradient-orange);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: -1;
+    /* Card-style background like product cards */
+    background: linear-gradient(135deg, rgba(20, 20, 22, 0.98), rgba(28, 28, 32, 0.95));
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    /* All 4 corners cut like product cards */
+    clip-path: polygon(
+        8px 0,
+        calc(100% - 8px) 0,
+        100% 8px,
+        100% calc(100% - 8px),
+        calc(100% - 8px) 100%,
+        8px 100%,
+        0 calc(100% - 8px),
+        0 8px
+    );
 }
 
 .social-icons a:hover {
     border-color: var(--color-tactical-orange);
-    color: var(--color-white);
-    transform: translateY(-5px) scale(1.1);
-    box-shadow: 0 8px 20px rgba(255, 119, 0, 0.4);
-}
-
-.social-icons a:hover::before {
-    opacity: 1;
+    color: var(--color-tactical-orange);
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5),
+                0 0 25px rgba(255, 119, 0, 0.3);
+    /* Full rectangle on hover like cards */
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        100% 0,
+        100% 100%,
+        100% 100%,
+        0 100%,
+        0 100%,
+        0 0
+    );
 }
 
 .footer-bottom {
@@ -1341,6 +1408,11 @@
     /* Show mobile auth button inside menu, hide desktop auth button */
     .mobile-auth-btn {
         display: flex; /* Show in mobile menu with CTA style from base definition */
+    }
+
+    /* Show mobile social links at bottom of menu */
+    .mobile-social {
+        display: flex;
     }
 
     #authToggle {
