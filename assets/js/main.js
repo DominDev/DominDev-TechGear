@@ -23,16 +23,19 @@ import {
 } from './utils.js';
 
 /* ----------------------------------------------------------------------------
-   PRELOADER
+   PRELOADER - Circular Progress Animation
    ---------------------------------------------------------------------------- */
 
 function initPreloader() {
     const preloader = document.getElementById('preloader');
-    const progressFill = document.getElementById('progressFill');
+    const progressRing = document.getElementById('progressRing');
     const statusPercent = document.getElementById('statusPercent');
     const statusText = document.getElementById('statusText');
 
-    if (!preloader || !progressFill || !statusPercent) return;
+    if (!preloader || !progressRing || !statusPercent) return;
+
+    // Circle circumference = 2 * PI * r = 2 * 3.14159 * 90 ≈ 565.49
+    const circumference = 565.49;
 
     const messages = [
         '/// INITIALIZING COMBAT SYSTEMS...',
@@ -46,8 +49,11 @@ function initPreloader() {
     let progress = 0;
     let messageIndex = 0;
 
+    // Set initial state
+    progressRing.style.strokeDashoffset = circumference;
+
     const interval = setInterval(() => {
-        progress += Math.random() * 15 + 10;
+        progress += Math.random() * 12 + 8;
 
         if (progress >= 100) {
             progress = 100;
@@ -59,8 +65,12 @@ function initPreloader() {
             }, 500);
         }
 
-        // Update UI
-        progressFill.style.width = `${progress}%`;
+        // Update circular progress
+        // strokeDashoffset goes from circumference (0%) to 0 (100%)
+        const offset = circumference - (progress / 100) * circumference;
+        progressRing.style.strokeDashoffset = offset;
+
+        // Update percent text
         statusPercent.textContent = `${Math.floor(progress)}%`;
 
         // Update message
