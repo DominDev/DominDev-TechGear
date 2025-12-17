@@ -648,6 +648,7 @@
 
 .faq-question {
     width: 100%;
+    height: 72px; /* Fixed height for consistent card sizes */
     padding: var(--spacing-md);
     display: flex;
     align-items: center;
@@ -661,6 +662,15 @@
     border: none;
     cursor: pointer;
     transition: color 0.3s ease;
+}
+
+/* FAQ question text - limit to 2 lines max */
+.faq-question > span:last-child {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.3;
 }
 
 .faq-question:hover {
@@ -706,6 +716,10 @@
 @media (max-width: 768px) {
     .faq-container {
         grid-template-columns: 1fr;
+    }
+
+    .faq-question {
+        height: 80px; /* Fixed height on mobile for longer text */
     }
 }
 
