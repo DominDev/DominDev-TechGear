@@ -261,11 +261,8 @@ export function getCart() {
 export function initCart() {
     updateCartUI();
 
-    // Close cart when clicking overlay
-    const overlay = document.getElementById('overlayBg');
-    if (overlay) {
-        overlay.addEventListener('click', toggleCart);
-    }
+    // NOTE: Overlay click handler is managed by initOverlay() in main.js
+    // to avoid duplicate listeners and conflicts with auth modal
 
     // Close cart button
     const cartClose = document.getElementById('cartClose');
