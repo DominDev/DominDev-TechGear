@@ -78,8 +78,61 @@
     <div class="hud-corner top-left"></div>
     <div class="hud-corner bottom-right"></div>
 
+    <!-- MOBILE STICKY CART BAR -->
+    <div class="mobile-cart-bar" id="mobileCartBar">
+        <div class="mobile-cart-info">
+            <span class="mobile-cart-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="9" cy="21" r="1"/>
+                    <circle cx="20" cy="21" r="1"/>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                </svg>
+                <span class="mobile-cart-count" id="mobileCartCount">0</span>
+            </span>
+            <span class="mobile-cart-total" id="mobileCartTotal">0 PLN</span>
+        </div>
+        <button class="btn btn-glitch mobile-cart-btn" id="mobileCartBtn">
+            VIEW CART
+        </button>
+    </div>
+
     <!-- Overlay for Modals -->
     <div class="overlay-bg" id="overlayBg"></div>
+
+    <!-- QUICK VIEW MODAL -->
+    <div class="quickview-modal" id="quickviewModal">
+        <div class="quickview-container">
+            <button class="modal-close" id="quickviewClose" aria-label="Close quick view">✕</button>
+
+            <div class="quickview-grid">
+                <div class="quickview-image">
+                    <span class="product-badge quickview-badge" id="quickviewBadge"></span>
+                    <img src="" alt="" id="quickviewImg" class="quickview-img">
+                </div>
+
+                <div class="quickview-details">
+                    <span class="text-code text-dim" id="quickviewCategory">// CATEGORY</span>
+                    <h2 class="text-h2" id="quickviewName">PRODUCT NAME</h2>
+                    <p class="quickview-price text-accent" id="quickviewPrice">0 PLN</p>
+
+                    <div class="quickview-specs" id="quickviewSpecs">
+                        <!-- Specs injected via JS -->
+                    </div>
+
+                    <div class="quickview-actions">
+                        <div class="quickview-qty">
+                            <button class="qty-btn" id="qtyMinus">−</button>
+                            <span class="qty-value" id="qtyValue">1</span>
+                            <button class="qty-btn" id="qtyPlus">+</button>
+                        </div>
+                        <button class="btn btn-glitch quickview-add" id="quickviewAddBtn">
+                            <span>ADD TO INVENTORY</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- AUTH MODAL -->
     <div class="auth-modal" id="authModal">
@@ -310,6 +363,52 @@
 
     </section>
 
+    <!-- TRUST SIGNALS STRIP -->
+    <section class="trust-strip">
+        <div class="container">
+            <div class="trust-grid">
+                <div class="trust-item">
+                    <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                    </svg>
+                    <div class="trust-text">
+                        <span class="trust-title">FREE SHIPPING</span>
+                        <span class="trust-desc">Orders over 500 PLN</span>
+                    </div>
+                </div>
+                <div class="trust-item">
+                    <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                    <div class="trust-text">
+                        <span class="trust-title">2-YEAR WARRANTY</span>
+                        <span class="trust-desc">Full manufacturer coverage</span>
+                    </div>
+                </div>
+                <div class="trust-item">
+                    <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <polyline points="1 4 1 10 7 10"/>
+                        <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                    </svg>
+                    <div class="trust-text">
+                        <span class="trust-title">30-DAY RETURNS</span>
+                        <span class="trust-desc">No questions asked</span>
+                    </div>
+                </div>
+                <div class="trust-item">
+                    <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                    </svg>
+                    <div class="trust-text">
+                        <span class="trust-title">SECURE PAYMENT</span>
+                        <span class="trust-desc">256-bit SSL encryption</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ARSENAL (PRODUCTS) -->
     <section class="section-padding" id="arsenal">
         <div class="container">
@@ -329,6 +428,76 @@
 
             <div class="product-grid" id="productGrid">
                 <!-- Products injected via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section class="section-padding testimonials-section" id="testimonials">
+        <div class="container">
+            <div class="section-header-centered reveal">
+                <span class="text-code text-accent">/// FIELD_REPORTS</span>
+                <h2 class="text-h2">OPERATOR <span class="text-accent">FEEDBACK</span></h2>
+                <p class="text-dim">Verified reviews from our combat-ready community</p>
+            </div>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-rating">
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                    </div>
+                    <p class="testimonial-text">"The NIGHTHAWK X2 PRO completely transformed my gameplay. The 59g weight and flawless sensor tracking gave me the edge I needed. Went from Gold to Diamond in two weeks."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">PG</div>
+                        <div class="author-info">
+                            <span class="author-name">ProGamer_2025</span>
+                            <span class="author-product text-code">NIGHTHAWK X2 PRO</span>
+                        </div>
+                    </div>
+                    <span class="testimonial-badge">VERIFIED PURCHASE</span>
+                </div>
+
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-rating">
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                    </div>
+                    <p class="testimonial-text">"Cherry MX switches + hot-swap capability = endgame keyboard. The aluminum build quality is insane, and RGB customization through TechGear software is top-tier. Worth every złoty."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">CN</div>
+                        <div class="author-info">
+                            <span class="author-name">CyberNinja_PL</span>
+                            <span class="author-product text-code">CYBERDECK MK.IV</span>
+                        </div>
+                    </div>
+                    <span class="testimonial-badge">VERIFIED PURCHASE</span>
+                </div>
+
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-rating">
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star">★</span>
+                    </div>
+                    <p class="testimonial-text">"40-hour battery life is no joke. The planar magnetic drivers deliver audiophile-grade sound, and ANC blocks out everything. My only wish: more color options."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SK</div>
+                        <div class="author-info">
+                            <span class="author-name">SoundKing_88</span>
+                            <span class="author-product text-code">SILENT PREDATOR</span>
+                        </div>
+                    </div>
+                    <span class="testimonial-badge">VERIFIED PURCHASE</span>
+                </div>
             </div>
         </div>
     </section>
@@ -393,6 +562,52 @@
                         <p>We accept Visa, Mastercard, American Express, PayPal, BLIK, and bank transfers. All transactions are secured with 256-bit SSL encryption. Payment plans available for orders over 1000 PLN.</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RECENTLY VIEWED SECTION -->
+    <section class="recently-viewed-section" id="recentlyViewed">
+        <div class="container">
+            <div class="recently-viewed-header">
+                <span class="text-code text-dim">/// BROWSING_HISTORY</span>
+                <h3 class="text-h3">RECENTLY <span class="text-accent">VIEWED</span></h3>
+            </div>
+            <div class="recently-viewed-grid" id="recentlyViewedGrid">
+                <!-- Products injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER SECTION -->
+    <section class="newsletter-section" id="newsletter">
+        <div class="container">
+            <div class="newsletter-wrapper">
+                <div class="newsletter-content">
+                    <span class="text-code text-accent">/// JOIN_THE_NETWORK</span>
+                    <h2 class="text-h2">GET <span class="text-accent">EXCLUSIVE</span> ACCESS</h2>
+                    <p class="newsletter-desc">Early access to new gear, exclusive deals, and pro gaming tips delivered to your inbox.</p>
+                </div>
+                <form class="newsletter-form" id="newsletterForm">
+                    <div class="newsletter-input-wrap">
+                        <input
+                            type="email"
+                            id="newsletterEmail"
+                            class="newsletter-input"
+                            placeholder="Enter your email address..."
+                            required
+                            autocomplete="email"
+                        >
+                        <button type="submit" class="btn btn-glitch newsletter-btn">
+                            <span>SUBSCRIBE</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 2L11 13"/>
+                                <path d="M22 2L15 22L11 13L2 9L22 2Z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="newsletter-privacy text-code text-dim">// NO_SPAM_PROTOCOL — Unsubscribe anytime</p>
+                </form>
             </div>
         </div>
     </section>

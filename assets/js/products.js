@@ -10,6 +10,7 @@ export const products = [
         category: 'mouse',
         price: 349,
         img: 'nighthawk-x2-pro',
+        badge: 'BESTSELLER', // Badge type: BESTSELLER, NEW, SALE
         specs: {
             'DPI Range': '100-16,000 (adjustable)',
             'Sensor': 'PixArt PMW3399 Optical',
@@ -60,6 +61,7 @@ export const products = [
         category: 'keyboard',
         price: 1299,
         img: 'cyberdeck-mk-iv',
+        badge: 'NEW',
         specs: {
             'Layout': 'TKL (87-key)',
             'Switches': 'Cherry MX Red (linear)',
@@ -145,6 +147,7 @@ export const products = [
         category: 'audio',
         price: 1199,
         img: 'silent-predator',
+        badge: 'BESTSELLER',
         specs: {
             'Driver': 'Planar magnetic 60mm',
             'Frequency': '10Hz - 50kHz',
@@ -240,8 +243,14 @@ function createProductCard(product, index) {
     // Generate responsive picture element
     const pictureHTML = generatePictureHTML(product.img, product.name);
 
+    // Generate badge HTML if exists
+    const badgeHTML = product.badge
+        ? `<span class="product-badge product-badge--${product.badge.toLowerCase()}">${product.badge}</span>`
+        : '';
+
     card.innerHTML = `
-        <div class="product-img-wrap">
+        <div class="product-img-wrap" onclick="window.openQuickView(${product.id})" role="button" tabindex="0" aria-label="View ${product.name} details">
+            ${badgeHTML}
             ${pictureHTML}
         </div>
 
