@@ -1184,3 +1184,169 @@
         letter-spacing: 1px;
     }
 }
+
+/* ==========================================================================
+   SCROLL TO TOP BUTTON - Mirrors hero scroll indicator style
+   ========================================================================== */
+
+.scroll-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 1000;
+    width: 50px;
+    height: 60px;
+    background: rgba(10, 10, 12, 0.9);
+    border: 1px solid var(--color-border-active);
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    /* Cyberpunk cut corners - same as cards */
+    clip-path: polygon(
+        8px 0,
+        calc(100% - 8px) 0,
+        100% 8px,
+        100% calc(100% - 8px),
+        calc(100% - 8px) 100%,
+        8px 100%,
+        0 calc(100% - 8px),
+        0 8px
+    );
+}
+
+.scroll-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.scroll-to-top:hover {
+    border-color: var(--color-tactical-orange);
+    box-shadow: 0 0 20px rgba(255, 119, 0, 0.4),
+                0 0 40px rgba(255, 119, 0, 0.2);
+    transform: translateY(-4px);
+    /* Expand to rectangle on hover */
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        100% 0,
+        100% 100%,
+        100% 100%,
+        0 100%,
+        0 100%,
+        0 0
+    );
+}
+
+/* Chevron Stack - pointing UP */
+.chevron-stack-up {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 0;
+}
+
+/* Individual Chevron (Angular V shape pointing UP) */
+.chevron-up {
+    width: 20px;
+    height: 10px;
+    position: relative;
+    opacity: 0;
+    animation: chevronCascadeUp 2s ease-in-out infinite;
+}
+
+.chevron-up::before,
+.chevron-up::after {
+    content: '';
+    position: absolute;
+    width: 60%;
+    height: 2px;
+    background: var(--color-tactical-orange);
+    box-shadow:
+        0 0 8px rgba(255, 119, 0, 0.6),
+        0 0 15px rgba(255, 119, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+/* Pointing UP - rotate opposite direction */
+.chevron-up::before {
+    left: 0;
+    bottom: 0;
+    transform: rotate(-45deg);
+    transform-origin: left center;
+}
+
+.chevron-up::after {
+    right: 0;
+    bottom: 0;
+    transform: rotate(45deg);
+    transform-origin: right center;
+}
+
+/* Hover effect - intensify glow */
+.scroll-to-top:hover .chevron-up::before,
+.scroll-to-top:hover .chevron-up::after {
+    background: var(--color-tactical-orange);
+    box-shadow:
+        0 0 12px rgba(255, 119, 0, 0.9),
+        0 0 20px rgba(255, 119, 0, 0.5),
+        0 0 30px rgba(255, 119, 0, 0.3);
+}
+
+/* Staggered cascade animation - reverse order for UP direction */
+.chevron-up:nth-child(3) {
+    animation-delay: 0s;
+}
+
+.chevron-up:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.chevron-up:nth-child(1) {
+    animation-delay: 0.3s;
+}
+
+/* Chevron Cascade Animation - UP direction */
+@keyframes chevronCascadeUp {
+    0% {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+}
+
+/* Responsive - smaller on mobile */
+@media (max-width: 768px) {
+    .scroll-to-top {
+        bottom: 1.5rem;
+        right: 1.5rem;
+        width: 44px;
+        height: 52px;
+    }
+
+    .chevron-up {
+        width: 16px;
+        height: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .scroll-to-top {
+        bottom: 1rem;
+        right: 1rem;
+        width: 40px;
+        height: 48px;
+    }
+}

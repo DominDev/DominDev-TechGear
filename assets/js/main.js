@@ -18,7 +18,8 @@ import {
     initFAQ,
     initMobileMenu,
     initSearch,
-    initHeroScrollIndicator
+    initHeroScrollIndicator,
+    initScrollToTop
 } from './utils.js';
 
 /* ----------------------------------------------------------------------------
@@ -157,6 +158,7 @@ function initApp() {
     initMobileMenu();
     initSearch(searchProducts);
     initHeroScrollIndicator();
+    initScrollToTop();
 
     // 5. Initialize visual effects (after page load for performance)
     window.addEventListener('load', () => {
