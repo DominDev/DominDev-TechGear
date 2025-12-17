@@ -1328,6 +1328,44 @@
     color: var(--color-tactical-orange);
 }
 
+/* Footer Credits / Developer Link */
+.footer-credits {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: 0.85rem;
+}
+
+.developer-link {
+    font-family: var(--font-header);
+    font-size: 0.95rem;
+    letter-spacing: 2px;
+    color: var(--color-white);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.developer-link .bracket {
+    color: var(--color-system-cyan);
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.developer-link:hover {
+    color: var(--color-tactical-orange);
+    text-shadow: 0 0 15px rgba(255, 119, 0, 0.5);
+}
+
+.developer-link:hover .bracket {
+    color: var(--color-tactical-orange);
+    opacity: 1;
+}
+
+.developer-link:hover .text-accent {
+    text-shadow: 0 0 20px rgba(255, 119, 0, 0.8);
+}
+
 /* --------------------------------------------------------------------------
    [4] RESPONSIVE LAYOUT
    -------------------------------------------------------------------------- */
@@ -1456,6 +1494,12 @@
     .footer-bottom {
         flex-direction: column;
         text-align: center;
+        gap: var(--spacing-md);
+    }
+
+    .footer-credits {
+        justify-content: center;
+        flex-wrap: wrap;
     }
 }
 
