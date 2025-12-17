@@ -299,12 +299,13 @@ export function updateAuthUI() {
             // Open auth modal and close mobile menu
             authToggleMobile.onclick = () => {
                 toggleAuthModal();
-                // Close mobile menu after opening auth modal
+                // Close mobile menu after opening auth modal and restore scroll
                 const navMenu = document.querySelector('.nav-menu');
                 const hamburger = document.querySelector('.hamburger');
                 if (navMenu && navMenu.classList.contains('active')) {
                     navMenu.classList.remove('active');
                     hamburger.classList.remove('active');
+                    document.body.style.overflow = '';
                 }
             };
             authToggleMobile.title = 'Login or Register';

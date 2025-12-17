@@ -87,51 +87,67 @@
 
 .nav-link {
     font-family: var(--font-code);
-    font-size: 0.85rem;
-    color: var(--color-text-dim);
+    font-size: 1.05rem;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    color: var(--color-text-secondary);
     text-transform: uppercase;
     position: relative;
-    padding: 0.5rem 0;
-    transition: all 0.3s ease;
+    padding: 0.5rem 0.25rem;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
+/* Bracket before [ */
+.nav-link::before {
+    content: '';
+    margin-right: 0;
+    color: transparent;
+    transition: color 0.3s ease, margin 0.2s ease;
+}
+
+/* Bracket after ] */
 .nav-link::after {
     content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--gradient-tactical);
-    transition: width var(--transition-base);
-    box-shadow: 0 0 10px var(--color-tactical-orange);
+    margin-left: 0;
+    color: transparent;
+    transition: color 0.3s ease, margin 0.2s ease;
 }
 
+/* Hover state - cyan brackets like SPECS button */
 .nav-link:hover,
+.nav-link:focus-visible {
+    color: var(--color-system-cyan);
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+}
+
+.nav-link:hover::before {
+    content: '[';
+    margin-right: 4px;
+    color: rgba(0, 240, 255, 0.6);
+}
+
+.nav-link:hover::after {
+    content: ']';
+    margin-left: 4px;
+    color: rgba(0, 240, 255, 0.6);
+}
+
+/* Active state - orange brackets */
 .nav-link.active {
     color: var(--color-tactical-orange);
     text-shadow: 0 0 10px rgba(255, 119, 0, 0.5);
 }
 
-.nav-link:hover::after,
-.nav-link.active::after {
-    width: 100%;
-}
-
 .nav-link.active::before {
     content: '[';
-    margin-right: 5px;
-    color: var(--color-system-cyan);
+    margin-right: 4px;
+    color: var(--color-tactical-orange);
 }
 
 .nav-link.active::after {
     content: ']';
-    margin-left: 5px;
-    color: var(--color-system-cyan);
-    position: static;
-    width: auto;
-    height: auto;
-    background: none;
+    margin-left: 4px;
+    color: var(--color-tactical-orange);
 }
 
 /* User Actions */
@@ -142,14 +158,22 @@
 }
 
 .nav-icon-btn {
-    padding: 0.5rem;
+    padding: 0.6rem;
     color: var(--color-text-secondary);
     background: transparent;
     border: 1px solid transparent;
     transition: var(--transition-base);
     position: relative;
     font-family: var(--font-code);
-    font-size: 0.85rem;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.nav-icon-btn svg {
+    width: 24px;
+    height: 24px;
 }
 
 .nav-icon-btn:hover {
@@ -283,28 +307,81 @@
     50% { opacity: 0.3; }
 }
 
-/* Mobile Auth Button - Hidden on Desktop */
+/* Mobile Auth Button - Hidden on Desktop, CTA style in mobile menu */
 .mobile-auth-btn {
     display: none; /* Hidden by default on desktop */
     width: 100%;
-    justify-content: flex-start;
-    padding: var(--spacing-sm) var(--spacing-md);
-    border: 1px solid var(--color-border-active);
-    background: rgba(255, 119, 0, 0.05);
-    margin-top: var(--spacing-sm);
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding: var(--spacing-md) var(--spacing-lg);
+    margin-top: var(--spacing-lg);
+    font-family: var(--font-code);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-void-black);
+    background: var(--color-tactical-orange);
+    border: none;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 20px rgba(255, 119, 0, 0.4);
+    /* Cut corners like CTA buttons */
+    clip-path: polygon(
+        12px 0,
+        100% 0,
+        100% calc(100% - 12px),
+        calc(100% - 12px) 100%,
+        0 100%,
+        0 12px
+    );
+}
+
+.mobile-auth-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+    pointer-events: none;
 }
 
 .mobile-auth-btn:hover {
-    background: rgba(255, 119, 0, 0.15);
-    border-color: var(--color-tactical-orange);
+    background: var(--color-orange-bright);
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(255, 119, 0, 0.6),
+                0 8px 25px rgba(255, 119, 0, 0.4);
+    /* Swap corners on hover like CTA buttons */
+    clip-path: polygon(
+        0 0,
+        calc(100% - 12px) 0,
+        100% 12px,
+        100% 100%,
+        12px 100%,
+        0 calc(100% - 12px)
+    );
+    animation: glitch-skew 0.3s ease both;
+}
+
+.mobile-auth-btn:active {
+    transform: translateY(0);
+}
+
+.mobile-auth-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--color-void-black);
 }
 
 .mobile-auth-btn .text-code {
-    margin-left: var(--spacing-xs);
+    margin-left: 0;
+    color: var(--color-void-black);
 }
 
 .mobile-auth-btn .user-name {
     margin-left: var(--spacing-xs);
+    color: var(--color-void-black);
 }
 
 /* --------------------------------------------------------------------------
@@ -1230,28 +1307,31 @@
         transform: translateX(0);
     }
 
-    /* Style nav links in sidebar - similar to desktop */
+    /* Style nav links in sidebar - keep bracket style */
     .nav-link {
-        padding: var(--spacing-md) var(--spacing-sm);
-        border: none;
+        padding: var(--spacing-md) var(--spacing-lg);
         background: transparent;
         transition: all 0.3s ease;
         text-align: left;
         position: relative;
-        /* Keep desktop underline effect */
+        font-size: 1rem;
+        letter-spacing: 2px;
+        width: 100%;
+        border-left: 3px solid transparent;
     }
 
+    /* Keep bracket pseudo-elements working on mobile */
+    .nav-link::before,
     .nav-link::after {
-        /* Underline already defined globally, keep it */
-        left: var(--spacing-sm);
-        right: var(--spacing-sm);
-        width: auto;
+        /* Brackets stay inline, just reset any positioning */
     }
 
-    .nav-link:hover::after,
-    .nav-link.active::after {
-        /* Underline expands on hover/active */
-        width: auto;
+    .nav-link:hover {
+        border-left-color: var(--color-system-cyan);
+    }
+
+    .nav-link.active {
+        border-left-color: var(--color-tactical-orange);
     }
 
     .hamburger {
@@ -1260,13 +1340,19 @@
 
     /* Show mobile auth button inside menu, hide desktop auth button */
     .mobile-auth-btn {
-        display: flex; /* Show in mobile menu */
-        border: 1px solid var(--color-border-active);
-        background: rgba(17, 17, 17, 0.5);
+        display: flex; /* Show in mobile menu with CTA style from base definition */
     }
 
     #authToggle {
         display: none !important; /* Hide desktop auth button in nav-actions */
+    }
+
+    /* Hide scroll-to-top when mobile menu is open */
+    .nav-menu.active ~ .scroll-to-top,
+    body:has(.nav-menu.active) .scroll-to-top {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none;
     }
 
     /* Full width menu on very small screens */
@@ -1317,8 +1403,13 @@
     }
 
     .nav-icon-btn {
-        padding: 0.4rem;
-        font-size: 0.75rem;
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .nav-icon-btn svg {
+        width: 22px;
+        height: 22px;
     }
 
     /* Hide CART text on small screens, show only icon + badge */
@@ -1329,12 +1420,6 @@
     /* Adjust cart button spacing when text is hidden */
     .cart-btn-wrap {
         gap: 0.3rem;
-    }
-
-    /* Make icon more visible */
-    .icon-cart {
-        width: 18px;
-        height: 18px;
     }
 
     /* Reduce spacing in nav-actions on very small screens */
