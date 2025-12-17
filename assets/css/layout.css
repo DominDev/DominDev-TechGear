@@ -307,6 +307,36 @@
     50% { opacity: 0.3; }
 }
 
+/* Mobile Menu Close Button - Hidden on Desktop */
+.nav-menu-close {
+    display: none; /* Hidden by default on desktop */
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    padding: 0.5rem;
+    background: transparent;
+    border: 1px solid var(--color-border-active);
+    cursor: pointer;
+    color: var(--color-text-secondary);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-menu-close:hover {
+    border-color: var(--color-tactical-orange);
+    background: rgba(255, 119, 0, 0.1);
+    color: var(--color-tactical-orange);
+}
+
+.nav-menu-close:hover .close-dot {
+    animation: dotPulse 1s ease-in-out infinite;
+}
+
+.nav-menu-close .close-dot:nth-child(1) { animation-delay: 0s; }
+.nav-menu-close .close-dot:nth-child(2) { animation-delay: 0.1s; }
+.nav-menu-close .close-dot:nth-child(3) { animation-delay: 0.2s; }
+.nav-menu-close .close-dot:nth-child(4) { animation-delay: 0.3s; }
+.nav-menu-close .close-dot:nth-child(5) { animation-delay: 0.4s; }
+
 /* Mobile Auth Button - Hidden on Desktop, CTA style in mobile menu */
 .mobile-auth-btn {
     display: none; /* Hidden by default on desktop */
@@ -1440,6 +1470,11 @@
     }
 
     .hamburger {
+        display: flex;
+    }
+
+    /* Show mobile menu close button */
+    .nav-menu-close {
         display: flex;
     }
 
