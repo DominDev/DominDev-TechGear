@@ -17,6 +17,7 @@
 | 2.1 | Testimonials Section | ✅ DONE | 2025-12-17 |
 | 3.1 | Sticky Cart Bar (Mobile) | ✅ DONE | 2025-12-17 |
 | 3.4 | Recently Viewed Products | ✅ DONE | 2025-12-17 |
+| — | Navigation Links Update | ✅ DONE | 2025-12-17 |
 
 ### Co zostało zaimplementowane:
 
@@ -65,6 +66,14 @@
 - Zapisuje w localStorage po kliknięciu Quick View
 - Kliknięcie otwiera Quick View
 - Ukryta gdy brak historii
+
+**8. Navigation Links Update** (`index.html`)
+- Dodano linki do nowych sekcji w głównej nawigacji:
+  - `/ REVIEWS` → #testimonials
+  - `/ INTEL` → #newsletter
+- Dodano linki w footer QUICK_ACCESS:
+  - Reviews → #testimonials
+  - Newsletter → #newsletter
 
 ---
 
