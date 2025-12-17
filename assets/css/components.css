@@ -94,6 +94,133 @@
     align-items: start; /* KLUCZOWE: Zapobiega rozciąganiu sąsiednich kart */
 }
 
+.no-products {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: var(--spacing-xl) 0;
+}
+
+/* --------------------------------------------------------------------------
+   PAGINATION
+   -------------------------------------------------------------------------- */
+.pagination {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+    flex-wrap: wrap;
+}
+
+.pagination.visible {
+    display: flex;
+}
+
+.pagination-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    font-family: var(--font-code);
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    color: var(--color-text-secondary);
+    background: transparent;
+    border: 1px solid var(--color-border-active);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    clip-path: polygon(
+        8px 0,
+        100% 0,
+        100% calc(100% - 8px),
+        calc(100% - 8px) 100%,
+        0 100%,
+        0 8px
+    );
+}
+
+.pagination-btn:hover:not(:disabled) {
+    color: var(--color-system-cyan);
+    border-color: var(--color-system-cyan);
+    background: rgba(0, 240, 255, 0.08);
+}
+
+.pagination-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.pagination-arrow {
+    font-size: 0.7rem;
+}
+
+.pagination-pages {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.pagination-page {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-code);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    background: transparent;
+    border: 1px solid var(--color-border-active);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pagination-page:hover {
+    color: var(--color-system-cyan);
+    border-color: var(--color-system-cyan);
+}
+
+.pagination-page.active {
+    color: var(--color-void-black);
+    background: var(--color-tactical-orange);
+    border-color: var(--color-tactical-orange);
+}
+
+.pagination-info {
+    font-family: var(--font-code);
+    font-size: 0.75rem;
+    color: var(--color-text-dim);
+    margin-left: var(--spacing-sm);
+}
+
+@media (max-width: 640px) {
+    .pagination {
+        gap: 0.5rem;
+    }
+
+    .pagination-btn {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.7rem;
+    }
+
+    .pagination-text {
+        display: none;
+    }
+
+    .pagination-page {
+        width: 32px;
+        height: 32px;
+        font-size: 0.75rem;
+    }
+
+    .pagination-info {
+        width: 100%;
+        text-align: center;
+        margin-left: 0;
+        margin-top: 0.5rem;
+    }
+}
+
 .card {
     background: linear-gradient(135deg, rgba(20, 20, 22, 0.98), rgba(28, 28, 32, 0.95));
     border: 1px solid var(--color-border-active);

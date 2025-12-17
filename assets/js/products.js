@@ -158,6 +158,108 @@ export const products = [
             'Weight': '380g',
             'Features': 'Active noise cancellation, premium leather'
         }
+    },
+
+    // ADDITIONAL PRODUCTS FOR PAGINATION TESTING
+    {
+        id: 10,
+        name: 'RAPTOR ELITE',
+        category: 'mouse',
+        price: 279,
+        img: 'viper-stealth', // reuse existing image
+        specs: {
+            'DPI Range': '200-10,000',
+            'Sensor': 'Optical Gaming',
+            'Weight': '68g',
+            'Buttons': '5 programmable',
+            'Connection': 'USB-C Wired',
+            'Cable': 'Paracord 1.8m',
+            'Polling Rate': '1000Hz'
+        }
+    },
+    {
+        id: 11,
+        name: 'STRIKER PRO X',
+        category: 'keyboard',
+        price: 899,
+        img: 'cyberdeck-mk-iv', // reuse existing image
+        specs: {
+            'Layout': 'Full-size (104-key)',
+            'Switches': 'Gateron Brown (tactile)',
+            'Actuation Force': '55g',
+            'Keycaps': 'PBT Double-shot',
+            'Backlight': 'RGB Per-key',
+            'Connection': 'USB-C + Wireless',
+            'Features': 'Media keys, wrist rest included'
+        }
+    },
+    {
+        id: 12,
+        name: 'ECHO STORM',
+        category: 'audio',
+        price: 449,
+        img: 'void-surround', // reuse existing image
+        badge: 'SALE',
+        specs: {
+            'Driver': '50mm Neodymium',
+            'Frequency': '20Hz - 20kHz',
+            'Impedance': '32 Ohm',
+            'Connection': '3.5mm + USB',
+            'Microphone': 'Detachable boom mic',
+            'Cable': '2m braided',
+            'Weight': '310g',
+            'Features': 'Memory foam pads, breathable mesh'
+        }
+    },
+    {
+        id: 13,
+        name: 'PHANTOM WIRELESS',
+        category: 'mouse',
+        price: 389,
+        img: 'ghost-tracker', // reuse existing image
+        badge: 'NEW',
+        specs: {
+            'DPI Range': '100-18,000',
+            'Sensor': 'HERO 25K',
+            'Weight': '63g',
+            'Buttons': '7 programmable',
+            'Connection': 'LIGHTSPEED Wireless',
+            'Battery': '70 hours',
+            'Polling Rate': '1000Hz'
+        }
+    },
+    {
+        id: 14,
+        name: 'MATRIX 60',
+        category: 'keyboard',
+        price: 549,
+        img: 'mechanic-k-75', // reuse existing image
+        specs: {
+            'Layout': '60% Compact',
+            'Switches': 'Cherry MX Blue (clicky)',
+            'Actuation Force': '60g',
+            'Keycaps': 'ABS Double-shot',
+            'Backlight': 'White LED',
+            'Connection': 'Bluetooth 5.1 + USB-C',
+            'Features': 'Portable, aluminum case'
+        }
+    },
+    {
+        id: 15,
+        name: 'BASS CANNON X7',
+        category: 'audio',
+        price: 799,
+        img: 'silent-predator', // reuse existing image
+        specs: {
+            'Driver': 'Dual 45mm + Bass enhancer',
+            'Frequency': '5Hz - 40kHz',
+            'Impedance': '48 Ohm',
+            'Connection': 'Wireless + Wired',
+            'Microphone': 'Retractable ClearCast',
+            'Battery': '30 hours',
+            'Weight': '340g',
+            'Features': 'DTS Headphone:X 2.0, ChatMix dial'
+        }
     }
 ];
 
@@ -200,25 +302,202 @@ function generatePictureHTML(imgName, alt) {
     `;
 }
 
+/* ----------------------------------------------------------------------------
+   PAGINATION STATE
+   ---------------------------------------------------------------------------- */
+let currentPage = 1;
+let currentProducts = products; // Currently filtered/searched products
+let currentCategory = 'all';
+let currentSearchQuery = '';
+
 /**
- * Render products to the grid
- * @param {Array} productsToRender - Filtered products array
+ * Get products per page based on screen width
+ * @returns {Number} - Number of products per page
  */
-export function renderProducts(productsToRender = products) {
+function getProductsPerPage() {
+    const width = window.innerWidth;
+
+    if (width >= 1400) {
+        // 4 columns - show 8 products (2 rows)
+        return 8;
+    } else if (width >= 1024) {
+        // 3 columns - show 6 products (2 rows)
+        return 6;
+    } else if (width >= 640) {
+        // 2 columns - show 4 products (2 rows)
+        return 4;
+    } else {
+        // 1 column - show 4 products
+        return 4;
+    }
+}
+
+/**
+ * Get paginated products
+ * @param {Array} allProducts - Full products array
+ * @param {Number} page - Page number (1-based)
+ * @returns {Object} - { items, totalPages, currentPage, totalItems, perPage }
+ */
+function getPaginatedProducts(allProducts, page = 1) {
+    const perPage = getProductsPerPage();
+    const totalItems = allProducts.length;
+    const totalPages = Math.ceil(totalItems / perPage);
+    const validPage = Math.max(1, Math.min(page, totalPages || 1));
+
+    const startIndex = (validPage - 1) * perPage;
+    const endIndex = startIndex + perPage;
+    const items = allProducts.slice(startIndex, endIndex);
+
+    return {
+        items,
+        totalPages,
+        currentPage: validPage,
+        totalItems,
+        perPage
+    };
+}
+
+/**
+ * Render pagination controls
+ * @param {Number} currentPage - Current page number
+ * @param {Number} totalPages - Total number of pages
+ */
+function renderPagination(currentPage, totalPages) {
+    let paginationContainer = document.getElementById('productPagination');
+
+    // Create pagination container if it doesn't exist
+    if (!paginationContainer) {
+        const grid = document.getElementById('productGrid');
+        if (!grid) return;
+
+        paginationContainer = document.createElement('div');
+        paginationContainer.id = 'productPagination';
+        paginationContainer.className = 'pagination';
+        grid.parentNode.insertBefore(paginationContainer, grid.nextSibling);
+    }
+
+    // Hide pagination if only one page
+    if (totalPages <= 1) {
+        paginationContainer.innerHTML = '';
+        paginationContainer.classList.remove('visible');
+        return;
+    }
+
+    paginationContainer.classList.add('visible');
+
+    // Generate page numbers
+    let pagesHTML = '';
+    for (let i = 1; i <= totalPages; i++) {
+        const activeClass = i === currentPage ? 'active' : '';
+        pagesHTML += `<button class="pagination-page ${activeClass}" data-page="${i}">${i}</button>`;
+    }
+
+    paginationContainer.innerHTML = `
+        <button class="pagination-btn pagination-prev" ${currentPage === 1 ? 'disabled' : ''} data-page="${currentPage - 1}">
+            <span class="pagination-arrow">◄</span>
+            <span class="pagination-text">PREV</span>
+        </button>
+        <div class="pagination-pages">
+            ${pagesHTML}
+        </div>
+        <button class="pagination-btn pagination-next" ${currentPage === totalPages ? 'disabled' : ''} data-page="${currentPage + 1}">
+            <span class="pagination-text">NEXT</span>
+            <span class="pagination-arrow">►</span>
+        </button>
+        <span class="pagination-info">// PAGE ${currentPage} OF ${totalPages}</span>
+    `;
+
+    // Add event listeners
+    paginationContainer.querySelectorAll('[data-page]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const page = parseInt(e.currentTarget.dataset.page);
+            if (page && !e.currentTarget.disabled) {
+                goToPage(page);
+            }
+        });
+    });
+}
+
+/**
+ * Go to specific page
+ * @param {Number} page - Page number
+ * @param {Boolean} scroll - Whether to scroll to products section
+ */
+export function goToPage(page, scroll = true) {
+    currentPage = page;
+    renderProducts(currentProducts, page);
+
+    // Scroll to top of products section
+    if (scroll) {
+        const arsenal = document.getElementById('arsenal');
+        if (arsenal) {
+            const headerHeight = document.querySelector('.header')?.offsetHeight || 80;
+            window.scrollTo({
+                top: arsenal.offsetTop - headerHeight - 20,
+                behavior: 'smooth'
+            });
+        }
+    }
+}
+
+/**
+ * Handle window resize - recalculate pagination
+ */
+let resizeTimeout;
+function handleResize() {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+        // Recalculate current page to avoid showing empty page
+        const { totalPages } = getPaginatedProducts(currentProducts, currentPage);
+        if (currentPage > totalPages) {
+            currentPage = totalPages || 1;
+        }
+        renderProducts(currentProducts, currentPage);
+    }, 250);
+}
+
+// Initialize resize listener
+if (typeof window !== 'undefined') {
+    window.addEventListener('resize', handleResize);
+}
+
+/**
+ * Render products to the grid with pagination
+ * @param {Array} productsToRender - Filtered products array
+ * @param {Number} page - Page number (default: 1)
+ */
+export function renderProducts(productsToRender = products, page = 1) {
     const grid = document.getElementById('productGrid');
     if (!grid) return;
 
+    currentProducts = productsToRender;
+
+    const { items, totalPages, currentPage: validPage, totalItems } = getPaginatedProducts(productsToRender, page);
+
     grid.innerHTML = '';
 
-    productsToRender.forEach((product, index) => {
+    if (items.length === 0) {
+        grid.innerHTML = `
+            <div class="no-products">
+                <p class="text-code text-dim">[ NO_PRODUCTS_FOUND ]</p>
+            </div>
+        `;
+        renderPagination(1, 1);
+        return;
+    }
+
+    items.forEach((product, index) => {
         const card = createProductCard(product, index);
         grid.appendChild(card);
     });
 
+    // Render pagination
+    renderPagination(validPage, totalPages);
+
     // Trigger scroll reveal animations
     setTimeout(() => {
         document.querySelectorAll('.card.reveal').forEach(el => {
-            el.classList.add('visible'); // ZMIENIONO: active -> visible
+            el.classList.add('visible');
         });
     }, 100);
 }
@@ -297,11 +576,19 @@ export function toggleProductSpecs(productId) {
  * @param {String} category - Category name or 'all'
  */
 export function filterProducts(category) {
+    currentCategory = category;
+    currentPage = 1; // Reset to first page
+
     const filtered = category === 'all'
         ? products
         : products.filter(p => p.category === category);
 
-    renderProducts(filtered);
+    // Apply search filter if active
+    const finalFiltered = currentSearchQuery
+        ? filtered.filter(p => p.name.toLowerCase().includes(currentSearchQuery))
+        : filtered;
+
+    renderProducts(finalFiltered, 1);
 }
 
 /**
@@ -310,18 +597,22 @@ export function filterProducts(category) {
  * @returns {Number} - Number of results found
  */
 export function searchProducts(query) {
-    const lowerQuery = query.toLowerCase().trim();
+    currentSearchQuery = query.toLowerCase().trim();
+    currentPage = 1; // Reset to first page
 
-    if (!lowerQuery) {
-        renderProducts(products);
-        return products.length;
+    // Start with category filter
+    let filtered = currentCategory === 'all'
+        ? products
+        : products.filter(p => p.category === currentCategory);
+
+    // Apply search filter
+    if (currentSearchQuery) {
+        filtered = filtered.filter(p =>
+            p.name.toLowerCase().includes(currentSearchQuery)
+        );
     }
 
-    const filtered = products.filter(p =>
-        p.name.toLowerCase().includes(lowerQuery)
-    );
-
-    renderProducts(filtered);
+    renderProducts(filtered, 1);
 
     return filtered.length;
 }
