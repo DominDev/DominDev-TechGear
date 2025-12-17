@@ -307,13 +307,14 @@ export function filterProducts(category) {
 /**
  * Search products by name
  * @param {String} query - Search query
+ * @returns {Number} - Number of results found
  */
 export function searchProducts(query) {
     const lowerQuery = query.toLowerCase().trim();
 
     if (!lowerQuery) {
         renderProducts(products);
-        return;
+        return products.length;
     }
 
     const filtered = products.filter(p =>
@@ -322,20 +323,7 @@ export function searchProducts(query) {
 
     renderProducts(filtered);
 
-    // Show message if no results
-    if (filtered.length === 0) {
-        const grid = document.getElementById('productGrid');
-        grid.innerHTML = `
-            <div style="grid-column: 1 / -1; text-align: center; padding: 4rem 0;">
-                <p class="text-code text-dim" style="font-size: 1.2rem;">
-                    [ NO_RESULTS_FOUND ]
-                </p>
-                <p class="text-dim" style="margin-top: 1rem;">
-                    Try searching for: mouse, keyboard, audio
-                </p>
-            </div>
-        `;
-    }
+    return filtered.length;
 }
 
 /**

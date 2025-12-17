@@ -283,8 +283,61 @@ export function initSearch(searchCallback) {
     const searchBar = document.getElementById('searchBar');
     const searchInput = document.getElementById('searchInput');
     const searchClose = document.getElementById('searchClose');
+    const searchFeedback = document.getElementById('searchFeedbackInline');
+    const arsenalSection = document.getElementById('arsenal');
 
     if (!searchToggle || !searchBar || !searchInput) return;
+
+    // Update search bar state and inline feedback
+    const updateSearchState = (query, resultCount) => {
+        // Remove all state classes
+        searchBar.classList.remove('search-empty', 'search-found', 'search-no-results');
+
+        if (query.trim() === '') {
+            // Empty state - orange
+            searchBar.classList.add('search-empty');
+            if (searchFeedback) {
+                searchFeedback.classList.remove('visible', 'found', 'no-results');
+                searchFeedback.innerHTML = '';
+            }
+        } else if (resultCount === 0) {
+            // No results - red
+            searchBar.classList.add('search-no-results');
+            if (searchFeedback) {
+                searchFeedback.classList.add('visible', 'no-results');
+                searchFeedback.classList.remove('found');
+                searchFeedback.innerHTML = `NO_MATCH: "<strong>${query}</strong>"`;
+            }
+        } else {
+            // Found results - cyan
+            searchBar.classList.add('search-found');
+            if (searchFeedback) {
+                searchFeedback.classList.add('visible', 'found');
+                searchFeedback.classList.remove('no-results');
+                searchFeedback.innerHTML = `FOUND: <strong>${resultCount}</strong> ${resultCount === 1 ? 'item' : 'items'}`;
+            }
+        }
+    };
+
+    // Reset search state
+    const resetSearch = () => {
+        searchInput.value = '';
+        searchCallback('');
+        updateSearchState('', 0);
+    };
+
+    // Scroll to arsenal section
+    const scrollToProducts = () => {
+        if (arsenalSection) {
+            const headerHeight = document.querySelector('.header')?.offsetHeight || 80;
+            const targetPosition = arsenalSection.offsetTop - headerHeight - 20;
+
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+    };
 
     // Toggle search bar
     searchToggle.addEventListener('click', () => {
@@ -292,8 +345,7 @@ export function initSearch(searchCallback) {
         if (searchBar.classList.contains('active')) {
             searchInput.focus();
         } else {
-            searchInput.value = '';
-            searchCallback(''); // Reset search
+            resetSearch();
         }
     });
 
@@ -301,14 +353,19 @@ export function initSearch(searchCallback) {
     if (searchClose) {
         searchClose.addEventListener('click', () => {
             searchBar.classList.remove('active');
-            searchInput.value = '';
-            searchCallback(''); // Reset search
+            resetSearch();
         });
     }
 
     // Search input with debounce
     const debouncedSearch = debounce((query) => {
-        searchCallback(query);
+        const resultCount = searchCallback(query);
+        updateSearchState(query, resultCount);
+
+        // Auto-scroll to products if query is not empty
+        if (query.trim() !== '') {
+            scrollToProducts();
+        }
     }, 400);
 
     searchInput.addEventListener('input', (e) => {
@@ -319,8 +376,7 @@ export function initSearch(searchCallback) {
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && searchBar.classList.contains('active')) {
             searchBar.classList.remove('active');
-            searchInput.value = '';
-            searchCallback('');
+            resetSearch();
         }
     });
 }

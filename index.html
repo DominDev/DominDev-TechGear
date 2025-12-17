@@ -305,9 +305,16 @@
             </nav>
 
             <!-- Search Bar (hidden by default) -->
-            <div class="search-bar" id="searchBar">
-                <input type="text" id="searchInput" class="search-input" placeholder="SEARCH GEAR..." aria-label="Search products">
-                <button class="search-close" id="searchClose" aria-label="Close search">✕</button>
+            <div class="search-bar search-empty" id="searchBar">
+                <div class="container">
+                    <div class="search-container">
+                        <div class="search-input-wrap">
+                            <input type="text" id="searchInput" class="search-input" placeholder="SEARCH GEAR..." aria-label="Search products">
+                        </div>
+                        <span class="search-feedback-inline" id="searchFeedbackInline" aria-live="polite"></span>
+                        <button class="search-close" id="searchClose" aria-label="Close search">✕</button>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
