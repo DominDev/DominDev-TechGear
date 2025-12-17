@@ -156,6 +156,35 @@ export function updateCartUI() {
     } else {
         countEl.classList.remove('active');
     }
+
+    // Update mobile cart bar
+    updateMobileCartBar(totalCount, grandTotal);
+}
+
+/**
+ * Update mobile sticky cart bar
+ * @param {Number} count - Total items count
+ * @param {Number} total - Grand total price
+ */
+function updateMobileCartBar(count, total) {
+    const mobileBar = document.getElementById('mobileCartBar');
+    const mobileCount = document.getElementById('mobileCartCount');
+    const mobileTotal = document.getElementById('mobileCartTotal');
+
+    if (!mobileBar) return;
+
+    // Update values
+    if (mobileCount) mobileCount.textContent = count;
+    if (mobileTotal) mobileTotal.textContent = `${total.toFixed(0)} PLN`;
+
+    // Show/hide bar based on cart content
+    if (count > 0) {
+        mobileBar.classList.add('visible');
+        document.body.classList.add('cart-bar-visible');
+    } else {
+        mobileBar.classList.remove('visible');
+        document.body.classList.remove('cart-bar-visible');
+    }
 }
 
 /**
@@ -274,6 +303,12 @@ export function initCart() {
     const cartToggle = document.getElementById('cartToggle');
     if (cartToggle) {
         cartToggle.addEventListener('click', toggleCart);
+    }
+
+    // Mobile cart bar button
+    const mobileCartBtn = document.getElementById('mobileCartBtn');
+    if (mobileCartBtn) {
+        mobileCartBtn.addEventListener('click', toggleCart);
     }
 
     // Checkout button
