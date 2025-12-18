@@ -2076,6 +2076,35 @@
     background: rgba(0, 240, 255, 0.03);
 }
 
+/* Newsletter input validation states */
+.newsletter-input.input-error {
+    border-color: #ff4444;
+    box-shadow: 0 0 15px rgba(255, 68, 68, 0.3);
+}
+
+.newsletter-input.input-success {
+    border-color: var(--color-system-cyan);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+}
+
+/* Newsletter feedback message */
+.newsletter-feedback {
+    display: block;
+    font-family: var(--font-code);
+    font-size: 0.8rem;
+    min-height: 1.2em;
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+.newsletter-feedback.error {
+    color: #ff4444;
+}
+
+.newsletter-feedback.success {
+    color: var(--color-system-cyan);
+}
+
 .newsletter-btn {
     padding: 1rem 2rem;
     white-space: nowrap;
