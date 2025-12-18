@@ -212,6 +212,30 @@
     color: var(--color-system-cyan);
 }
 
+/* Logout label - visible on hover for desktop */
+.logout-label {
+    font-family: var(--font-code);
+    font-size: 0.7rem;
+    color: var(--color-text-dim);
+    margin-left: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.3s ease, color 0.3s ease;
+}
+
+.nav-icon-btn.logged-in:hover .logout-label {
+    opacity: 1;
+    color: #ff4444;
+}
+
+.nav-icon-btn.logged-in:hover {
+    border-color: #ff4444;
+    color: #ff4444;
+}
+
+.nav-icon-btn.logged-in:hover .user-name {
+    color: #ff4444;
+}
+
 /* Search Bar */
 .search-bar {
     position: absolute;
@@ -357,6 +381,15 @@
     color: var(--color-tactical-orange);
 }
 
+/* Hide hamburger when menu is open - mobile menu has its own close button */
+@media (max-width: 768px) {
+    .hamburger.active {
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+    }
+}
+
 /* Animate dots on hover and active */
 .hamburger:hover .hamburger-dot,
 .hamburger.active .hamburger-dot {
@@ -484,6 +517,35 @@
 .mobile-auth-btn .user-name {
     margin-left: var(--spacing-xs);
     color: var(--color-void-black);
+}
+
+/* Mobile auth button - logged in state (red/logout style) */
+.mobile-auth-btn.logged-in {
+    background: linear-gradient(135deg, #cc3333, #aa2222);
+    box-shadow: 0 4px 20px rgba(204, 51, 51, 0.4);
+}
+
+.mobile-auth-btn.logged-in:hover {
+    background: linear-gradient(135deg, #ff4444, #cc3333);
+    box-shadow: 0 0 30px rgba(255, 68, 68, 0.6),
+                0 8px 25px rgba(255, 68, 68, 0.4);
+}
+
+.mobile-auth-btn.logged-in svg {
+    stroke: var(--color-white);
+}
+
+.mobile-auth-btn.logged-in .text-code {
+    color: var(--color-white);
+}
+
+.mobile-username {
+    font-family: var(--font-code);
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-left: 0.5rem;
+    padding-left: 0.5rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 /* Mobile Social Links - Hidden on Desktop */

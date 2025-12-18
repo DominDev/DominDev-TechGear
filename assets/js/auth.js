@@ -432,15 +432,46 @@ function loginUser(user) {
 }
 
 /**
- * Logout current user
+ * Show logout confirmation modal
  */
-export function logout() {
-    const confirmed = confirm('Logout from your account?');
-    if (!confirmed) return;
+export function showLogoutModal() {
+    const modal = document.getElementById('logoutModal');
+    const overlay = document.getElementById('overlayBg');
 
+    if (modal && overlay) {
+        modal.classList.add('active');
+        overlay.classList.add('active');
+    }
+}
+
+/**
+ * Hide logout confirmation modal
+ */
+export function hideLogoutModal() {
+    const modal = document.getElementById('logoutModal');
+    const overlay = document.getElementById('overlayBg');
+
+    if (modal && overlay) {
+        modal.classList.remove('active');
+        overlay.classList.remove('active');
+    }
+}
+
+/**
+ * Confirm and execute logout
+ */
+export function confirmLogout() {
     currentUser = null;
     saveAuthToStorage();
     updateAuthUI();
+    hideLogoutModal();
+}
+
+/**
+ * Logout current user (shows confirmation modal)
+ */
+export function logout() {
+    showLogoutModal();
 }
 
 /**
@@ -462,15 +493,18 @@ export function updateAuthUI() {
                 userNameEl.classList.remove('user-hidden');
             }
 
+            // Logged in: show username + logout icon with clear label
             authToggle.innerHTML = `
                 <svg class="icon-user" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
                     <circle cx="12" cy="7" r="4"></circle>
                 </svg>
                 <span class="user-name text-cyan">${username}</span>
+                <span class="logout-label">[ LOGOUT ]</span>
             `;
+            authToggle.classList.add('logged-in');
             authToggle.onclick = logout;
-            authToggle.title = 'Logout';
+            authToggle.title = 'Click to logout';
         } else {
             if (userNameEl) {
                 userNameEl.classList.add('user-hidden');
@@ -482,6 +516,7 @@ export function updateAuthUI() {
                     <circle cx="12" cy="7" r="4"></circle>
                 </svg>
             `;
+            authToggle.classList.remove('logged-in');
             authToggle.onclick = toggleAuthModal;
             authToggle.title = 'Login or Register';
         }
@@ -495,14 +530,17 @@ export function updateAuthUI() {
                 userNameMobileEl.classList.remove('user-hidden');
             }
 
+            // Logged in mobile: clear visual distinction with logout icon
             authToggleMobile.innerHTML = `
-                <svg class="icon-user" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
+                <svg class="icon-logout" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
                 </svg>
                 <span class="text-code">LOGOUT</span>
-                <span class="user-name text-cyan">${username}</span>
+                <span class="mobile-username">${username}</span>
             `;
+            authToggleMobile.classList.add('logged-in');
             authToggleMobile.onclick = logout;
             authToggleMobile.title = 'Logout';
         } else {
@@ -517,6 +555,7 @@ export function updateAuthUI() {
                 </svg>
                 <span class="text-code">LOGIN</span>
             `;
+            authToggleMobile.classList.remove('logged-in');
             authToggleMobile.onclick = () => {
                 toggleAuthModal();
                 const navMenu = document.querySelector('.nav-menu');
@@ -714,6 +753,23 @@ export function initAuth() {
             if (modal && modal.classList.contains('active')) {
                 toggleAuthModal();
             }
+            // Also close logout modal on Escape
+            const logoutModal = document.getElementById('logoutModal');
+            if (logoutModal && logoutModal.classList.contains('active')) {
+                hideLogoutModal();
+            }
         }
     });
+
+    // Logout confirmation modal buttons
+    const logoutConfirmBtn = document.getElementById('logoutConfirm');
+    const logoutCancelBtn = document.getElementById('logoutCancel');
+
+    if (logoutConfirmBtn) {
+        logoutConfirmBtn.addEventListener('click', confirmLogout);
+    }
+
+    if (logoutCancelBtn) {
+        logoutCancelBtn.addEventListener('click', hideLogoutModal);
+    }
 }
