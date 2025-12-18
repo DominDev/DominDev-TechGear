@@ -13,7 +13,8 @@ const PASSWORD_REQUIREMENTS = {
     minLength: 8,
     requireUppercase: true,
     requireLowercase: true,
-    requireNumber: true
+    requireNumber: true,
+    requireSpecial: true
 };
 
 /**
@@ -159,10 +160,11 @@ function checkPasswordRequirements(password) {
         length: password.length >= PASSWORD_REQUIREMENTS.minLength,
         uppercase: /[A-Z]/.test(password),
         lowercase: /[a-z]/.test(password),
-        number: /[0-9]/.test(password)
+        number: /[0-9]/.test(password),
+        special: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)
     };
 
-    const isValid = checks.length && checks.uppercase && checks.lowercase && checks.number;
+    const isValid = checks.length && checks.uppercase && checks.lowercase && checks.number && checks.special;
 
     return { isValid, checks };
 }
@@ -176,6 +178,7 @@ function updatePasswordRequirementsUI(checks) {
     const reqUppercase = document.getElementById('reqUppercase');
     const reqLowercase = document.getElementById('reqLowercase');
     const reqNumber = document.getElementById('reqNumber');
+    const reqSpecial = document.getElementById('reqSpecial');
 
     const updateReq = (element, met) => {
         if (!element) return;
@@ -193,6 +196,7 @@ function updatePasswordRequirementsUI(checks) {
     updateReq(reqUppercase, checks.uppercase);
     updateReq(reqLowercase, checks.lowercase);
     updateReq(reqNumber, checks.number);
+    updateReq(reqSpecial, checks.special);
 }
 
 /**
