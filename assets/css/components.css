@@ -88,10 +88,17 @@
    -------------------------------------------------------------------------- */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(3, 1fr); /* Default: 3 columns for desktop */
     gap: var(--spacing-md);
     perspective: 1000px;
     align-items: start; /* KLUCZOWE: Zapobiega rozciąganiu sąsiednich kart */
+}
+
+/* XL screens: 4 columns */
+@media (min-width: 1400px) {
+    .product-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
 .no-products {
@@ -917,9 +924,18 @@
 /* --------------------------------------------------------------------------
    [7] RESPONSIVE COMPONENTS
    -------------------------------------------------------------------------- */
+
+/* Tablet: 2 columns */
+@media (max-width: 1023px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-sm);
+    }
+}
+
 @media (max-width: 768px) {
     .product-grid {
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
         gap: var(--spacing-sm);
     }
 
@@ -949,7 +965,10 @@
         padding: 0.75rem 1.5rem;
         font-size: 0.8rem;
     }
+}
 
+/* Mobile: 1 column */
+@media (max-width: 639px) {
     .product-grid {
         grid-template-columns: 1fr;
     }
