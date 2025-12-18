@@ -348,30 +348,105 @@ function openQuickViewWithTracking(productId) {
 window.openQuickView = openQuickViewWithTracking;
 
 /**
+ * Validate email format
+ * @param {String} email - Email address
+ * @returns {Boolean}
+ */
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+/**
+ * Set newsletter input state and feedback
+ * @param {HTMLInputElement} input - Input element
+ * @param {HTMLElement} feedback - Feedback element
+ * @param {String} state - 'error', 'success', or 'neutral'
+ * @param {String} message - Feedback message
+ */
+function setNewsletterState(input, feedback, state, message = '') {
+    // Reset classes
+    input.classList.remove('input-error', 'input-success');
+    feedback.classList.remove('error', 'success');
+    feedback.textContent = message;
+
+    // Apply new state
+    if (state === 'error') {
+        input.classList.add('input-error');
+        feedback.classList.add('error');
+    } else if (state === 'success') {
+        input.classList.add('input-success');
+        feedback.classList.add('success');
+    }
+}
+
+/**
  * Initialize newsletter form
- * Handles form submission with success state
+ * Handles form submission with validation and success state
  */
 function initNewsletter() {
     const form = document.getElementById('newsletterForm');
     if (!form) return;
 
+    const emailInput = document.getElementById('newsletterEmail');
+    const feedback = document.getElementById('newsletterFeedback');
+
+    // Real-time validation on blur
+    if (emailInput && feedback) {
+        emailInput.addEventListener('blur', () => {
+            const email = emailInput.value.trim();
+            if (email && !isValidEmail(email)) {
+                setNewsletterState(emailInput, feedback, 'error', 'INVALID_EMAIL_FORMAT');
+            } else if (email && isValidEmail(email)) {
+                setNewsletterState(emailInput, feedback, 'success', 'EMAIL_VALID');
+            } else {
+                setNewsletterState(emailInput, feedback, 'neutral');
+            }
+        });
+
+        // Clear error on input
+        emailInput.addEventListener('input', () => {
+            if (emailInput.classList.contains('input-error')) {
+                setNewsletterState(emailInput, feedback, 'neutral');
+            }
+        });
+    }
+
     form.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        const emailInput = document.getElementById('newsletterEmail');
-        const email = emailInput?.value;
+        const email = emailInput?.value.trim();
 
-        if (email) {
-            // Simulate API call (replace with actual endpoint)
-            console.log('Newsletter signup:', email);
-
-            // Show success state
-            form.classList.add('success');
-
-            // Store in localStorage to prevent re-subscription
-            localStorage.setItem('tg_newsletter_subscribed', 'true');
-            localStorage.setItem('tg_newsletter_email', email);
+        // Validation
+        if (!email) {
+            setNewsletterState(emailInput, feedback, 'error', 'EMAIL_REQUIRED');
+            emailInput?.focus();
+            return;
         }
+
+        if (!isValidEmail(email)) {
+            setNewsletterState(emailInput, feedback, 'error', 'INVALID_EMAIL_FORMAT');
+            emailInput?.focus();
+            return;
+        }
+
+        // Check if already subscribed with this email
+        const existingEmail = localStorage.getItem('tg_newsletter_email');
+        if (existingEmail === email) {
+            setNewsletterState(emailInput, feedback, 'error', 'ALREADY_SUBSCRIBED');
+            return;
+        }
+
+        // Simulate API call (replace with actual endpoint)
+        console.log('Newsletter signup:', email);
+
+        // Show success state
+        form.classList.add('success');
+        setNewsletterState(emailInput, feedback, 'success', 'SUBSCRIPTION_CONFIRMED');
+
+        // Store in localStorage to prevent re-subscription
+        localStorage.setItem('tg_newsletter_subscribed', 'true');
+        localStorage.setItem('tg_newsletter_email', email);
     });
 
     // Check if already subscribed
