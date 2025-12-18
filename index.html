@@ -139,40 +139,70 @@
         <div class="auth-container">
             <button class="modal-close" id="authClose" aria-label="Close authentication modal">✕</button>
 
-            <div class="auth-header">
-                <h2 class="text-h2">ACCESS CONTROL</h2>
-                <p class="text-code text-dim">/// SECURE_LOGIN_PROTOCOL</p>
+            <!-- LOGIN VIEW (default) -->
+            <div class="auth-view" id="loginView">
+                <div class="auth-header">
+                    <h2 class="text-h2">ACCESS CONTROL</h2>
+                    <p class="text-code text-dim">/// SECURE_LOGIN_PROTOCOL</p>
+                </div>
+
+                <form class="auth-form" id="loginForm" novalidate>
+                    <div class="form-group">
+                        <label for="loginEmail" class="text-code">EMAIL_ADDRESS:</label>
+                        <input type="email" id="loginEmail" class="form-input" placeholder="user@techgear.io" autocomplete="email" required>
+                        <span class="form-feedback" id="loginEmailFeedback"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword" class="text-code">ACCESS_KEY:</label>
+                        <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" autocomplete="current-password" required>
+                        <span class="form-feedback" id="loginPasswordFeedback"></span>
+                    </div>
+                    <button type="submit" class="btn btn-glitch btn-full-width">GRANT ACCESS</button>
+                </form>
+
+                <div class="auth-switch">
+                    <span class="text-code text-dim">// NO_ACCOUNT?</span>
+                    <button type="button" class="auth-switch-btn" id="showRegister">CREATE_NEW_USER</button>
+                </div>
             </div>
 
-            <!-- Login Form -->
-            <form class="auth-form" id="loginForm">
-                <div class="form-group">
-                    <label for="loginEmail" class="text-code">EMAIL_ADDRESS:</label>
-                    <input type="email" id="loginEmail" class="form-input" placeholder="user@techgear.io" autocomplete="email" required>
+            <!-- REGISTER VIEW (hidden by default) -->
+            <div class="auth-view auth-view-hidden" id="registerView">
+                <div class="auth-header">
+                    <h2 class="text-h2">NEW AGENT</h2>
+                    <p class="text-code text-dim">/// REGISTRATION_PROTOCOL</p>
                 </div>
-                <div class="form-group">
-                    <label for="loginPassword" class="text-code">ACCESS_KEY:</label>
-                    <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" autocomplete="current-password" required>
-                </div>
-                <button type="submit" class="btn btn-glitch btn-full-width">GRANT ACCESS</button>
-            </form>
 
-            <div class="auth-divider">
-                <span class="text-code text-dim">// OR</span>
+                <form class="auth-form" id="registerForm" novalidate>
+                    <div class="form-group">
+                        <label for="registerEmail" class="text-code">EMAIL_ADDRESS:</label>
+                        <input type="email" id="registerEmail" class="form-input" placeholder="user@techgear.io" autocomplete="email" required>
+                        <span class="form-feedback" id="registerEmailFeedback"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword" class="text-code">CREATE_PASSWORD:</label>
+                        <input type="password" id="registerPassword" class="form-input" placeholder="Min. 8 chars, uppercase, number" autocomplete="new-password" required>
+                        <span class="form-feedback" id="registerPasswordFeedback"></span>
+                        <ul class="password-requirements" id="passwordRequirements">
+                            <li id="reqLength"><span class="req-icon">○</span> Min. 8 characters</li>
+                            <li id="reqUppercase"><span class="req-icon">○</span> Uppercase letter</li>
+                            <li id="reqLowercase"><span class="req-icon">○</span> Lowercase letter</li>
+                            <li id="reqNumber"><span class="req-icon">○</span> Number</li>
+                        </ul>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPasswordConfirm" class="text-code">CONFIRM_PASSWORD:</label>
+                        <input type="password" id="registerPasswordConfirm" class="form-input" placeholder="••••••••" autocomplete="new-password" required>
+                        <span class="form-feedback" id="registerPasswordConfirmFeedback"></span>
+                    </div>
+                    <button type="submit" class="btn btn-full-width btn-cyan">CREATE ACCOUNT</button>
+                </form>
+
+                <div class="auth-switch">
+                    <span class="text-code text-dim">// EXISTING_USER?</span>
+                    <button type="button" class="auth-switch-btn" id="showLogin">LOGIN_INSTEAD</button>
+                </div>
             </div>
-
-            <!-- Register Form -->
-            <form class="auth-form" id="registerForm">
-                <div class="form-group">
-                    <label for="registerEmail" class="text-code">NEW_USER_EMAIL:</label>
-                    <input type="email" id="registerEmail" class="form-input" placeholder="user@techgear.io" autocomplete="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="registerPassword" class="text-code">CREATE_PASSWORD:</label>
-                    <input type="password" id="registerPassword" class="form-input" placeholder="••••••••" autocomplete="new-password" required>
-                </div>
-                <button type="submit" class="btn btn-full-width btn-cyan">CREATE ACCOUNT</button>
-            </form>
         </div>
     </div>
 
