@@ -1,0 +1,22 @@
+{
+    "general":  {
+                    "previewFeatures":  true
+                },
+    "ui":  {
+               "showStatusInTitle":  true,
+               "showMemoryUsage":  true
+           },
+    "tools":  {
+                  "shell":  {
+                                "showColor":  true
+                            }
+              },
+    "mcpServers":  {
+                       "gitnexus":  {
+                                        "command":  "D:\\Program Files\\npm\\packages\\GitNexus\\gitnexus.cmd",
+                                        "args":  [
+                                                     "mcp"
+                                                 ]
+                                    }
+                   }
+}

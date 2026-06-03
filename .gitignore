@@ -65,3 +65,6 @@ coverage/
 .claude/.temp.local.json
 .claude/.logs.local.json
 .claude/.data.local.json
+
+# Local Obsidian AI memory junction
+.obsidian-memory/
